@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Java面向对象六之多态" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%85%AD%E4%B9%8B%E5%A4%9A%E6%80%81/" />
+<meta property="article:published_time" content="2022-02-22T18:28:16+08:00" />
+<meta property="article:modified_time" content="2022-02-22T18:28:16+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java面向对象六之多态"/>
+<meta name="twitter:description" content=""/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Java面向对象六之多态",
+  "url": "https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%85%AD%E4%B9%8B%E5%A4%9A%E6%80%81/",
+  "wordCount": "281",
+  "datePublished": "2022-02-22T18:28:16+08:00",
+  "dateModified": "2022-02-22T18:28:16+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "Java与生活"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%85%AD%E4%B9%8B%E5%A4%9A%E6%80%81/">
+
+    <title>Java面向对象六之多态 | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/posts/" title="">Posts</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%85%AD%E4%B9%8B%E5%A4%9A%E6%80%81/">Java面向对象六之多态</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-02-22T18:28:16+08:00">2022-02-22</time>
+ in 
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/java%E4%B8%8E%E7%94%9F%E6%B4%BB/" rel="tag">Java与生活</a>
+
+</p>
+  </header>
+  <blockquote>
+<p><strong>学习笔记，仅供参考</strong></p>
+
+<p><strong>参考</strong>：<a href="https://www.yuque.com/books/share/ddbdba56-dc9f-4997-9e18-d9e69309d343/rzkdm0">B站Mirco_Frank - java与生活</a></p>
+
+<p><strong>扩展阅读</strong> ： <a href="https://www.cnblogs.com/taiziyenezha/p/15135100.html">多态的详细讲解</a> | <a href="https://zhuanlan.zhihu.com/p/309877118">多态的有趣解释</a></p>
+</blockquote>
+
+<p><strong>本文重点</strong>：多态 | 匿名内部类</p>
+
+<hr />
+
+<h2 id="多态">🎈 多态</h2>
+
+<p>经过一段时间的学习，终于到了面向对象的最后一个特性 &ndash; <strong>多态</strong> 指代不同数据类型的实体提供统一的接口，或者用一个单一的符号来表示多个不同的类型。说白了多态就是具有多种形态，在不同的场合表现出的形态不同，从而做出相应的动作。比如：电脑在学习时是学习的工具，在娱乐时又是电视机或者游戏机，在通讯交流时又是聊天通讯的工具。</p>
+
+<p>本节以花木兰替父从军的例子来展现多态在 Java 中的使用情形。</p>
+
+<p>我们都知道花木兰替父从军的故事，在故事中花木兰扮演着两种身份，分别是打仗时的将士形象和归来时的女儿形象。将士形象指的就是她爹花胡，女儿形象就是花木兰自己，所以先创建两个类来表示花胡和花木兰。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> *  姓名：花胡
+</span><span style="color:#75715e"> *  年龄：45
+</span><span style="color:#75715e"> *  行为：自我介绍、打仗
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HuaHu</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> String name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;花胡&#34;</span> <span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> age <span style="color:#f92672">=</span> 45<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sayMe</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;大家好！我叫花胡，今年45岁&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fight</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;打仗...&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/***************分割线*********************/</span>
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> *  姓名：花木兰
+</span><span style="color:#75715e"> *  年龄：19
+</span><span style="color:#75715e"> *  行为：自我介绍、化妆
+</span><span style="color:#75715e"> *  因为要替父从军，所以要继承花胡
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HuaMuLan</span> <span style="color:#66d9ef">extends</span> HuaHu <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> String name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;花木兰&#34;</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> age <span style="color:#f92672">=</span> 19<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sayMe</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;大家好！我叫花木兰，今年19岁&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">dressing</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;梳妆打扮...&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
+<p>接着在测试类中模拟这两种情形：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span> <span style="color:#f92672">{</span>
+     <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[])</span> <span style="color:#f92672">{</span>
+         <span style="color:#75715e">// 替父从军，向上转型，父类 new 子类
+</span><span style="color:#75715e"></span>         <span style="color:#75715e">// 此时的实例对象可以使用父类的属性和子类未重写的方法
+</span><span style="color:#75715e"></span>         HuaHu huaHu <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HuaMuLan<span style="color:#f92672">();</span>
+         System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>huaHu<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">);</span>
+         System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>huaHu<span style="color:#f92672">.</span><span style="color:#a6e22e">age</span><span style="color:#f92672">);</span>
+         HuaHu<span style="color:#f92672">.</span><span style="color:#a6e22e">sayMe</span><span style="color:#f92672">();</span>
+         HuaHu<span style="color:#f92672">.</span><span style="color:#a6e22e">fight</span><span style="color:#f92672">();</span>
+
+<span style="color:#75715e">// 输出如下：        
+</span><span style="color:#75715e">// 花胡 | 45 | 大家好！我家花木兰今年19岁 | 打仗！
+</span><span style="color:#75715e">// 因为在 HuaMuLan 类中重写了 sayMe(); 方法，所以这里是花木兰的自我介绍。
+</span><span style="color:#75715e">// 要想用花胡的自我介绍，就要删除 HuaMuLan 类的sayMe(); 方法
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/**********************分割线********************/</span>
+
+        <span style="color:#75715e">//胜利归来，重返女儿身，向下转型, 父类对象强制转换为子类对象 
+</span><span style="color:#75715e"></span>        HuaMuLan huaMuLan <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>HuaMuLan<span style="color:#f92672">)</span> huaHu<span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>huaMuLan<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>huaMuLan<span style="color:#f92672">.</span><span style="color:#a6e22e">age</span><span style="color:#f92672">);</span>
+        huaMuLan<span style="color:#f92672">.</span><span style="color:#a6e22e">sayMe</span><span style="color:#f92672">();</span>
+        huaMuLan<span style="color:#f92672">.</span><span style="color:#a6e22e">dressing</span><span style="color:#f92672">();</span>
+
+<span style="color:#75715e">// 输出如下：
+</span><span style="color:#75715e">// 花木兰 | 19 大家好！我家花木兰今年19岁 | 梳妆打扮...
+</span><span style="color:#75715e"></span>     <span style="color:#f92672">}</span>
+ <span style="color:#f92672">}</span></code></pre></div>
+<p>经过验证，向上转型的变量既是父类的实例也是子类的实例，如下图所示。之所以如此，我认为是多态对象既可以使用父类中的属性和未被子类重写的方法，如上例中的 <strong><code>huaHu.name; huaHu.age; huaHu.fight();</code></strong> 也可以使用子类中重写的方法, 如 <strong><code>huaHu.sayMe();</code></strong>  就像儿子冒充老子一样，但有一定的风险，那就是不能重写父类的方法，不然就会暴露身份。</p>
+
+<p><img src="https://gitee.com/wang-junqiang0420/blog_image/raw/master/image/polymorphism.jpg" alt="多态" /></p>
+
+<hr />
+
+<h2 id="匿名内部类">🚀 匿名内部类</h2>
+
+<p>所谓的匿名内部类中的 <code>匿名</code> 指没有名字，<code>内部类</code> 指在类的内部还有类。正因为没有名字，所以匿名内部类只能使用一次，通常用来简化代码编写。但是前提条件是：必须继承一个父类或者实现一个接口</p>
+
+<p>接下来就对比一下匿名内部类和常规的子类继承父类并实例化：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> *  先创建一个接口（父类）
+</span><span style="color:#75715e"> *  记住：接口的方法没有意义（内容）
+</span><span style="color:#75715e"> */</span>
+ <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Human</span> <span style="color:#f92672">{</span>
+     <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span><span style="color:#f92672">();</span>
+     <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sleep</span><span style="color:#f92672">();</span>
+ <span style="color:#f92672">}</span>
+
+ <span style="color:#75715e">/*****************分割线************************/</span>
+
+ <span style="color:#75715e">/**
+</span><span style="color:#75715e"> *  常规的形式是再创建一个实现类（子类）
+</span><span style="color:#75715e"> *  实现类要重写接口的所有方法
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Chinese</span> <span style="color:#66d9ef">implements</span> <span style="color:#f92672">{</span>
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;eating...&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sleep</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;sleeping&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/*********************分割线**********************/</span>
+ <span style="color:#75715e">/**
+</span><span style="color:#75715e"> *  测试两者的不同
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[])</span> <span style="color:#f92672">{</span>
+
+         <span style="color:#75715e">// 常规方法
+</span><span style="color:#75715e"></span>         Chinese chinese <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Chinese<span style="color:#f92672">();</span>
+         chinese<span style="color:#f92672">.</span><span style="color:#a6e22e">eat</span><span style="color:#f92672">();</span>
+         chinese<span style="color:#f92672">.</span><span style="color:#a6e22e">sleep</span><span style="color:#f92672">();</span>
+
+         <span style="color:#75715e">// 匿名内部类
+</span><span style="color:#75715e"></span>         Human chinese1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Human<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+             <span style="color:#a6e22e">@Override</span>
+             <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;eating...&#34;</span><span style="color:#f92672">);</span>
+             <span style="color:#f92672">}</span>
+
+             <span style="color:#a6e22e">@Override</span>
+             <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sleep</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                 System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;sleeping&#34;</span><span style="color:#f92672">);</span>
+             <span style="color:#f92672">}</span>
+         <span style="color:#f92672">}</span>
+         chinese1<span style="color:#f92672">.</span><span style="color:#a6e22e">eat</span><span style="color:#f92672">();</span>
+         chinese1<span style="color:#f92672">.</span><span style="color:#a6e22e">sleep</span><span style="color:#f92672">()</span>
+
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
+<p>从上面的代码可以知道，匿名内部类就相当于把子类的重写和对象的实例化两步并作一步，从而省去了中间创建子类的过程。</p>
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%85%AD%E4%B9%8B%E5%A4%9A%E6%80%81/">Java面向对象六之多态</a></li>
+
+<li><a href="/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%BA%94/">Java面向对象五</a></li>
+
+<li><a href="/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9B%9B%E4%B9%8B%E7%BB%A7%E6%89%BF/">Java面向对象四之继承</a></li>
+
+<li><a href="/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%89/">Java面向对象三</a></li>
+
+<li><a href="/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%BA%8C%E4%B9%8B%E5%B0%81%E8%A3%85/">Java面向对象二之封装</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>
