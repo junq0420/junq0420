@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Java面向对象一" />
+<meta property="og:description" content="学习笔记，仅供参考
+参考：B站Mirco_Frank - java与生活
+ 背景 假如， 某小伙在学完C语言后，想要编写一个记录狗日常活动的程序。于是，他找到王阿姨想要询问她家狗的日常，想以此为基础来开始。
+经询问后，狗的名字叫 “Tom”，年龄两岁，品种为藏獒，平时的活动有吃饭、睡觉、吠叫等。于是，小伙用 C 语言编写了该程序，他用字符指针来指向字符串，用 int 型变量来存放年龄，用函数来表示狗的日常行为。伪代码如下：
+#include &lt;stdio.h&gt; void eat(); void sleep(); void bark(); int main() { char * name = &#34;Tom&#34;; int age = 2; char * variety = &#34;藏獒&#34;; // 在 main 中调用函数  sleep(); eat(); } 小伙通过 C 语言的变量和数组基本实现了这个记录狗平常活动的程序。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%80/" />
+<meta property="article:published_time" content="2022-02-22T16:54:56+08:00" />
+<meta property="article:modified_time" content="2022-02-22T16:54:56+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java面向对象一"/>
+<meta name="twitter:description" content="学习笔记，仅供参考
+参考：B站Mirco_Frank - java与生活
+ 背景 假如， 某小伙在学完C语言后，想要编写一个记录狗日常活动的程序。于是，他找到王阿姨想要询问她家狗的日常，想以此为基础来开始。
+经询问后，狗的名字叫 “Tom”，年龄两岁，品种为藏獒，平时的活动有吃饭、睡觉、吠叫等。于是，小伙用 C 语言编写了该程序，他用字符指针来指向字符串，用 int 型变量来存放年龄，用函数来表示狗的日常行为。伪代码如下：
+#include &lt;stdio.h&gt; void eat(); void sleep(); void bark(); int main() { char * name = &#34;Tom&#34;; int age = 2; char * variety = &#34;藏獒&#34;; // 在 main 中调用函数  sleep(); eat(); } 小伙通过 C 语言的变量和数组基本实现了这个记录狗平常活动的程序。"/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Java面向对象一",
+  "url": "https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%80/",
+  "wordCount": "189",
+  "datePublished": "2022-02-22T16:54:56+08:00",
+  "dateModified": "2022-02-22T16:54:56+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "Java与生活"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%80/">
+
+    <title>Java面向对象一 | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/posts/" title="">Posts</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%80/">Java面向对象一</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-02-22T16:54:56+08:00">2022-02-22</time>
+ in 
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/java%E4%B8%8E%E7%94%9F%E6%B4%BB/" rel="tag">Java与生活</a>
+
+</p>
+  </header>
+  
+
+<blockquote>
+<p><strong>学习笔记，仅供参考</strong></p>
+
+<p><strong>参考</strong>：<a href="https://www.yuque.com/books/share/ddbdba56-dc9f-4997-9e18-d9e69309d343/rzkdm0">B站Mirco_Frank - java与生活</a></p>
+</blockquote>
+
+<h2 id="背景">背景</h2>
+
+<p>假如， 某小伙在学完C语言后，想要编写一个记录狗日常活动的程序。于是，他找到王阿姨想要询问她家狗的日常，想以此为基础来开始。</p>
+
+<p>经询问后，狗的名字叫 “Tom”，年龄两岁，品种为藏獒，平时的活动有吃饭、睡觉、吠叫等。于是，小伙用 C 语言编写了该程序，他用字符指针来指向字符串，用 int 型变量来存放年龄，用函数来表示狗的日常行为。伪代码如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span>();
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sleep</span>();
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bark</span>();
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Tom&#34;</span>;
+    <span style="color:#66d9ef">int</span> age <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> variety <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;藏獒&#34;</span>;
+
+    <span style="color:#75715e">// 在 main 中调用函数
+</span><span style="color:#75715e"></span>    sleep();
+    eat();
+}</code></pre></div>
+<p>小伙通过 C 语言的变量和数组基本实现了这个记录狗平常活动的程序。</p>
+
+<h2 id="烦恼">烦恼</h2>
+
+<p>小区的张大爷听说小伙搞出了这个程序，于是也想体验体验。就找到小伙帮他也搞一套，小伙觉得这是个商机满口答应下来。小伙当即就开始了张大爷家狗的程序编写。小伙又照着前次的程序很快就写好了。但这时他发现有些问题，新的程序只是在原程序的基础上修改下变量名而已，这种重复无聊的操作让小伙有些许不爽，然而他却不知更大的烦恼在等着他。</p>
+
+<h2 id="更大的烦恼">更大的烦恼</h2>
+
+<p>张大爷再找小伙帮忙后就开始到处宣扬这个记录狗活动的程序，于是整个小区的人都想要体验下这个程序。张大爷就去通知小伙这个事，小伙听后开始有些担心了。</p>
+
+<p>因为当要记录的狗变多后，每条狗都要有自己的名字、年龄、品种等属性，吃、睡、叫等行为。这就使得在变量命名上就变得繁杂，而且对于这些狗共同的属性和行为，都要重复编写相同的代码让程序更臃肿。对于一些狗可能还会有不同之处，这又要为这些狗单独编写相关的程序。而且 C 语言在处理字符串时，是通过传递指针的形式来实现的，而指针在编写和调试时又是复杂的而且牵扯到内存知识很是头疼。</p>
+
+<p>基于这些原因，小伙倍感烦恼，不仅难以实现起来，而且编写修改都不方便。于是，小伙开始寻求新的解决方案。</p>
+
+<h2 id="新的方案">新的方案</h2>
+
+<p>小伙开始在网上查找有关的解决方案，慢慢的他找到了有关面向对象与面向过程的文章，在一番阅览之后小伙开始明白了。</p>
+
+<p>原来像 C 语言这种程序属于<strong><em>面向过程</em></strong>的语言 (Procedures Oriented), 而 C++,Java 等语言是<strong><em>面向对象</em></strong>的语言 (Object Oriented)。</p>
+
+<blockquote>
+<p>POP 专注于过程，想到啥就干啥，目标不明确，不利于大众化<br />
+OOP 专注于目标，利于大众化，不强调过程</p>
+</blockquote>
+
+<p>当用 C 来编写程序时，小伙太注重过程的编写，以至于每条狗都要过多相同的代码如狗的名字、年龄等属性，狗吃、睡等行为。而这些狗都共有的属性和行为就在 OOP 中被抽象为类，代表狗这一类事物公共的特性。这样再编写程序时，这些共性就不用重复编写了，只需考虑不同狗的个性即可。</p>
+
+<h2 id="新的程序">新的程序</h2>
+
+<p>小伙在找到解决方案后就立即用 Java 语言重新实现了这个记录狗的日常生活的程序。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dogs</span> <span style="color:#f92672">{</span>
+    String name<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+    String variety<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// eat(); 方法的内容
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sleep</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// sleep();  方法的内容
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">// other methods
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/**********分割***********/</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 王阿姨注册狗的账户
+</span><span style="color:#75715e"></span>        Dogs wangDog <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Dogs<span style="color:#f92672">();</span>
+
+        <span style="color:#75715e">// 王阿姨填写狗的信息
+</span><span style="color:#75715e"></span>        wangDog<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">;</span>
+        wangDog<span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> 2<span style="color:#f92672">;</span>
+        wangDog<span style="color:#f92672">.</span><span style="color:#a6e22e">variety</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;藏獒&#34;</span><span style="color:#f92672">;</span>
+
+        <span style="color:#75715e">// 记录狗的活动
+</span><span style="color:#75715e"></span>        wangDog<span style="color:#f92672">.</span><span style="color:#a6e22e">eat</span><span style="color:#f92672">();</span>
+        wangDog<span style="color:#f92672">.</span><span style="color:#a6e22e">sleep</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
+<p>在这段代码中，上部分就是对类的实现，其中</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 这些名词被称为：成员变量，是这个类的标签
+</span><span style="color:#75715e"></span>String name<span style="color:#f92672">;</span>
+<span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+String variety<span style="color:#f92672">;</span>
+
+<span style="color:#75715e">// 这些动作被称为：行为，代表这个类能干啥
+</span><span style="color:#75715e"></span>eat<span style="color:#f92672">();</span>
+sleep<span style="color:#f92672">();</span></code></pre></div>
+<p>而下半部分就是对类的使用，<code>Dogs wangDog = new Dogs();</code> 这是类的<strong><em>实例化、具体化</em></strong>，即将抽象的属性和行为赋予实体，变为实实在在的东西。类似于 C 语言的 <code>malloc()</code>; 在底层就是开辟一块内存并且让 wangDog 指向这块空间。</p>
+
+<p><img src="https://gitee.com/wang-junqiang0420/blog_image/raw/master/image/new_object.jpg" alt="实例化情形" /></p>
+
+<p>当对变量赋值时，相应的数值就会赋值给对应对象的变量，比如 <code>wangDog.name = &quot;Tom&quot;</code>；<br />
+当使用对象的方法时，就会调用相应对象的方法，比如 <code>wangDog.eat();</code></p>
+
+<p>要是王阿姨不想使用此程序，则只需 <code>wangDog = null;</code> 让 <code>wangDog</code> 不再指向原来开辟的那块空间，以达到注销的目的。在注销后再使用 <code>wangDog</code> 想过的变量或方法则会报空指针异常 <strong>(NullPointerException)</strong> 的错误。</p>
+
+<p>经过这一番折腾，小伙开始了解到面向对象编程，准备更深入的学习。</p>
+
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%80/">Java面向对象一</a></li>
+
+<li><a href="/2021/07/java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">Java基础语法</a></li>
+
+<li><a href="/2021/06/markdown-%E8%AF%AD%E6%B3%95/">Markdown 语法</a></li>
+
+<li><a href="/2021/06/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">我的第一篇博客</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

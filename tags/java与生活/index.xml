@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java与生活 on My Blog</title>
+    <link>https://junq0420.github.io/tags/java%E4%B8%8E%E7%94%9F%E6%B4%BB/</link>
+    <description>Recent content in Java与生活 on My Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <copyright>除非特别声明, 本站采用技术 [Hugo](https://gohugo.io/) &amp; 主题 [hugo-theme-bootstrap4-blog](https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/).</copyright>
+    <lastBuildDate>Tue, 22 Feb 2022 16:54:56 +0800</lastBuildDate><atom:link href="https://junq0420.github.io/tags/java%E4%B8%8E%E7%94%9F%E6%B4%BB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java面向对象一</title>
+      <link>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%80/</link>
+      <pubDate>Tue, 22 Feb 2022 16:54:56 +0800</pubDate>
+      
+      <guid>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%80/</guid>
+      <description>学习笔记，仅供参考
+参考：B站Mirco_Frank - java与生活
+ 背景 假如， 某小伙在学完C语言后，想要编写一个记录狗日常活动的程序。于是，他找到王阿姨想要询问她家狗的日常，想以此为基础来开始。
+经询问后，狗的名字叫 “Tom”，年龄两岁，品种为藏獒，平时的活动有吃饭、睡觉、吠叫等。于是，小伙用 C 语言编写了该程序，他用字符指针来指向字符串，用 int 型变量来存放年龄，用函数来表示狗的日常行为。伪代码如下：
+#include &amp;lt;stdio.h&amp;gt; void eat(); void sleep(); void bark(); int main() { char * name = &amp;#34;Tom&amp;#34;; int age = 2; char * variety = &amp;#34;藏獒&amp;#34;; // 在 main 中调用函数  sleep(); eat(); } 小伙通过 C 语言的变量和数组基本实现了这个记录狗平常活动的程序。</description>
+    </item>
+    
+  </channel>
+</rss>

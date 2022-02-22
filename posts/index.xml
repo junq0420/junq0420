@@ -7,24 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>除非特别声明, 本站采用技术 [Hugo](https://gohugo.io/) &amp; 主题 [hugo-theme-bootstrap4-blog](https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/).</copyright>
-    <lastBuildDate>Fri, 30 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://junq0420.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 22 Feb 2022 16:54:56 +0800</lastBuildDate><atom:link href="https://junq0420.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Creating a New Theme</title>
-      <link>https://junq0420.github.io/2014/09/creating-a-new-theme/</link>
-      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
+      <title>Java面向对象一</title>
+      <link>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%80/</link>
+      <pubDate>Tue, 22 Feb 2022 16:54:56 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2014/09/creating-a-new-theme/</guid>
-      <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&amp;rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme.</description>
-    </item>
-    
-    <item>
-      <title>Migrate to Hugo from Jekyll</title>
-      <link>https://junq0420.github.io/2014/03/migrate-to-hugo-from-jekyll/</link>
-      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://junq0420.github.io/2014/03/migrate-to-hugo-from-jekyll/</guid>
-      <description>Move static content to static Jekyll has a rule that any directory not starting with _ will be copied as-is to the _site output. Hugo keeps all static content under static. You should therefore move it all there. With Jekyll, something that looked like
-▾ &amp;lt;root&amp;gt;/ ▾ images/ logo.png should become</description>
+      <guid>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%80/</guid>
+      <description>学习笔记，仅供参考
+参考：B站Mirco_Frank - java与生活
+ 背景 假如， 某小伙在学完C语言后，想要编写一个记录狗日常活动的程序。于是，他找到王阿姨想要询问她家狗的日常，想以此为基础来开始。
+经询问后，狗的名字叫 “Tom”，年龄两岁，品种为藏獒，平时的活动有吃饭、睡觉、吠叫等。于是，小伙用 C 语言编写了该程序，他用字符指针来指向字符串，用 int 型变量来存放年龄，用函数来表示狗的日常行为。伪代码如下：
+#include &amp;lt;stdio.h&amp;gt; void eat(); void sleep(); void bark(); int main() { char * name = &amp;#34;Tom&amp;#34;; int age = 2; char * variety = &amp;#34;藏獒&amp;#34;; // 在 main 中调用函数  sleep(); eat(); } 小伙通过 C 语言的变量和数组基本实现了这个记录狗平常活动的程序。</description>
     </item>
     
     <item>
@@ -37,12 +31,12 @@
     </item>
     
     <item>
-      <title>Typora_basic</title>
-      <link>https://junq0420.github.io/2021/06/typora_basic/</link>
+      <title>Markdown 语法</title>
+      <link>https://junq0420.github.io/2021/06/markdown-%E8%AF%AD%E6%B3%95/</link>
       <pubDate>Tue, 22 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://junq0420.github.io/2021/06/typora_basic/</guid>
-      <description>&lt;p&gt;​   最近刚学习写博客，所以就记录一下用Typora写markdown的语法以及技巧。&lt;/p&gt;</description>
+      <guid>https://junq0420.github.io/2021/06/markdown-%E8%AF%AD%E6%B3%95/</guid>
+      <description>&lt;p&gt;​   最近刚学习写博客，所以就记录一下写markdown的语法。当然在markdown 中也可以使用 HTML。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -78,27 +72,6 @@
 &lt;p&gt;&lt;font style=&#34;background: yellow&#34;&gt;红色&lt;/font&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong style=&#34;color: yellow&#34;&gt;hello world&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>(Hu)go Template Primer</title>
-      <link>https://junq0420.github.io/2014/04/hugo-template-primer/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://junq0420.github.io/2014/04/hugo-template-primer/</guid>
-      <description>Hugo uses the excellent go html/template library for its template engine. It is an extremely lightweight engine that provides a very small amount of logic. In our experience that it is just the right amount of logic to be able to create a good static website. If you have used other template systems from different languages or frameworks you will find a lot of similarities in go templates.</description>
-    </item>
-    
-    <item>
-      <title>Getting Started with Hugo</title>
-      <link>https://junq0420.github.io/2014/04/getting-started-with-hugo/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://junq0420.github.io/2014/04/getting-started-with-hugo/</guid>
-      <description>Step 1. Install Hugo Goto hugo releases and download the appropriate version for your os and architecture.
-Save it somewhere specific as we will be using it in the next step.
-More complete instructions are available at installing hugo
-Step 2. Build the Docs Hugo has its own example site which happens to also be the documentation site you are reading right now.</description>
     </item>
     
   </channel>
