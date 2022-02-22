@@ -7,18 +7,39 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>除非特别声明, 本站采用技术 [Hugo](https://gohugo.io/) &amp; 主题 [hugo-theme-bootstrap4-blog](https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/).</copyright>
-    <lastBuildDate>Tue, 22 Feb 2022 16:54:56 +0800</lastBuildDate><atom:link href="https://junq0420.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 22 Feb 2022 18:02:14 +0800</lastBuildDate><atom:link href="https://junq0420.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java面向对象二之封装</title>
+      <link>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%BA%8C%E4%B9%8B%E5%B0%81%E8%A3%85/</link>
+      <pubDate>Tue, 22 Feb 2022 18:02:14 +0800</pubDate>
+      
+      <guid>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%BA%8C%E4%B9%8B%E5%B0%81%E8%A3%85/</guid>
+      <description>学习笔记，仅供参考
+参考：B站Mirco_Frank - java与生活
+ 背景 在上次小伙用 Java 重新实现了记录狗日常生活的程序后，就开始让小区的人使用起来。
+但某一天张大爷发现了程序的漏洞，表示程序不安全，想要退出使用。经小伙询问才知道，原来这个程序所用的数据都是对用户公开的，使得用户可以对这些数据为所欲为。
+小伙经一番查询后发现之所以如此，是因为程序中使用了 public 修饰词，经它修饰的变量是让所有的对象都能使用此变量，而这就会不安全。比如，某银行程序让用户写入存款数目时，若是用 public 修饰存款的变量，那么人人都是富翁了。
+所以，程序中的变量不能让用户去随便的修改，为所欲为。这就要用到 private 修饰词，让所有的对象都不能直接使用此变量，而是通过间接地方法调用来完成数据的读写。
+于是，小伙立即将 public 修饰的成员变量全改为了 private。
+封装（encapsulation） 经查阅，这种不让对象直接使用变量而通过方法调用来间接地使用的操作叫做封装。封装就像是一种屏障，将类中的数据和代码保护起来，不让外部定义的代码随机的访问，以此来达到数据的安全。经封装后的程序如下：
+public class Dogs { // 将变量用 private 修饰  private String name; private int age; private String variety; // 设置、写入对象的成员变量  public void setName(String name) { // 将形参 name 交给对象的 name  // 这里的 this 就代指 object, 如wangDog, zhangDog.</description>
+    </item>
+    
     <item>
       <title>Java面向对象一</title>
       <link>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%80/</link>
       <pubDate>Tue, 22 Feb 2022 16:54:56 +0800</pubDate>
       
       <guid>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%80/</guid>
-      <description>学习笔记，仅供参考
-参考：B站Mirco_Frank - java与生活
- 背景 假如， 某小伙在学完C语言后，想要编写一个记录狗日常活动的程序。于是，他找到王阿姨想要询问她家狗的日常，想以此为基础来开始。
-经询问后，狗的名字叫 “Tom”，年龄两岁，品种为藏獒，平时的活动有吃饭、睡觉、吠叫等。于是，小伙用 C 语言编写了该程序，他用字符指针来指向字符串，用 int 型变量来存放年龄，用函数来表示狗的日常行为。伪代码如下：
-#include &amp;lt;stdio.h&amp;gt; void eat(); void sleep(); void bark(); int main() { char * name = &amp;#34;Tom&amp;#34;; int age = 2; char * variety = &amp;#34;藏獒&amp;#34;; // 在 main 中调用函数  sleep(); eat(); } 小伙通过 C 语言的变量和数组基本实现了这个记录狗平常活动的程序。</description>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;学习笔记，仅供参考&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;参考&lt;/strong&gt;：&lt;a href=&#34;https://www.yuque.com/books/share/ddbdba56-dc9f-4997-9e18-d9e69309d343/rzkdm0&#34;&gt;B站Mirco_Frank - java与生活&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+
+&lt;p&gt;假如， 某小伙在学完C语言后，想要编写一个记录狗日常活动的程序。于是，他找到王阿姨想要询问她家狗的日常，想以此为基础来开始。&lt;/p&gt;</description>
     </item>
     
     <item>

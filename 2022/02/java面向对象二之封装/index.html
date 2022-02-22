@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Java面向对象二之封装" />
+<meta property="og:description" content="学习笔记，仅供参考
+参考：B站Mirco_Frank - java与生活
+ 背景 在上次小伙用 Java 重新实现了记录狗日常生活的程序后，就开始让小区的人使用起来。
+但某一天张大爷发现了程序的漏洞，表示程序不安全，想要退出使用。经小伙询问才知道，原来这个程序所用的数据都是对用户公开的，使得用户可以对这些数据为所欲为。
+小伙经一番查询后发现之所以如此，是因为程序中使用了 public 修饰词，经它修饰的变量是让所有的对象都能使用此变量，而这就会不安全。比如，某银行程序让用户写入存款数目时，若是用 public 修饰存款的变量，那么人人都是富翁了。
+所以，程序中的变量不能让用户去随便的修改，为所欲为。这就要用到 private 修饰词，让所有的对象都不能直接使用此变量，而是通过间接地方法调用来完成数据的读写。
+于是，小伙立即将 public 修饰的成员变量全改为了 private。
+封装（encapsulation） 经查阅，这种不让对象直接使用变量而通过方法调用来间接地使用的操作叫做封装。封装就像是一种屏障，将类中的数据和代码保护起来，不让外部定义的代码随机的访问，以此来达到数据的安全。经封装后的程序如下：
+public class Dogs { // 将变量用 private 修饰  private String name; private int age; private String variety; // 设置、写入对象的成员变量  public void setName(String name) { // 将形参 name 交给对象的 name  // 这里的 this 就代指 object, 如wangDog, zhangDog." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%BA%8C%E4%B9%8B%E5%B0%81%E8%A3%85/" />
+<meta property="article:published_time" content="2022-02-22T18:02:14+08:00" />
+<meta property="article:modified_time" content="2022-02-22T18:02:14+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java面向对象二之封装"/>
+<meta name="twitter:description" content="学习笔记，仅供参考
+参考：B站Mirco_Frank - java与生活
+ 背景 在上次小伙用 Java 重新实现了记录狗日常生活的程序后，就开始让小区的人使用起来。
+但某一天张大爷发现了程序的漏洞，表示程序不安全，想要退出使用。经小伙询问才知道，原来这个程序所用的数据都是对用户公开的，使得用户可以对这些数据为所欲为。
+小伙经一番查询后发现之所以如此，是因为程序中使用了 public 修饰词，经它修饰的变量是让所有的对象都能使用此变量，而这就会不安全。比如，某银行程序让用户写入存款数目时，若是用 public 修饰存款的变量，那么人人都是富翁了。
+所以，程序中的变量不能让用户去随便的修改，为所欲为。这就要用到 private 修饰词，让所有的对象都不能直接使用此变量，而是通过间接地方法调用来完成数据的读写。
+于是，小伙立即将 public 修饰的成员变量全改为了 private。
+封装（encapsulation） 经查阅，这种不让对象直接使用变量而通过方法调用来间接地使用的操作叫做封装。封装就像是一种屏障，将类中的数据和代码保护起来，不让外部定义的代码随机的访问，以此来达到数据的安全。经封装后的程序如下：
+public class Dogs { // 将变量用 private 修饰  private String name; private int age; private String variety; // 设置、写入对象的成员变量  public void setName(String name) { // 将形参 name 交给对象的 name  // 这里的 this 就代指 object, 如wangDog, zhangDog."/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Java面向对象二之封装",
+  "url": "https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%BA%8C%E4%B9%8B%E5%B0%81%E8%A3%85/",
+  "wordCount": "223",
+  "datePublished": "2022-02-22T18:02:14+08:00",
+  "dateModified": "2022-02-22T18:02:14+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "Java与生活"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%BA%8C%E4%B9%8B%E5%B0%81%E8%A3%85/">
+
+    <title>Java面向对象二之封装 | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/posts/" title="">Posts</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%BA%8C%E4%B9%8B%E5%B0%81%E8%A3%85/">Java面向对象二之封装</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-02-22T18:02:14+08:00">2022-02-22</time>
+ in 
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/java%E4%B8%8E%E7%94%9F%E6%B4%BB/" rel="tag">Java与生活</a>
+
+</p>
+  </header>
+  
+
+<blockquote>
+<p><strong>学习笔记，仅供参考</strong></p>
+
+<p><strong>参考</strong>：<a href="https://www.yuque.com/books/share/ddbdba56-dc9f-4997-9e18-d9e69309d343/rzkdm0">B站Mirco_Frank - java与生活</a></p>
+</blockquote>
+
+<h2 id="背景">背景</h2>
+
+<p>在上次小伙用 Java 重新实现了记录狗日常生活的程序后，就开始让小区的人使用起来。</p>
+
+<p>但某一天张大爷发现了程序的漏洞，表示程序不安全，想要退出使用。经小伙询问才知道，原来这个程序所用的数据都是对用户公开的，使得用户可以对这些数据为所欲为。</p>
+
+<p>小伙经一番查询后发现之所以如此，是因为程序中使用了 <code>public</code> 修饰词，经它修饰的变量是<strong>让所有的对象都能使用此变量</strong>，而这就会不安全。比如，某银行程序让用户写入存款数目时，若是用 <code>public</code> 修饰存款的变量，那么人人都是富翁了。</p>
+
+<p>所以，程序中的变量不能让用户去随便的修改，为所欲为。这就要用到 <code>private</code> 修饰词，<strong>让所有的对象都不能直接使用此变量</strong>，而是通过间接地方法调用来完成数据的读写。</p>
+
+<p>于是，小伙立即将 <code>public</code> 修饰的成员变量全改为了 <code>private</code>。</p>
+
+<h2 id="封装-encapsulation">封装（encapsulation）</h2>
+
+<p>经查阅，这种不让对象直接使用变量而通过方法调用来间接地使用的操作叫做封装。封装就像是一种屏障，将类中的数据和代码保护起来，不让外部定义的代码随机的访问，以此来达到数据的安全。经封装后的程序如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dogs</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 将变量用 private 修饰
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> String variety<span style="color:#f92672">;</span>
+
+    <span style="color:#75715e">// 设置、写入对象的成员变量
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 将形参 name 交给对象的 name
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 这里的 this 就代指 object, 如wangDog, zhangDog..
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">// 获得、读取对象的成员变量
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 将对象的 name 返回
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">// ... 其他变量的 setter, getter 以及类的行为
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/********分割*********/</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 同之前一样，注册用户
+</span><span style="color:#75715e"></span>        Dogs wangDog <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> wangDog<span style="color:#f92672">();</span>
+
+        <span style="color:#75715e">// 填写信息
+</span><span style="color:#75715e"></span>        wangDog<span style="color:#f92672">.</span><span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">);</span>
+        wangDog<span style="color:#f92672">.</span><span style="color:#a6e22e">setAge</span><span style="color:#f92672">(</span>2<span style="color:#f92672">);</span>
+        wangDog<span style="color:#f92672">.</span><span style="color:#a6e22e">setVariety</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;藏獒&#34;</span><span style="color:#f92672">);</span>
+
+        <span style="color:#75715e">// 使用变量，如打印狗的名字
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;王阿姨家狗的名字：&#34;</span><span style="color:#f92672">+</span>wangDog<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">());</span>
+
+        <span style="color:#75715e">// 其他程序 ...
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
+<p>封装后的成员变量要由 getter 和 setter 这两个类的方法来间接读写到变量。若是想对写入的变量有所限制，只需在 setter 中将从方法形参获得的值加以判断处理即可。比如，对获得的年龄加以限制，要求年龄在 0 ~ 30 岁之间，其他则返回提示信息并将年龄默认为 0。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setAge</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> age<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 判断输入的数值是否合理
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>age <span style="color:#f92672">&gt;</span> 0 <span style="color:#f92672">||</span> age <span style="color:#f92672">&lt;</span> 30<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;您输入的年龄数值不合法，系统已将其默认为 0，请输入 0 - 30 之间的数字&#34;</span><span style="color:#f92672">)</span><span style="color:#960050;background-color:#1e0010">；</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span><span style="color:#66d9ef">else</span><span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> age<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
+<p>封装效果图如下：</p>
+
+<p><img src="https://gitee.com/wang-junqiang0420/blog_image/raw/master/image/encapsulation.jpg" alt="封装效果图" /></p>
+
+<h2 id="idea-中封装的操作">IDEA 中封装的操作</h2>
+
+<p>一个私有的变量要两个方法，两个就要有四个，以此类推，当变量多后手敲这些难免有些枯燥。于是，像 IDEA 这种编辑器就提供了自动生成的功能，Alt+Insert 或右键调出 Generate，在 Generate 中有一些能自动生成的选项，选择 setter 和 getter，在其中选择想要自动生成的变量即可。下面为界面图：</p>
+
+<p><img src="https://gitee.com/wang-junqiang0420/blog_image/raw/master/image/generate.jpg" alt="IDEA自动生成" /></p>
+
+<p>另一种更加简便的方法是导入外部包，引用 setter, getter 注解，相当于直接用别人写好的，直接拿来用。代码在 jar 包中，不在所写程序中，使程序更加简洁。</p>
+
+<p><strong><code>操作步骤</code></strong>：<br />
+1. 在 IDEA 中下载 Lombok 插件，setting -&gt; plugins, 搜索安装即可
+2. 从 <a href="https://mvnrepository.com/">maven 库</a> 中搜索 Lombok，下载 jar 包
+3. 在 IDEA 的项目文件夹下创建一个新文件夹，接着将下好的 jar 包拖进去
+4. 在 IDEA 的 Setting -&gt; Build, Execution, Deployment -&gt; Compiler -&gt; Annotation processors -&gt; 勾选 Enable.. 复选框 -&gt; Rebuild</p>
+
+<p>若是想要对写入的变量加以限制，只需在类中手写出想要限制变量的 setter(); 方法即可。这就完成了方法的重写，当再使用该方法时，以重写的为准。</p>
+
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%BA%8C%E4%B9%8B%E5%B0%81%E8%A3%85/">Java面向对象二之封装</a></li>
+
+<li><a href="/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%80/">Java面向对象一</a></li>
+
+<li><a href="/2021/07/java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">Java基础语法</a></li>
+
+<li><a href="/2021/06/markdown-%E8%AF%AD%E6%B3%95/">Markdown 语法</a></li>
+
+<li><a href="/2021/06/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">我的第一篇博客</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>
