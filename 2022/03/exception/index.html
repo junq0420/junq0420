@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Exception" />
+<meta property="og:description" content="记录 exception class" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2022/03/exception/" />
+<meta property="article:published_time" content="2022-03-14T09:24:50+08:00" />
+<meta property="article:modified_time" content="2022-03-14T09:24:50+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Exception"/>
+<meta name="twitter:description" content="记录 exception class"/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Exception",
+  "url": "https://junq0420.github.io/2022/03/exception/",
+  "wordCount": "185",
+  "datePublished": "2022-03-14T09:24:50+08:00",
+  "dateModified": "2022-03-14T09:24:50+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "Java, Java_Advance"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2022/03/exception/">
+
+    <title>Exception | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/posts/" title="">Posts</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2022/03/exception/">Exception</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-03-14T09:24:50+08:00">2022-03-14</time>
+ in 
+<span class="fas fa-folder" aria-hidden="true"></span>&nbsp;<a href="/categories/java/" rel="category tag">Java</a>
+
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/java_advance/" rel="tag">Java_Advance</a>
+
+</p>
+  </header>
+  <p>记录 exception class</p>
+
+<blockquote>
+<p><strong>学习笔记，仅供参考</strong></p>
+
+<p><strong>参考</strong>：<a href="https://www.yuque.com/books/share/ddbdba56-dc9f-4997-9e18-d9e69309d343/wgctzt">B站Mirco_Frank - java 进阶</a> | <a href="https://docs.oracle.com/javase/tutorial/essential/exceptions/index.html">官方教程</a></p>
+</blockquote>
+
+<hr />
+
+<h2 id="exception">Exception</h2>
+
+<p>异常指一个在程序执行过程中产生的事件，它打断了程序的正常执行过程，从而使程序终止运行。要是能处理掉异常，程序就不会终止，那么后面的程序就可以被执行到</p>
+
+<p>异常的继承图如下：</p>
+
+<p><img src="https://gitee.com/wang-junqiang0420/blog_image/raw/master/image/Exception_extend_map.jpg" alt="Exception extend map" width=70%></p>
+
+<h3 id="异常的分类">异常的分类</h3>
+
+<ul>
+<li><p><code>检查异常(Checked Exception)</code> : 除了 Error 和 RuntimeException 及其子类外，其他的类都是检查异常，像 IOException、FileNotFoundException等。检查异常会在编译时就报错，所以必须要处理或抛出该异常，否则编译无法通过</p></li>
+
+<li><p><code>错误(Error)</code> : Error 及其子类，编译时无法判断出，只有在运行时才会报错且终止程序。通常是由硬件或系统级错误，所以较异常要更严重些。</p></li>
+
+<li><p><code>运行时异常(RuntimeException)</code> : RuntimeException 及其子类，编译无法判断，只有运行时才会检查到，出错时会自动抛出异常，所以并非一定要处理异常。通常是由逻辑错误或 API 运用不当导致的</p></li>
+</ul>
+
+<h3 id="异常的捕获和处理">异常的捕获和处理</h3>
+
+<p>处理异常会用到 <code>try</code>, <code>catch</code>, <code>finally</code> 三种代码块</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 用 try 包住可能有异常的代码，以此来捕获异常
+</span><span style="color:#75715e"></span>    code
+<span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>异常类型 异常变量名<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 若是捕获到异常，就执行 catch 中的语句，一般为一些报错信息
+</span><span style="color:#75715e"></span>    handle exception statements
+<span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>ExceptionTyle name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// catch 可以有多个，可以用来捕获不同类型的异常
+</span><span style="color:#75715e"></span>    statements
+<span style="color:#f92672">}</span> <span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 无论是否有异常都会执行此内容，很适合用来清理或关流
+</span><span style="color:#75715e"></span>    code
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/*******************example******************/</span>
+
+<span style="color:#75715e">// ★ 注意多重异常捕获时，父类异常要放在子类的后面，否则会报错
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+    code
+<span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>IndexOutOfBoundsException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;IndexOutOfBoundsException: &#34;</span> <span style="color:#f92672">+</span> e<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">());</span>
+<span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>IOException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;IOException: &#34;</span> <span style="color:#f92672">+</span> e<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">());</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// 多个 catch 的缩写
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+    code
+<span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>IndexOutOfBoundsException <span style="color:#f92672">|</span> IOException ex<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    ex<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrack</span><span style="color:#f92672">();</span>
+<span style="color:#f92672">}</span>
+<span style="color:#75715e">// 但这样写后，ex 变量就变为 final 型，之后不能再被赋值
+</span></code></pre></div>
+<h3 id="抛出异常">抛出异常</h3>
+
+<p>有异常时，可以选择处理，还可以选择不处理，将异常抛给上一级，上一级也可选择处理或抛出，直到某一级处理或抛给 JVM 来处理(终止程序, 打印信息)</p>
+
+<p>如除法函数中，要是除数为零，抛出异常</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String arg<span style="color:#f92672">[])</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+        division<span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> 0<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#75715e">// division method
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">division</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> x<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> y<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>0 <span style="color:#f92672">==</span> y<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#75715e">// throw exception
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Exception<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Shit! / by zero&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span> 
+
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>x <span style="color:#f92672">/</span> y<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
+<p>若抛出的是 RuntimeException，在方法名后面就不用声明异常的类型；若是非 Runtime 类的则 <strong>必须</strong> 要用 <code>throws ExceptionType</code> 来声明有异常</p>
+
+<h3 id="异常的好处">异常的好处</h3>
+
+<p>通过异常可以判断出是什么样的异常，在哪里有异常，从而根据所给的异常信息和网络文档来进行代码的修改</p>
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2022/03/multithreading/">Multithreading</a></li>
+
+<li><a href="/2022/03/apache_common_io/">Apache_common_io</a></li>
+
+<li><a href="/2022/03/iostreame/">IOStreame</a></li>
+
+<li><a href="/2022/03/stringclass/">StringClass</a></li>
+
+<li><a href="/2022/03/exception/">Exception</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

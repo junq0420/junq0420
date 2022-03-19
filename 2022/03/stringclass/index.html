@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="StringClass" />
+<meta property="og:description" content="记录 String 和 StringBuilder" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2022/03/stringclass/" />
+<meta property="article:published_time" content="2022-03-14T09:25:16+08:00" />
+<meta property="article:modified_time" content="2022-03-14T09:25:16+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="StringClass"/>
+<meta name="twitter:description" content="记录 String 和 StringBuilder"/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "StringClass",
+  "url": "https://junq0420.github.io/2022/03/stringclass/",
+  "wordCount": "595",
+  "datePublished": "2022-03-14T09:25:16+08:00",
+  "dateModified": "2022-03-14T09:25:16+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "Java, Java_Advance"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2022/03/stringclass/">
+
+    <title>StringClass | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/posts/" title="">Posts</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2022/03/stringclass/">StringClass</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-03-14T09:25:16+08:00">2022-03-14</time>
+ in 
+<span class="fas fa-folder" aria-hidden="true"></span>&nbsp;<a href="/categories/java/" rel="category tag">Java</a>
+
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/java_advance/" rel="tag">Java_Advance</a>
+
+</p>
+  </header>
+  <p>记录 String 和 StringBuilder</p>
+
+<blockquote>
+<p><strong>学习笔记，仅供参考</strong></p>
+
+<p><strong>参考</strong>：<a href="https://www.yuque.com/books/share/ddbdba56-dc9f-4997-9e18-d9e69309d343/wgctzt">B站Mirco_Frank - java 进阶</a> | <a href="https://docs.oracle.com/javase/8/docs/api/">官方文档英文版</a></p>
+</blockquote>
+
+<hr />
+
+<h2 id="string-class">💬 String class</h2>
+
+<p><a href="https://www.javatpoint.com/java-string">练习 String class</a></p>
+
+<h3 id="静态方法">静态方法</h3>
+
+<ul>
+<li><p><strong><em><code>String copyValueOf(char[] data, int offset, int count);</code></em></strong> &emsp; // 复制字符数组的内容，生成字符串并将其返回。其中 offset 为起始偏移量，count 为所复制字符的个数</p></li>
+
+<li><p><strong><em><code>String format(String format, Object... args);</code></em></strong> &emsp; // 格式化输出，类似 C 语言的 <em>printf()</em></p></li>
+
+<li><p><strong><em><code>String join(CharSequence delimiter, CharSequence ...element);</code></em></strong> &emsp; // 拼接所给的子字符串，且用所给的 delimiter 连接, 返回拼接后的字符串</p></li>
+</ul>
+
+<p>例：<code>String message = String.join(&quot;.&quot;, &quot;www&quot;, &quot;google&quot;, &quot;com&quot;);</code> 返回的字符串为 <code>message = &quot;www.google.com&quot;</code></p>
+
+<ul>
+<li><strong><em><code>★ String valueOf(int i);</code></em></strong> &emsp; // 将整型值转为一个字符串并返回；其他类型同理</li>
+</ul>
+
+<h3 id="方法">方法</h3>
+
+<ul>
+<li><p><strong><em><code>★ int length();</code></em></strong> &emsp; // 返回字符串的长度</p></li>
+
+<li><p><strong><em><code>boolean isEmpty();</code></em></strong> &emsp; // 检验字符串是否为空, 是空串返回true, 否则返回false</p></li>
+
+<li><p><strong><em><code>char charAt(int index);</code></em></strong> &emsp; // 返回index处的字符，index范围从0到length-1</p></li>
+
+<li><p><strong><em><code>int codePointAt(int index);</code></em></strong> &emsp; // 返回index处字符的ASCII码</p></li>
+
+<li><p><strong><em><code>int codePointBefore(int index);</code></em></strong> &emsp; // 返回index前一字符的ASCII码</p></li>
+
+<li><p><strong><em><code>int codePointCount(int beginIndex, int endIndex);</code></em></strong> &emsp; // 返回从beginIndex后到endIndex的字符数</p></li>
+
+<li><p><strong><em><code>void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin);</code></em></strong> &emsp; // 从源字符串的srcBegin下标开始复制(srcEnd - srcBegin)个字符到目标数组，并且是从目标数组的dstBegin下标开始。【注：若复制的字符数超过数组剩余空间的长度则会报错】</p></li>
+
+<li><p><strong><em><code>byte[] getBytes();</code></em></strong> 和 <strong><em><code>byte[] getBytes(String charsetName);</code></em></strong> &emsp; // 将对象序列化，并将其存储到新的数组中。其中 charsetName 有：&rdquo;UTF-8&rdquo;, &ldquo;GBK&rdquo;, &ldquo;ISO-8859-1&rdquo;等。</p></li>
+</ul>
+
+<p><strong style="color: red">补充</strong>：序列化是将对象转化为二进制内容，本质为 byte[] 数组。作用就是用byte[] 数组来进行网络传输，即实现了 Java 对象的传输。同理，反序列化就是接收端还原为 Java 对象。</p>
+
+<ul>
+<li><p><strong><em><code>★ boolean equals(Object anObject);</code></em></strong> &emsp; // 判断该对象是否与所给对象相同，相同为true，不同为false。</p></li>
+
+<li><p><strong><em><code>boolean equalsIgnoreCase(String otherString);</code></em></strong> &emsp; // 判断该字符串是否与所给字符串相同，且忽略大小写。</p></li>
+
+<li><p><strong><em><code>boolean contentEquals(StringBuffer sb);</code></em></strong> &emsp; // 将字符串与所给的StringBuffer比较</p></li>
+</ul>
+
+<p><strong style="color: orange">补充</strong>：String 与 StringBuffer, String为final类，一旦给定无法修改，修改也是重建, 而StringBuffer则可修改，不用再重新创建</p>
+
+<ul>
+<li><p><strong><em><code>★ int compareTo(String otherString);</code></em></strong><br />
+从左到右比较两字符串，当出现不同时，返回该字符串与所给字符串不同处两字符ASCII的差值。完全相同时，返回整数0。</p></li>
+
+<li><p><strong><em><code>int compareToIgnoreCase(String otherString);</code></em></strong> &emsp; // 与 <em>compareTo();</em> 方法类似，只是忽略大小写。</p></li>
+
+<li><p><strong><em><code>boolean regionMatches(boolean ignoreCase, int toofset, String otherString, int ooffset, int len);</code></em></strong> &emsp; // 比较该字符串的子段与所给的子段是否相同，相同返回true。</p></li>
+</ul>
+
+<p><strong style="color: yellow">参数</strong>：</p>
+
+<p>ignoreCase &ndash; 为true，则比较字符时忽略大小写</p>
+
+<p>toffset &ndash; 该字符串的起始偏移量</p>
+
+<p>otherString &ndash; 所给的字符串</p>
+
+<p>ooffset &ndash; 所给字符串的起始偏移量</p>
+
+<p>len &ndash; 索要比较的字符数</p>
+
+<ul>
+<li><p><strong><em><code>boolean startsWith(String prefix, int toffset);</code></em></strong> &emsp; // 检验字符串是否以所给的前缀开始，toffset作位起始偏移量。</p></li>
+
+<li><p><strong><em><code>boolean endWith(String suffix);</code></em></strong> &emsp; // 检验字符串是否以所给的后缀结束。</p></li>
+
+<li><p><strong><em><code>int hashCode();</code></em></strong> &emsp; // 返回字符串的哈希码。</p></li>
+</ul>
+
+<p><strong style="color: green">补充</strong>：</p>
+
+<p>hashcode 一种编码方式，任意长度的输入 &ndash;&gt;[散列算法] &ndash;&gt; 固定长度的输出(即哈希码)。</p>
+
+<p>Java 中，对象相同，哈希码相同；哈希码相同，对象不一定相同。对象的物理地址先转化为整数，再通过 Hash 函数(一系列算法)得到 Hash 值，将这些值存放在表格中就构成了 Hash 表，对表的位置进行编码就得到了 Hash 码。</p>
+
+<p>意义：提高搜索的速度。只需从某个 Hash 码下查找所要对象，不需遍历所有对象。</p>
+
+<p>不恰当的例子：好比各地行政区的划分码。全国各地的地形地势(物理地址)经过划分规则(算法)使每块地都有所属的地区名(Hash值)，如XX省XX市，再将这些地区名排列并放到表格中(Hash表)，最后按表编码得到各地的行政区划分码(Hash码)。</p>
+
+<p><a href="https://www.cnblogs.com/whgk/p/6071617.html">参考此篇博客</a></p>
+
+<ul>
+<li><strong><em><code>int indexOf();</code></em></strong> &emsp; // 返回所给字符在该字符串的下标, 不存在则返回-1。</li>
+</ul>
+
+<p><strong style="color: rgb(200,100,200)">四种方法重载形式</strong>：</p>
+
+<p><strong><em><code>int indexOf(int ch);</code></em></strong> (ch: &lsquo;a&rsquo; or 97)</p>
+
+<p><strong><em><code>int indexOf(int ch, int fromIndex);</code></em></strong></p>
+
+<p><strong><em><code>int indexOf(String str);</code></em></strong> (str: &ldquo;a&rdquo;)</p>
+
+<p><strong><em><code>int indexOf(String str, int fromIndex);</code></em></strong> &emsp; // fromIndex: 只从字符串的该下标开始从左到右查找。</p>
+
+<ul>
+<li><p><strong><em><code>int lastIndexOf(String str, int fromIndex);</code></em></strong> &emsp; // 形式与 <em>int indexOf();</em> 类似，只是从右到左查找。</p></li>
+
+<li><p><strong><em><code>★ String substring(int beginIndex, int endIndex);</code></em></strong> &emsp; // 获取该字符串的字串，从beginIndex 后开始，截取 (endIndex - beginIndex) 个字符。</p></li>
+
+<li><p><strong><em><code>CharSequence subSequence(int beginIndex, int endIndex);</code></em></strong><br />
+返回一个新的字符序列，与 <em>substring();</em> 类似。</p></li>
+
+<li><p><strong><em><code>★ String replace(char oldChar, char newChar);</code></em></strong> &emsp; // 字符或字符序列替换，并返回替换后的字符串</p></li>
+
+<li><p><strong><em><code>String replaceAll(String regex, String replacement);</code></em></strong> &emsp; // 用所给的replacement替换该字符串中所有匹配所给正则表达式的子字符串，成功返回替换的字符串，失败则返回原字符串</p></li>
+
+<li><p><strong><em><code>String replaceFrist(String regex, String replacdement);</code></em></strong> &emsp; // 同 <em>replacAll();</em> 但只替换字符串中第一个满足正则的子串</p></li>
+
+<li><p><strong><em><code>boolean matches(String regex);</code></em></strong> &emsp; // 检测该字符串是否匹配所给的正则表达式</p></li>
+
+<li><p><strong><em><code>boolean contains(CharSequence cs);</code></em></strong> &emsp; // 检测该字符串是否包含所给的字符或字符序列</p></li>
+
+<li><p><strong><em><code>★ String concat(String str);</code></em></strong> &emsp; // 将所给的字符串拼接到该字符串后面，并返回新的对象</p></li>
+
+<li><p><strong><em><code>★ String[] split(String regex, int limit);</code></em></strong> &emsp; // 根据所给的正则表达式来切割该字符串，limit 指切割的份数，返回<strong>字符串数组</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>String retval <span style="color:#f92672">:</span> str<span style="color:#f92672">.</span><span style="color:#a6e22e">split</span><span style="color:#f92672">(</span>regex<span style="color:#f92672">,</span> limit<span style="color:#f92672">)){</span>
+<span style="color:#75715e">// 用for(** : **)来完成数组的元素接受，并进行操作
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>retval<span style="color:#f92672">);</span> 
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// 注：. $ | * 等转义字符必须用\\修饰才能使用
+</span><span style="color:#75715e">// 注：多种分隔符，可用 | 来连接，如 &#34;and|or&#34;
+</span></code></pre></div></li>
+
+<li><p><strong><em><code>String toLowerCase(); String toUpperCase();</code></em></strong> &emsp; // 将该字符串转为小写/大写</p></li>
+
+<li><p><strong><em><code>char[] toCharArray();</code></em></strong> &emsp; // 将该字符串转换为字符数组</p></li>
+
+<li><p><strong><em><code>★ String trim();</code></em></strong> &emsp; // 返回删除该字符串的首尾空白符的字符串</p></li>
+
+<li><p><strong><em><code>★ String intern();</code></em></strong> &emsp; // 复制该对象的内容给新的字符串并返回，并且将其存在常量池中</p></li>
+</ul>
+
+<p><strong style="color: #f3d">补充</strong>:</p>
+
+<ol>
+<li><p>字符串一旦创建对象，就不可在被修改 (<strong>优</strong>：让敏感数据变得安全些；<strong>缺</strong>：每次修改都要占据内存)</p></li>
+
+<li><p>内存分为：堆、栈、常量池 (它是堆的一块特殊区域，用于存储字符串字面量)</p></li>
+
+<li><p>字符串字面量（即“hello”），而字符串对象是由
+new String（“hello”） 创建的；字符串字面量存在常量池中，对象存在堆中；相同的字符串字面量会指向同一地址，而内容相同的字符串对象则指向不同的地址</p></li>
+</ol>
+
+<p><img src="https://gitee.com/wang-junqiang0420/blog_image/raw/master/image/SCP_heap.jpg" alt="SCP-heap" /></p>
+
+<p>除了 String 类之外，像 Integer、Double 等包装类也是一旦创建，不可改变的类</p>
+
+<p>如何创建不可改变的类，要遵循下面几步：</p>
+
+<ol>
+<li><p>类用 <code>final</code> 修饰，让其不再被继承</p></li>
+
+<li><p>字段用 <code>final</code> 修饰，让字段只能被构造器实例</p></li>
+
+<li><p>不要有 setter 方法</p></li>
+
+<li><p>当有 setter 这种能修改属性的方法时，应该要返回一个新的实例</p></li>
+
+<li><p>当类中有可变的对象时，要通过 cloneObject 作为中介，将参数交给 cloneObject，再让其交给真正的对象</p></li>
+</ol>
+
+<p>具体解释参考<a href="https://dzone.com/articles/how-to-create-an-immutable-class-in-java">how-to-create-an-immutable-class-in-java</a></p>
+
+<p><strong style="color: rgb(123, 85, 200)">值传递与引用传递</strong></p>
+
+<p><code>值传递</code>(pass by value): 将变量的值传给所调用的方法</p>
+
+<p><code>引用传递</code>(pass by reference): 将对象所指向的地址传给所调用的方法，类似 C 语言的传指针，所以无论是外部对象还是方法的形参对象都会对所指向的地址的值有影响</p>
+
+<p>若想让引用传递内外互不影响，那么就要让形参重新 new 个对象，如此就是两个不同的对象了</p>
+
+<p>其实，在 Java 中并没有指针的概念，引用传递也是一种值传递，只不过它传的是内存地址的值而非内容值</p>
+
+<p>详情参考<a href="https://blog.csdn.net/SummerOfFoam/article/details/109570841">CSDN SummerOfFoam 的解释</a> | <a href="https://initialcommit.com/blog/java-pass-reference-pass-value/">java-pass-reference-pass-value</a></p>
+
+<hr />
+
+<h2 id="stringbuilder">👁‍🗨 StringBuilder</h2>
+
+<p>为了解决字符串不可改变的问题，就有了 StringBuilder 类，它能在修改字符串而不产生新的对象，避免了创建多余的对象</p>
+
+<h3 id="构造器">构造器</h3>
+
+<ul>
+<li><p><code>StringBuilder()</code> &emsp; // 创建空串并给 16 的初始容量</p></li>
+
+<li><p><code>StringBuilder(String str)</code> &emsp; // 创建字符串对象，内容为所给的 str</p></li>
+
+<li><p><code>StringBuilder(int length)</code> &emsp; // 创建空串，并指定容量为 length</p></li>
+</ul>
+
+<h3 id="方法-1">方法</h3>
+
+<ul>
+<li><p><strong><em><code>append(String s)</code></em></strong> &emsp; // 在该字符串后追加所给的 str</p></li>
+
+<li><p><strong><em><code>insert(int offset, String s)</code></em></strong> &emsp; // 在该字符串的第 offset 字母后插入所给的字符串</p></li>
+
+<li><p><strong><em><code>replace(int start, int end, String str)</code></em></strong> &emsp; // 从第 start+1 个字母开始到第 end 个字母的字串被所给串替换</p></li>
+
+<li><p><strong><em><code>delete(int start, int end)</code></em></strong> &emsp; // 从第 start+1 个字母开始到第 end 个字母的字串被删除</p></li>
+
+<li><p><strong><em><code>capacity()</code></em></strong> &emsp; // 返回该 Builder 的当前容量，新建时空串默认为 16，非空串则为 16+所给串的长度；当追加后的长度超出初始值时，就会以 (oldcapacity * 2) + 2 来自动扩容</p></li>
+
+<li><p><strong><em><code>ensureCapacity(int minimumCapacity)</code></em></strong> &emsp; // 确保当前容量不少于指定的最小容量，若少则自动扩容，不少则不变</p></li>
+
+<li><p><strong><em><code>trimToSize()</code></em></strong> &emsp; // 将当前容量缩减到字符串的大小</p></li>
+
+<li><p><strong><em><code>length()</code></em></strong> &emsp; // 返回字符串的大小</p></li>
+
+<li><p><strong><em><code>substring(int start, int end)</code></em></strong> &emsp; // 返回指定的字串</p></li>
+</ul>
+
+<h3 id="链式调用">链式调用</h3>
+
+<p>当追加字符串时都要调用 <code>append()</code> 方法，但要是每次都写对象名就会显得有些多余，于是使用链式调用就会简化调用过程，让代码更加的简洁</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">StringBuilder sb <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuilder<span style="color:#f92672">();</span>
+
+<span style="color:#75715e">// 追加字符串
+</span><span style="color:#75715e"></span>sb<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;hello&#34;</span><span style="color:#f92672">);</span>
+sb<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">);</span>
+sb<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;world&#34;</span><span style="color:#f92672">);</span>
+sb<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;!&#34;</span><span style="color:#f92672">);</span>
+
+<span style="color:#75715e">/********************分割线*********************/</span>
+
+<span style="color:#75715e">// 使用链式调用追加字符串
+</span><span style="color:#75715e"></span>sb<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;hello&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;world&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;!&#34;</span><span style="color:#f92672">);</span></code></pre></div>
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2022/03/multithreading/">Multithreading</a></li>
+
+<li><a href="/2022/03/apache_common_io/">Apache_common_io</a></li>
+
+<li><a href="/2022/03/iostreame/">IOStreame</a></li>
+
+<li><a href="/2022/03/stringclass/">StringClass</a></li>
+
+<li><a href="/2022/03/exception/">Exception</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

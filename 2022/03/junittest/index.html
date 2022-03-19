@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="JunitTest" />
+<meta property="og:description" content="记录 Junit 的简单使用方法" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2022/03/junittest/" />
+<meta property="article:published_time" content="2022-03-10T16:12:05+08:00" />
+<meta property="article:modified_time" content="2022-03-10T16:12:05+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JunitTest"/>
+<meta name="twitter:description" content="记录 Junit 的简单使用方法"/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "JunitTest",
+  "url": "https://junq0420.github.io/2022/03/junittest/",
+  "wordCount": "166",
+  "datePublished": "2022-03-10T16:12:05+08:00",
+  "dateModified": "2022-03-10T16:12:05+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "Java, Java_Advance"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2022/03/junittest/">
+
+    <title>JunitTest | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/posts/" title="">Posts</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2022/03/junittest/">JunitTest</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-03-10T16:12:05+08:00">2022-03-10</time>
+ in 
+<span class="fas fa-folder" aria-hidden="true"></span>&nbsp;<a href="/categories/java/" rel="category tag">Java</a>
+
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/java_advance/" rel="tag">Java_Advance</a>
+
+</p>
+  </header>
+  <p>记录 Junit 的简单使用方法</p>
+
+<blockquote>
+<p><strong>学习笔记，仅供参考</strong></p>
+
+<p><strong>参考</strong>：<a href="https://www.yuque.com/books/share/ddbdba56-dc9f-4997-9e18-d9e69309d343/wgctzt">B站Mirco_Frank - java 进阶</a> | <a href="https://junit.org/junit5/">Junit 官网</a> | <a href="https://zhuanlan.zhihu.com/p/86624354">知乎上 Junit 详解</a></p>
+</blockquote>
+
+<hr />
+
+<p>在之前的学习中，一直都是在 main 方法中来运行测试代码。但是，通常 main 方法只是一个项目的入口点，而不是用来测试程序或者处理逻辑。所以要避免用 main 方法来测试代码，main 中最好只有几行调用方法。</p>
+
+<p>于是就引进了 Junit ，它是 Java 语言的测试框架</p>
+
+<h2 id="导入-junit-jar">🎨导入 Junit jar</h2>
+
+<p>与之前在 OOP 中导入 Lombok jar 的步骤一致</p>
+
+<p><strong style="color: red">步骤</strong></p>
+
+<ol>
+<li><p>在 <a href="https://mvnrepository.com/">maven 库</a> 中找到 Junit , 下载它的 jar 包</p></li>
+
+<li><p>将下好的 jar 包复制到 IDEA 中的 jar 包目录下</p></li>
+
+<li><p>然后右键，选择 “add as library &hellip;”</p></li>
+
+<li><p>想要使用 Junit 时，使用注解 <code>@Junit</code> 即可使用 Junit 框架</p></li>
+</ol>
+
+<p>注意有的 jar 包可能要引入依赖，所以当有的包不能用时，要考虑到是否需要依赖</p>
+
+<h2 id="junit-使用">⛳ Junit 使用</h2>
+
+<p>下面是一个使用 Junit 测试加法方法的示例</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyFirstJunitTest</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 引入注解，使用 Junit
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@Test</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">test</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        Calculator calc <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Calculator<span style="color:#f92672">();</span>
+        <span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> calc<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> 2<span style="color:#f92672">);</span>
+        <span style="color:#75715e">// 调用 Assert (断言) 类中的 assertEquals(long expected, long actual);
+</span><span style="color:#75715e"></span>        Assert<span style="color:#f92672">.</span><span style="color:#a6e22e">assertEquals</span><span style="color:#f92672">(</span>3<span style="color:#f92672">,</span> sum<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/**************分割线******************/</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Calculator</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// Calculator 中的 add 方法
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> numberA<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> numberB<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> numberA <span style="color:#f92672">+</span> numberB<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
+<p>测试的运行图如下：</p>
+
+<p><img src="https://gitee.com/wang-junqiang0420/blog_image/raw/master/image/Assert_assertEquals_exp.jpg" alt="测试成败对比" /></p>
+
+<p>其中，Assert.assertEquals(expected, actual) 来判断是否期望值是否与实际值相等，相等则通过；否则抛出异常，测试不通过</p>
+
+<p>该方法还有很多的重载方法，依次来判断不同类型的变量。例如: 对于 double 类型有 Assert.assertEquals(expected, acutal, delta)，因为计算机的浮点数是不精准的，所以用 δ 表示两浮点数的可接受的误差</p>
+
+<hr />
+
+<h2 id="junit-规则和作用">🧊 Junit 规则和作用</h2>
+
+<p>编写测试时要遵循的规则</p>
+
+<ol>
+<li><p>测试方法用 @Test 修饰</p></li>
+
+<li><p>测试方法必须使用 <code>public void</code> 修饰</p></li>
+
+<li><p>测试方法不能携带参数</p></li>
+
+<li><p>测试方法不能是 abstract</p></li>
+
+<li><p>测试代码与源码要在两个不同的项目路径下</p></li>
+
+<li><p>测试类的包要与被测试的包保持一致</p></li>
+
+<li><p>测试单元中的每个方法必须可以独立测试</p></li>
+</ol>
+
+<p>使用 Junit 的好处在于它使得测试变得<strong>单元化</strong>，每个方法都能但都测试各不影响，即使某个方法出错，别的方法测试也不会终止。而不像在 main 中测试的那样，一旦其中出现错误，整个程序都会终止，能够更加精确的定位到某个方法。</p>
+
+<p><img src="https://gitee.com/wang-junqiang0420/blog_image/raw/master/image/Unit_testing.jpg
+" alt="unit testing" height="500px"></p>
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2022/03/multithreading/">Multithreading</a></li>
+
+<li><a href="/2022/03/apache_common_io/">Apache_common_io</a></li>
+
+<li><a href="/2022/03/iostreame/">IOStreame</a></li>
+
+<li><a href="/2022/03/stringclass/">StringClass</a></li>
+
+<li><a href="/2022/03/exception/">Exception</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>
