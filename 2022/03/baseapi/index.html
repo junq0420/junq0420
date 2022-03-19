@@ -28,7 +28,7 @@
   "@type": "BlogPosting",
   "headline": "BaseAPI",
   "url": "https://junq0420.github.io/2022/03/baseapi/",
-  "wordCount": "1233",
+  "wordCount": "1258",
   "datePublished": "2022-03-02T13:53:31+08:00",
   "dateModified": "2022-03-02T13:53:31+08:00",
   "author": {
@@ -128,11 +128,60 @@
 
 <hr />
 
+<style>
+.icon {
+    position: fixed;
+    opacity: 50%;
+    margin-top: 40%;
+    margin-left: 90%;
+}
+</style>
+
+<p><a name="return-top"></a>
+        <div class="icon">
+            <a href="#return-top">
+                <img src="https://gitee.com/wang-junqiang0420/blog_image/raw/master/image/scroll_top.jpg
+" alt="row" height="50px">
+            </a>
+        </div></p>
+
+<hr />
+
+<h2 id="目录">目录</h2>
+
+<ul>
+<li><p><a href="#Scanner">Scanner</a></p></li>
+
+<li><p><a href="#Number">Number</a></p>
+
+<ul>
+<li><p><a href="#装箱与拆箱">装箱与拆箱</a></p></li>
+
+<li><p><a href="#Integer">Integer</a></p></li>
+</ul></li>
+
+<li><p><a href="#Math">Math</a></p></li>
+
+<li><p><a href="#Random">Random</a></p></li>
+
+<li><p><a href="#ThreadLocalRandom">ThreadLocalRandom</a></p></li>
+
+<li><p><a href="#Date">Date</a></p></li>
+
+<li><p><a href="#DateFormat">DateFormat 和 SimpleDateFormat</a></p></li>
+
+<li><p><a href="#Calendar">Calendar</a></p></li>
+
+<li><p><a href="#System">System</a></p></li>
+</ul>
+
+<hr />
+
 <p>API (Application Programming Interface) 就是给用户、开发者看的、用的。</p>
 
 <p>而 JavaAPI 就是给 Java 开发者看的用的，一般 API 还伴有 API 文档，它用来给开发者参考、学习。</p>
 
-<h2 id="scanner">🔊 Scanner</h2>
+<h2 id="a-name-scanner-scanner-a">🔊 <a name="Scanner">Scanner</a></h2>
 
 <p><a href="https://www.javatpoint.com/post/java-scanner-close-method">练习 Scanner 方法</a></p>
 
@@ -202,13 +251,13 @@
 
 <hr />
 
-<h2 id="number">🎱 Number</h2>
+<h2 id="a-name-number-number-a">🎱 <a name="Number">Number</a></h2>
 
 <p>它是个抽象类，继承自 Object，子类包含有 Integer、Double等基本类型的包装类，它本身没有太多东西，主要是它的这些子类（即包装类）</p>
 
 <p>之所以让基本类型有它们的包装类，就是想让它们能像操作对象一样被操作。包装类都是 <code>final</code> 的，即它们不再被继承。</p>
 
-<h3 id="装箱与拆箱">装箱与拆箱</h3>
+<h3 id="a-name-装箱与拆箱-装箱与拆箱-a"><a name="装箱与拆箱">装箱与拆箱</a></h3>
 
 <p>装箱就是将基本类型的变量赋给包装类对象</p>
 
@@ -237,7 +286,7 @@
 </span><span style="color:#75715e"></span> <span style="color:#66d9ef">double</span> baseDouble <span style="color:#f92672">=</span> integerA<span style="color:#f92672">.</span><span style="color:#a6e22e">doubleValue</span><span style="color:#f92672">();</span></code></pre></div>
 <p>下面以 Integer 为例列举一些字段和方法，其他保装类型参考文档。</p>
 
-<h3 id="integer">Integer</h3>
+<h3 id="a-name-integer-integer-a"><a name="Integer">Integer</a></h3>
 
 <p><strong>字段</strong>：</p>
 
@@ -309,7 +358,7 @@
 
 <hr />
 
-<h2 id="math">💊 Math</h2>
+<h2 id="a-name-math-math-a">💊 <a name="Math">Math</a></h2>
 
 <p>类似 C 语言中的 <code>&lt;math.h&gt;</code> ，它的方法全是 static，像工具包一样，直接用类名调方法即可，不必再 new 一个对象使用。</p>
 
@@ -390,7 +439,7 @@
 </span><span style="color:#75715e"></span>Math<span style="color:#f92672">.</span><span style="color:#a6e22e">tan</span><span style="color:#f92672">(</span>Math<span style="color:#f92672">.</span><span style="color:#a6e22e">toRadians</span><span style="color:#f92672">(</span>45<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">))</span></code></pre></div>
 <hr />
 
-<h2 id="random">👒 Random</h2>
+<h2 id="a-name-random-random-a">👒 <a name="Random">Random</a></h2>
 
 <p>用来生成一串伪随机数，在多线程中可以用其子类 <code>ThreadLocalRandom</code>，要想保证数据安全可用其子类 <code>SecureRandom</code></p>
 
@@ -418,7 +467,7 @@
 
 <hr />
 
-<h2 id="threadlocalrandom">🎯 ThreadLocalRandom</h2>
+<h2 id="a-name-threadlocalrandom-threadlocalrandom-a">🎯 <a name="ThreadLocalRandom">ThreadLocalRandom</a></h2>
 
 <p>因为该类的构造器被 <code>private</code> 修饰，所以该类不能实例化。但可以用它的静态方法 <code>current()</code> 来获取一个实例，即这就是 OOP 中 static 的第二用法，单例模式。</p>
 
@@ -444,7 +493,7 @@
 
 <hr />
 
-<h2 id="date">🏏 Date</h2>
+<h2 id="a-name-date-date-a">🏏 <a name="Date">Date</a></h2>
 
 <p>早期的 Date 类有两个功能：</p>
 
@@ -488,7 +537,7 @@
 
 <hr />
 
-<h2 id="dateformat-和-simpledateformat">🔮 DateFormat 和 SimpleDateFormat</h2>
+<h2 id="a-name-dateformat-dateformat-和-simpledateformat-a">🔮 <a name="DateFormat">DateFormat 和 SimpleDateFormat</a></h2>
 
 <p>由于 DateFormat 是抽象类，所以要么用它的子类 SimpleDateFormat 或静态方法，子类一会再说，先看DateFormat</p>
 
@@ -570,7 +619,7 @@
 
 <hr />
 
-<h2 id="calendar">📆 Calendar</h2>
+<h2 id="a-name-calendar-calendar-a">📆 <a name="Calendar">Calendar</a></h2>
 
 <p>它是个抽象类，继承自 Object，所以同 DateFormat 一样，通过静态方法 <code>getInstance()</code> 获取子类的实例</p>
 
@@ -622,7 +671,7 @@
 
 <hr />
 
-<h2 id="system">💻 System</h2>
+<h2 id="a-name-system-system-a">💻 <a name="System">System</a></h2>
 
 <p>System 这个类其实早就接触过，开始 Java 时就用到它的 <code>System.out.println();</code> 来打印，在 Scanner 中又用到它的 <code>System.in</code> 来接受键盘的输入。下面就正真地来了解 System class</p>
 
@@ -710,7 +759,7 @@
 
 <li><a href="/2022/03/apache_common_io/">Apache_common_io</a></li>
 
-<li><a href="/2022/03/iostreame/">IOStreame</a></li>
+<li><a href="/2022/03/iostream/">IOStream</a></li>
 
 <li><a href="/2022/03/stringclass/">StringClass</a></li>
 
