@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Collection-Framework" />
+<meta property="og:description" content="记录 JavaSE 中集合框架" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2022/03/collection-framework/" />
+<meta property="article:published_time" content="2022-03-25T14:14:58+08:00" />
+<meta property="article:modified_time" content="2022-03-25T14:14:58+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Collection-Framework"/>
+<meta name="twitter:description" content="记录 JavaSE 中集合框架"/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Collection-Framework",
+  "url": "https://junq0420.github.io/2022/03/collection-framework/",
+  "wordCount": "932",
+  "datePublished": "2022-03-25T14:14:58+08:00",
+  "dateModified": "2022-03-25T14:14:58+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "Java, Java_Advance"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2022/03/collection-framework/">
+
+    <title>Collection-Framework | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/posts/" title="">Posts</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2022/03/collection-framework/">Collection-Framework</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-03-25T14:14:58+08:00">2022-03-25</time>
+ in 
+<span class="fas fa-folder" aria-hidden="true"></span>&nbsp;<a href="/categories/java/" rel="category tag">Java</a>
+
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/java_advance/" rel="tag">Java_Advance</a>
+
+</p>
+  </header>
+  <p>记录 JavaSE 中集合框架</p>
+
+<blockquote>
+<p><strong>学习笔记，仅供参考</strong></p>
+
+<p><strong>参考</strong>：<a href="https://www.yuque.com/books/share/ddbdba56-dc9f-4997-9e18-d9e69309d343/wgctzt">B站Mirco_Frank - java 进阶</a> | <a href="https://docs.oracle.com/javase/tutorial/collections/index.html">官网教程</a> | <a href="https://docs.oracle.com/javase/9/docs/api/java/util/Collection.html">JDK-9 API</a> | <a href="https://www.javatpoint.com/collections-in-java">javatpoint 教程-可供练习</a></p>
+</blockquote>
+
+<hr />
+
+<p>由于传统的数组在增删改查和扩容等功能上很难操作，所以为了弥补这些功能，Java 中就有了集合框架。它使用起来更加方便，也不用去深究那些细节上的问题。在 API 中属于 <code>java.util.Collections</code> 包</p>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/Collection_framework.jpg" alt="Collection_Framework" /></p>
+
+<h2 id="colletion">🚄 Colletion</h2>
+
+<p>贵人暂且不提，先说家族的创始人 <code>Colletion</code> 接口，Collection 代表着一群的对象，类似于数组，每个对象也被称作 <strong>元素</strong>。有的集合允许有重复的元素，有的则不允许；有的集合是有顺序的，有的则是无序的。既然 Collection 接口是家族老大，那自然就不会亲自出马办事，都是交给手下来办。所以就有了子接口 <code>List</code>, <code>Queue</code>, <code>Set</code> 这些当家的，当家的也不会随便出手，于是就交给它的 <strong>实现类</strong> 们来办理家族上下事。</p>
+
+<p>老大当然也不是吃闲饭的，为了能让家族更好的运转，它要制定一些规矩(<strong>Colletion 的方法</strong>)，底下的小弟(实现类)都要遵守。下面简单列举一些，具体的到实现类的时候在详细说明</p>
+
+<h3 id="方法">方法</h3>
+
+<ul>
+<li><p><strong><em><code>add(E e)</code></em></strong> &emsp; // 确保集合包含此元素（有则可加可不加，无则加）</p></li>
+
+<li><p><strong><em><code>clear()</code></em></strong> &emsp; // 清除集合中所有的元素</p></li>
+
+<li><p><strong><em><code>contains(Object o)</code></em></strong> &emsp; // 判断集合中是否含有此元素，true 有；false 无</p></li>
+
+<li><p><strong><em><code>equals(Object o)</code></em></strong> &emsp; // 比较指定对象与此集合是否相等</p></li>
+
+<li><p><strong><em><code>hashCode()</code></em></strong> &emsp; // 返回此集合的 hashcode 值</p></li>
+
+<li><p><strong><em><code>isEmpty()</code></em></strong> &emsp; // 判断此集合是否为空</p></li>
+
+<li><p><strong><em><code>iterator()</code></em></strong> &emsp; // 重写 Iterable 的，遍历集合的所有元素，并返回</p></li>
+
+<li><p><strong><em><code>remove(Object o)</code></em></strong> &emsp; // 从集合中删除指定的元素，若其存在</p></li>
+
+<li><p><strong><em><code>size()</code></em></strong> &emsp; // 返回当前集合中元素的数量</p></li>
+
+<li><p><strong><em><code>toArray()</code></em></strong> &emsp; // 返回一个包含集合所有元素的数组</p></li>
+</ul>
+
+<hr />
+
+<h2 id="list-queue-set">List, Queue, Set</h2>
+
+<p>介绍完老大，接着简述一下三个当家的，它们分别是 <code>List</code>, <code>Queue</code>, <code>Set</code> 。它们分别代表着集合的三种不同的类型，<strong>列表</strong>、<strong>队列</strong>、<strong>集合</strong>，下面依次说明</p>
+
+<p><strong>List</strong> 是有顺序的集合，可以通过下标来访问或查询集合中的元素。它也运行有重复的元素，允许有空元素(null)，所以它不擅长实现非重复元素的特性。它也制定了一些方法来让操作数据更加的方便高效，具体的实现类有：ArrayList、LikedList、Stack、Vector</p>
+
+<p><strong>Queue</strong> 是用来处理之前所保存元素的集合，一般情况下是先进先出(FIFO)的规则来处理数据，但有时候也可以根据特定的需求来处理。具体的实现类有：PriorityQueue、Deque、ArrayDeque</p>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/Collection_Queue_methods.jpg" alt="Summary_Queue_methods" /></p>
+
+<p><strong>Set</strong> 是无序、不重复的集合，正如其名，它就像是对数学上的集合的抽象表示。每个 Set 至多只能存放一个空值。具体实现类：HashSet、LikedHashSet、TreeSet</p>
+
+<hr />
+
+<h2 id="arraylist">💡 ArrayList</h2>
+
+<p>ArrayList 是家族中的其中一个管事的(实现类)，是属于大当家(List)下的。</p>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/ArrayList%20_extend_map.jpg" alt="ArrayList 继承图" height="350px"></p>
+
+<h3 id="优缺点">优缺点</h3>
+
+<p><strong>优点</strong>：作为传统数组的加强版，它更加的灵活，没有大小的限制能够自动的扩容；随时地增删元素；直接通过下标就能查找到元素；允许有重复、空元素</p>
+
+<p><strong>缺点</strong>：增删改元素需要遍历才能完成操作；在多线程中，它的实例是不同步的</p>
+
+<h3 id="底层原理">底层原理</h3>
+
+<p>ArrayList 的底层也是用原始的数组构成的，所以它与传统的数组类似。但它能够自动扩容，一种简单的实现是内部新建个容量更大数组，然后将原来的元素搬过去，再让数组名引用新的数组即实现扩容。由于是数组实现，所以查找指定下标的元素就十分快。但插入和删除元素时，则要将指定下标后面的元素挨个搬迁十分麻烦</p>
+
+<h3 id="构造器">构造器</h3>
+
+<ul>
+<li><p><strong><em><code>ArrayList()</code></em></strong> &emsp; // 构造一个空列表，并初始化容量为 10</p></li>
+
+<li><p><strong><em><code>ArrayList(int initialCapacity)</code></em></strong> &emsp; // 构造一个空列表，并指定其容量</p></li>
+</ul>
+
+<h3 id="方法-1">方法</h3>
+
+<ul>
+<li><p><strong><em><code>add(E e)</code></em></strong> &emsp; // 在列表尾部追加所给的元素</p></li>
+
+<li><p><strong><em><code>add(int index, E e)</code></em></strong> &emsp; // 在表的指定下标位置插入所给数据，但所给下标不可超过表的大小，否则抛出下标越界异常</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 新建 ArrayList 对象，泛型指定为 String 类型
+</span><span style="color:#75715e"></span>ArrayList<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+
+<span style="color:#75715e">// 添加元素
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Frank&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// 集合尾部追加所给元素
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">);</span>
+
+list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Jerry&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// 指定下标插入数据
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>2<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Mike&#34;</span><span style="color:#f92672">);</span>
+
+list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>5<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Puck&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// 指定的下标超过 size - 1，抛出 IndexOutOfBoundsException
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>100<span style="color:#f92672">);</span>  <span style="color:#75715e">// 插入元素非 String 类型，编译报错
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 因为有泛型，所以它也能添加对象作为元素
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/**
+</span><span style="color:#75715e">*  编写 Student类
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Student</span> <span style="color:#f92672">{</span>
+<span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Student</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> age<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> age<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;\n$ name: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span>
+            <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;| age: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; $&#34;</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// 在 ArrayList 集合中插入 Student 对象
+</span><span style="color:#75715e"></span>ArrayList<span style="color:#f92672">&lt;</span>Student<span style="color:#f92672">&gt;</span> studentList <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+
+studentList<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Student<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">,</span> 12<span style="color:#f92672">));</span>
+studentList<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Student<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Jerry&#34;</span><span style="color:#f92672">,</span> 13<span style="color:#f92672">));</span>
+studentList<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> Student<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Frank&#34;</span><span style="color:#f92672">,</span> 18<span style="color:#f92672">));</span>
+<span style="color:#75715e">// 打印集合直接输出即可，会自动调用它的 toString 方法
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>studentList<span style="color:#f92672">);</span>
+
+<span style="color:#75715e">/* 
+</span><span style="color:#75715e">print result: 
+</span><span style="color:#75715e">[
+</span><span style="color:#75715e">$ name: Frank| age: 18 $, 
+</span><span style="color:#75715e">$ name: Tom| age: 13 $, 
+</span><span style="color:#75715e">$ name: Jerry| age: 14 $]
+</span><span style="color:#75715e">*/</span></code></pre></div></li>
+
+<li><p><strong><em><code>addAll(Collection&lt;? extends E&gt; c)</code></em></strong> &emsp; // 将所给集合的所有元素追加到该集合的尾部</p></li>
+
+<li><p><strong><em><code>addAll(int index, Collection&lt;? extends E&gt; c)</code></em></strong> &emsp; // 将所给集合的所有元素插入到该集合指定的下标</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 对于不同的类型则不允许合并集合
+</span><span style="color:#75715e"></span>ArrayList<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> list1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+ArrayList<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> list2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+
+list1<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>
+list1<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>2<span style="color:#f92672">);</span>
+
+list2<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>8<span style="color:#f92672">);</span>
+list2<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>9<span style="color:#f92672">);</span>
+
+list1<span style="color:#f92672">.</span><span style="color:#a6e22e">addAll</span><span style="color:#f92672">(</span>list2<span style="color:#f92672">);</span>
+list2<span style="color:#f92672">.</span><span style="color:#a6e22e">addAll</span><span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> list2<span style="color:#f92672">);</span>
+
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>list1<span style="color:#f92672">);</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>list2<span style="color:#f92672">);</span>
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">print result: 
+</span><span style="color:#75715e">list1: [1, 2, 8, 9]
+</span><span style="color:#75715e">list2: [8, 8, 9, 9]
+</span><span style="color:#75715e">*/</span></code></pre></div></li>
+
+<li><p><strong><em><code>toArray()</code></em></strong> &emsp; // 从头到尾复制该集合中的元素，将元素放到 Object[] 中，并返回</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// insert elements
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>2<span style="color:#f92672">);</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>3<span style="color:#f92672">);</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>4<span style="color:#f92672">);</span>
+<span style="color:#75715e">// convert to array
+</span><span style="color:#75715e"></span>Object<span style="color:#f92672">[]</span> arr <span style="color:#f92672">=</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">toArray</span><span style="color:#f92672">();</span>
+<span style="color:#75715e">// for-each 遍历数组
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>Object value <span style="color:#f92672">:</span> arr<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>value <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;, &#34;</span><span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+<span style="color:#75715e">// for-i 遍历操作
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> arr<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(((</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)</span> arr<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> 1<span style="color:#f92672">)</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;, &#34;</span><span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">print result:
+</span><span style="color:#75715e">1, 2, 3, 4, 
+</span><span style="color:#75715e">2, 3, 4, 5, 
+</span><span style="color:#75715e">*/</span></code></pre></div></li>
+
+<li><p><strong><em><code>clear()</code></em></strong> &emsp; // 清空集合中所有元素</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// insert elements
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>2<span style="color:#f92672">);</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>3<span style="color:#f92672">);</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>4<span style="color:#f92672">);</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>list<span style="color:#f92672">);</span>
+<span style="color:#75715e">// clear list
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">clear</span><span style="color:#f92672">();</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>list<span style="color:#f92672">);</span>
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">print result: 
+</span><span style="color:#75715e">[1, 2, 3, 4]
+</span><span style="color:#75715e">[]
+</span><span style="color:#75715e">*/</span></code></pre></div></li>
+
+<li><p><strong><em><code>clone()</code></em></strong> &emsp; // 克隆该集合并返回</p></li>
+
+<li><p><strong><em><code>contains(Object o)</code></em></strong> &emsp; // 判断集合中是否有指定的元素，有 true；无 false</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// insert elements
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>2<span style="color:#f92672">);</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>3<span style="color:#f92672">);</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>4<span style="color:#f92672">);</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">contains</span><span style="color:#f92672">(</span>1<span style="color:#f92672">));</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">contains</span><span style="color:#f92672">(</span>5<span style="color:#f92672">));</span>
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">print result: 
+</span><span style="color:#75715e">true
+</span><span style="color:#75715e">false
+</span><span style="color:#75715e">*/</span></code></pre></div></li>
+
+<li><p><strong><em><code>size()</code></em></strong> &emsp; // 返回该集合的容量（即含有元素的个数）</p></li>
+
+<li><p><strong><em><code>get(int index)</code></em></strong> &emsp; // 获取集合中指定下标的元素, 若下标超过 size - 1，则抛出下标越界异常</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// insert elements
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>2<span style="color:#f92672">);</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>3<span style="color:#f92672">);</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>4<span style="color:#f92672">);</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;size: &#34;</span> <span style="color:#f92672">+</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">());</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;the element of specified index : &#34;</span> <span style="color:#f92672">+</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>1<span style="color:#f92672">));</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;the element of specified index : &#34;</span> <span style="color:#f92672">+</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>5<span style="color:#f92672">));</span>
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">print result: 
+</span><span style="color:#75715e">size: 4
+</span><span style="color:#75715e">the element of specified index : 2
+</span><span style="color:#75715e">throws IndexOutOfBoundsException
+</span><span style="color:#75715e">*/</span></code></pre></div></li>
+
+<li><p><strong><em><code>indexOf(Object o)</code></em></strong> &emsp; // 返回指定元素的下标，多个重复的，只返回从头到尾的第一个的 index</p></li>
+
+<li><p><strong><em><code>lastIndexOf(Object o)</code></em></strong> &emsp; // 与 indexOf 类似，它是从尾到头的第一个的 index</p></li>
+
+<li><p><strong><em><code>isEmpty()</code></em></strong> &emsp; // 判断集合是否为空，空 true；非空 false</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">ArrayList<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+ArrayList<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> listEmpty <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+<span style="color:#75715e">// insert elements
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>2<span style="color:#f92672">);</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>4<span style="color:#f92672">);</span>
+
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">indexOf</span><span style="color:#f92672">(</span>1<span style="color:#f92672">));</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">lastIndexOf</span><span style="color:#f92672">(</span>1<span style="color:#f92672">));</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">());</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>listEmpty<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">());</span>
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">print result: 
+</span><span style="color:#75715e">0
+</span><span style="color:#75715e">2
+</span><span style="color:#75715e">false
+</span><span style="color:#75715e">true
+</span><span style="color:#75715e">*/</span></code></pre></div></li>
+
+<li><p><strong><em><code>remove(int index)</code></em></strong> &emsp; // 删除集合中指定下标的元素</p></li>
+
+<li><p><strong><em><code>remove(Object o)</code></em></strong> &emsp; // 从头到尾顺序，删除集合中与所给值相同的的第一个元素</p></li>
+
+<li><p><strong><em><code>removeAll(Collection&lt;?&gt; c)</code></em></strong> &emsp; // 删除该集合与所给集合的交集元素</p></li>
+
+<li><p><strong><em><code>retainALl(Collection&lt;?&gt; c)</code></em></strong> &emsp; // 保留该集合与所给集合的交集元素，即删除那些交集之外的元素</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 假设 list1 为 [1, 2, 1, 4]
+</span><span style="color:#75715e">//     list2 为 [1] 
+</span><span style="color:#75715e"></span>list1<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>  <span style="color:#75715e">// 根据元素删除，list1: [2, 1, 4]
+</span><span style="color:#75715e"></span>list1<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>  <span style="color:#75715e">// 根据下标删除，list1: [1, 1, 4]
+</span><span style="color:#75715e"></span>list1<span style="color:#f92672">.</span><span style="color:#a6e22e">removeAll</span><span style="color:#f92672">(</span>list2<span style="color:#f92672">);</span>  <span style="color:#75715e">// list1: [2, 4]
+</span><span style="color:#75715e"></span>list1<span style="color:#f92672">.</span><span style="color:#a6e22e">retainAll</span><span style="color:#f92672">(</span>list2<span style="color:#f92672">);</span>  <span style="color:#75715e">// list1: [1, 1]
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// ★ 注意：当ArrayList 的元素类型为 Integer 时，再调用 remove() 方法，它默认会以下标删除为准，但可以通过 Integer 自动装箱将参数转为对象，如：list1.remove((Integer) 1), 这样就是根据对象删除
+</span></code></pre></div></li>
+
+<li><p><strong><em><code>replaceAll(UnaryOperator&lt;E&gt; operator)</code></em></strong> &emsp; // 根据所给的操作来替换集合中每个元素</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 该方法涉及到泛型和接口等知识，暂时无法理解，仅知道简单的用法
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 假设 list 集合中元素为 [&#34;Red&#34;, &#34;Green&#34;, &#34;Blue&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">replaceAll</span><span style="color:#f92672">(</span> e <span style="color:#f92672">-&gt;</span> <span style="color:#e6db74">&#34;White&#34;</span> <span style="color:#f92672">);</span>  <span style="color:#75715e">// list: [&#34;White&#34;, &#34;White&#34;, &#34;White&#34;]
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 假设 list 集合中元素为 [1, 2, 3]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">replaceAll</span><span style="color:#f92672">(</span> e <span style="color:#f92672">-&gt;</span> e <span style="color:#f92672">+</span> 10 <span style="color:#f92672">);</span>  <span style="color:#75715e">// list: [11, 12, 13]
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 利用 lambda 表达式，将集合的每个元素都做了变换的操作
+</span></code></pre></div></li>
+
+<li><p><strong><em><code>set(int index, E e)</code></em></strong> &emsp; // 将集合中指定的下标元素替换为所给的元素</p></li>
+
+<li><p><strong><em><code>Collections.sort()</code></em></strong> &emsp; // 对所给的集合进行排序，数字按大小排序，字母按 A-Z 顺序排序</p></li>
+
+<li><p><strong><em><code>Collections.reverseOrder()</code></em></strong> &emsp; // 对集合进行降序排列</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// ★ 由于 ArrayList 自带的 sort 方法涉及到泛型、接口，所以使用 Collections.sort() 更加方便 
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 假设 list 为 [&#34;Tom&#34;, &#34;Frank&#34;, &#34;Mike&#34;, &#34;Rose&#34;]
+</span><span style="color:#75715e"></span>Collections<span style="color:#f92672">.</span><span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>list<span style="color:#f92672">);</span>  <span style="color:#75715e">// list: [&#34;Frank&#34;, &#34;Mike&#34;, &#34;Rose&#34;, &#34;Tom&#34;]
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 假设 list 为 [2, 4, 1, 3]
+</span><span style="color:#75715e"></span>Collections<span style="color:#f92672">.</span><span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>list<span style="color:#f92672">);</span>  <span style="color:#75715e">// list: [1, 2, 3, 4]
+</span><span style="color:#75715e"></span>Collections<span style="color:#f92672">.</span><span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>list<span style="color:#f92672">,</span> Collections<span style="color:#f92672">.</span><span style="color:#a6e22e">reverseOrder</span><span style="color:#f92672">());</span>  <span style="color:#75715e">// list: [4, 3, 2, 1]
+</span></code></pre></div></li>
+
+<li><p><strong><em><code>subList​(int fromIndex, int toIndex)</code></em></strong> &emsp; // 返回从 fromIndex 下标开始，取 (toIndex - fromIndex) 个元素的子集合，相当于数学上的[fromIndex, toIndex)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 假设 list 为 [&#34;A&#34;, &#34;B&#34;, &#34;C&#34;, &#34;D&#34;, &#34;E&#34;, &#34;F&#34;, &#34;G&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">subList</span><span style="color:#f92672">(</span>2<span style="color:#f92672">,</span> 5<span style="color:#f92672">);</span>  <span style="color:#75715e">// list: [&#34;C&#34;, &#34;D&#34;, &#34;E&#34;]
+</span></code></pre></div></li>
+
+<li><p><strong><em><code>trimToSize​()</code></em></strong> &emsp; // 将该集合的容量裁剪至当前的大小, ★ 注意 ArrayList 没有获取集合容量的方法</p></li>
+</ul>
+
+<hr />
+
+<h2 id="linkedlist">🔗 LinkedList</h2>
+
+<p>LinkedList 是 List 接口的又一个实现类，它与 ArrayList 不同的是，它是基于 <strong>双向链表</strong> 的形式来构成的集合</p>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/LikedList_extend_map.jpg" alt="LinkedList_extend_map" height="400"></p>
+
+<h3 id="优缺点-1">优缺点</h3>
+
+<p><strong>优点</strong> ：增删数据方便，不像 ArrayList 得一个个的搬迁；允许有重复的元素；也可用来作堆栈、队列</p>
+
+<p><strong>缺点</strong> ：查询数据较麻烦，要经过遍历才能找到指定位置的数据；多线程中不同步</p>
+
+<h3 id="底层实现">底层实现</h3>
+
+<p>LinkedList 是基于双向链表的形式实现的，所以它要有前驱引用、后驱引用（类似指针）和数据位。增删数据时只需改动引用即可实现插入和删除操作。但查询数据时可能要从某个节点开始遍历，直到找到符合的元素将其返回</p>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/Double_Linked.jpg" alt="双向链表" /></p>
+
+<h3 id="构造器-1">构造器</h3>
+
+<ul>
+<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; // 构建一个空集合</p></li>
+
+<li><p><strong><em><code>LinkedList(Collection&lt;? extends E&gt; c)</code></em></strong> &emsp; // 构建一个集合，且包含所给集合的元素</p></li>
+</ul>
+
+<h3 id="方法-2">方法</h3>
+
+<ul>
+<li><p><strong><em><code>add(E e)</code></em></strong> &emsp; // 在集合尾部追加元素</p></li>
+
+<li><p><strong><em><code>add(int index, E e)</code></em></strong> &emsp; // 在集合的指定下标插入元素</p></li>
+
+<li><p><strong><em><code>addAll(Collection&lt;? extends E&gt; c)</code></em></strong> &emsp; // 在该集合的尾部追加所给集合的所有元素，重载方法多了 index 指定下标处添加</p></li>
+
+<li><p><strong><em><code>addFirst(E e)</code></em></strong> &emsp; // 在集合开头插入指定元素</p></li>
+
+<li><p><strong><em><code>addLast(E e)</code></em></strong> &emsp; // 在集合结尾插入指定元素</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 创建 LinkedList 集合
+</span><span style="color:#75715e"></span>LinkedList<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LinkedList<span style="color:#f92672">&lt;&gt;();</span>
+LinkedList<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> listAll <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LinkedList<span style="color:#f92672">&lt;&gt;();</span>
+
+list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// list: [&#34;Tom&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Jerry&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// list: [&#34;Tom&#34;, &#34;Jerry&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Frank&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// list: [&#34;Frank&#34;, &#34;Tom&#34;, &#34;Jerry&#34;]
+</span><span style="color:#75715e"></span>
+listAll<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Alan&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// listAll: [&#34;Alan&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">addAll</span><span style="color:#f92672">(</span>listAll<span style="color:#f92672">);</span>  <span style="color:#75715e">// 结尾追加，list: [&#34;Frank&#34;, &#34;Tom&#34;, &#34;Jerry&#34;, &#34;Alan&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">addAll</span><span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> listAll<span style="color:#f92672">);</span>  <span style="color:#75715e">// 指定下标添加，list: [&#34;Alan&#34;, &#34;Frank&#34;, &#34;Tom&#34;, &#34;Jerry&#34;]
+</span><span style="color:#75715e"></span>
+list<span style="color:#f92672">.</span><span style="color:#a6e22e">addFirst</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;First&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// list: [&#34;First&#34;, &#34;Frank&#34;, &#34;Tom&#34;, &#34;Jerry&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">addLast</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Last&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// list: [ &#34;Frank&#34;, &#34;Tom&#34;, &#34;Jerry&#34;, &#34;Last&#34;]
+</span></code></pre></div></li>
+
+<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+
+<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+
+<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+
+<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+
+<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+
+<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+
+<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+
+<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+
+<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+
+<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+
+<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; // 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</p></li>
+</ul>
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2022/03/develop_standard/">Develop_Standard</a></li>
+
+<li><a href="/2022/03/advance/">Advance</a></li>
+
+<li><a href="/2022/03/querystatement/">QueryStatement</a></li>
+
+<li><a href="/2022/03/primary_key/">Primary_key</a></li>
+
+<li><a href="/2022/03/datatype/">DataType</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

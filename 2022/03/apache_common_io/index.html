@@ -28,7 +28,7 @@
   "@type": "BlogPosting",
   "headline": "Apache_common_io",
   "url": "https://junq0420.github.io/2022/03/apache_common_io/",
-  "wordCount": "207",
+  "wordCount": "725",
   "datePublished": "2022-03-19T13:55:16+08:00",
   "dateModified": "2022-03-19T13:55:16+08:00",
   "author": {
@@ -126,13 +126,15 @@
 <p><strong>参考</strong>：<a href="https://www.yuque.com/books/share/ddbdba56-dc9f-4997-9e18-d9e69309d343/wgctzt">B站Mirco_Frank - java 进阶</a> | <a href="https://commons.apache.org/proper/commons-io/">Apache common io official site</a> | <a href="https://commons.apache.org/proper/commons-io/apidocs/index.html">Reference API doc</a></p>
 </blockquote>
 
+<hr />
+
 <h2 id="apache-common-io">Apache common io</h2>
 
 <p>apache 开发的用于 io 操作的工具包，提供了多种方法来操作不同类型的流、文件等。<a href="https://mvnrepository.com/artifact/commons-io/commons-io/2.7">Maven 库下载 commons-io/2.7</a></p>
 
 <hr />
 
-<h2 id="ioutils">🧪 IOUtils</h2>
+<h2 id="ioutils-class">🧪 IOUtils Class</h2>
 
 <p>常用的 IO 流的操作在 <code>IOUtils</code> 类中，该类的方法都是静态的，所以可以直接用类名调用，而且读数据的方法内部都有 4K buffer 缓存区，直接用就好，也不用 new BufferedInputStream 了。</p>
 
@@ -177,6 +179,194 @@
 </span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>numberOfCharsRead<span style="color:#f92672">);</span> <span style="color:#75715e">// print return value : 7
 </span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span>chars<span style="color:#f92672">));</span>  <span style="color:#75715e">// char[] -&gt; String and print result : &#34;Hello-W&#34;
 </span></code></pre></div>
+<p>重载方法 <code>IOUtils.read(Inputstream, bytes, offset, length)</code> ，指从输入流中读取数据到 byte 数组中，其中 offset 指从 byte 的那个下标开始存放数据，length 为要存放的数据长度（字节数）。对 Reader 也是类似的</p>
+
+<hr />
+
+<h3 id="ioutils-readfully"><strong>IOUtils.readFully()</strong></h3>
+
+<p><code>IOUtils.readFully(InputStream, byte[])</code> &emsp; // 与 read 类似，它试图读取数据来填满 byte 数组，若是填不满（即数组长度大于文件的内容），就会抛出 EOFException，返回为 void</p>
+
+<p>这里就不再演示了，重载方法也是 <code>IOUtils.readFully(Inputstream, bytes, offset, length)</code></p>
+
+<hr />
+
+<h3 id="ioutils-readlines"><strong>IOUtils.readLines()</strong></h3>
+
+<p><code>IOUtils.readLines(InputStream in, String charsetName)</code> &emsp; // 从输入流中读取数据并指定所用的字符集，将读到的数据以 <code>List&lt;String&gt;</code> 的形式返回</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">InputStream in <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileInputSteram<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;xx/input.txt&#34;</span><span style="color:#f92672">);</span>
+List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> lists <span style="color:#f92672">=</span> IOUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">readLines</span><span style="color:#f92672">(</span>in<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;UTF-8&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// read data to list of string
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>lists<span style="color:#f92672">);</span> <span style="color:#75715e">// print lists
+</span></code></pre></div>
+<p>Reader 同理</p>
+
+<hr />
+
+<h3 id="ioutils-write"><strong>IOUtils.write()</strong></h3>
+
+<p><code>IOUtils.write(String, OutputStream, CharsetName)</code> &emsp; // 将 String 类型的数据写入输出流中，并指定字符集，除了 String 外还有 char[], byte[] 等其他的类型</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">OutputStream out <span style="color:#f92672">=</span> IOUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">buffer</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> FileOutputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;xx/output.txt&#34;</span><span style="color:#f92672">));</span>
+
+IOUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;data1&#34;</span><span style="color:#f92672">,</span> out<span style="color:#f92672">,</span> StandardCharsets<span style="color:#f92672">.</span><span style="color:#a6e22e">UTF_8</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// write &#34;data1&#34; string to outputstream and specify utf8 charset 
+</span><span style="color:#75715e"></span>IOUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">lineSeparator</span><span style="color:#f92672">(),</span> out<span style="color:#f92672">,</span> StandardCharsets<span style="color:#f92672">.</span><span style="color:#a6e22e">UTF_8</span><span style="color:#f92672">);</span> <span style="color:#75715e">// 写入系统的换行符到文件
+</span><span style="color:#75715e"></span>IOUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;data2&#34;</span><span style="color:#f92672">,</span> out<span style="color:#f92672">,</span> StandardCharsets<span style="color:#f92672">.</span><span style="color:#a6e22e">UTF_8</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// write &#34;data2&#34; string
+</span><span style="color:#75715e"></span>
+out<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span> <span style="color:#75715e">// close stream
+</span></code></pre></div>
+<p>字符流 Writer 同理</p>
+
+<hr />
+
+<h3 id="ioutils-copy"><strong>IOUtils.copy()</strong></h3>
+
+<p><code>copy(InputStream in, OutputStream out)</code> &emsp; // 从输入流复制数据到输出流，返回所复制的字节数（最大为 2GB），超过 2GB 则返回 -1，所以 2GB 以上的可用 <code>copyLarge()</code> 用法与 copy() 类似，但它返回的是 long 型。另外，该方法内部也是有缓存数组，所以不用传缓冲文件流</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">test</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        InputStream in <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileInputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;file/sample.txt&#34;</span><span style="color:#f92672">);</span>
+        OutputStream out <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileOutputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;file/sample-copy.txt&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#75715e">// copying
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> numberOfBytesCopy <span style="color:#f92672">=</span> IOUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">copy</span><span style="color:#f92672">(</span>in<span style="color:#f92672">,</span> out<span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>numberOfBytesCopy<span style="color:#f92672">);</span>
+
+        out<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+        in<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span></code></pre></div>
+<p>字符流 Writer 同理</p>
+
+<hr />
+
+<p>还有一些方法下面就简单摘录了，以 InputStream 为例，Reader 也是类似的</p>
+
+<ul>
+<li><p><strong><code>IOUtils.skip(InputStream in, long toSkip)</code></strong> &emsp; // 跳过输入流的 toSkip 个字节后，在进行操作，返回所跳过的字节数</p></li>
+
+<li><p><strong><code>IOUtils.contentEquals(InputStream in1, InputStream in2)</code></strong> &emsp; // 判断两输入流的内容是否相同，相同返回 true，不同返回 false</p></li>
+
+<li><p><strong><code>IOUtils.contentEqualsIgnoreEOL(InputStream in1, InputStream in2)</code></strong> &emsp; // 判断两输入流的内容是否相同且忽略空行，相同返回 true，不同返回 false</p></li>
+
+<li><p><strong><code>IOUtils.toString(InputStream input, Charset charset)</code></strong> &emsp; // 以字符串的形式获取输入流的内容，并指定字符集；还有其他类似的方法：IOUtils.toByteArray()、IOUtils.toCharArray() 等</p></li>
+</ul>
+
+<hr />
+
+<h2 id="fileutils-class">📂 FileUtils Class</h2>
+
+<p>常用的文件操作工具类，同样所有的方法都是 static，功能有写文件、读文件、复制文件和新建文件夹等。下面就一一道来</p>
+
+<h3 id="readfile">ReadFile</h3>
+
+<ul>
+<li><p><strong><code>FileUtils.readLines(File file, Charset charset)</code></strong> &emsp; // 以指定字符集的形式读取所给文件的内容，并且以 <code>list&lt;string&gt;</code> 的形式返回，list 中每个元素代表文件中的一行内容</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fileUtilsRead</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> IOException <span style="color:#f92672">{</span>
+    File file <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;D:\\DevTools\\demo\\file\\sample.txt&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#75715e">// read data from specify file
+</span><span style="color:#75715e"></span>    List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> FileUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">readLines</span><span style="color:#f92672">(</span>file<span style="color:#f92672">,</span> StandardCharsets<span style="color:#f92672">.</span><span style="color:#a6e22e">UTF_8</span><span style="color:#f92672">);</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>list<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span></code></pre></div></li>
+
+<li><p><strong><code>FileUtils.readFileToString(File file, Charset charset)</code></strong> &emsp; // 以字符串的形式读取整个文件的内容，返回的是字符串；当然还可用 <code>FileUtils.readFileToByteArray(file)</code> 返回 byte 数组</p></li>
+</ul>
+
+<hr />
+
+<h3 id="writefile">WriteFile</h3>
+
+<ul>
+<li><p><strong><code>FileUtils.write(File file, CharSequence data, Charset charset)</code></strong> &emsp; // 将数据写入到所给的文件中，若文件不存在，则新建该文件及文件路径</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fileUtilsWrite</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> IOException <span style="color:#f92672">{</span>
+    File file <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;D:\\DevTools\\demo\\file\\fileUtilsWrite.txt&#34;</span><span style="color:#f92672">);</span>
+    String data <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;some-data&#34;</span><span style="color:#f92672">;</span>
+    <span style="color:#75715e">// write data to given file
+</span><span style="color:#75715e"></span>    FileUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>file<span style="color:#f92672">,</span> data<span style="color:#f92672">,</span> StandardCharsets<span style="color:#f92672">.</span><span style="color:#a6e22e">UTF_8</span><span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span></code></pre></div></li>
+</ul>
+
+<p>还可以用其重载方法来追加数据，而放在文件的数据被覆盖。<code>FileUtils.write(File file, CharSequence data, Charset charset, boolean append)</code> , append 为 true 就表示追加数据</p>
+
+<ul>
+<li><p><strong><code>FileUtils.writeLines(File file, Collection&lt;?&gt; lines)</code></strong> &emsp; // 将集合每个元素 toString() 的值写进文件中，一个元素占一行</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fileUtilsWrite</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> IOException <span style="color:#f92672">{</span>
+    File file <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;D:\\DevTools\\demo\\file\\fileUtilsWrite.txt&#34;</span><span style="color:#f92672">);</span>
+    List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+    list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;line1&#34;</span><span style="color:#f92672">);</span>
+    list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;line2&#34;</span><span style="color:#f92672">);</span>
+    list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;line3&#34;</span><span style="color:#f92672">);</span>
+    FileUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">writeLines</span><span style="color:#f92672">(</span>file<span style="color:#f92672">,</span> list<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e">*  写入文件的内容如下：
+</span><span style="color:#75715e">*  line1
+</span><span style="color:#75715e">*  line2
+</span><span style="color:#75715e">*  line3
+</span><span style="color:#75715e">*/</span></code></pre></div></li>
+</ul>
+
+<p>同样，它也有好多重载方法以供不同的需求</p>
+
+<p><code>FileUtils.writeLines(File file, Collection&lt;?&gt; lines, boolean append)</code> // 是否追加内容</p>
+
+<p><code>FileUtils.writeLines(File file, Collection&lt;?&gt; lines, String lineEnding, boolean append)</code> // 用所给的 lineEnding 来分隔每个元素，如 lineEnding 为“-”，那么上面的结果就变为</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> *  带有分隔符写入：
+</span><span style="color:#75715e"> *  line1-line2-line3
+</span><span style="color:#75715e"> */</span></code></pre></div>
+<p><code>FileUtils.writeLines(File file, String charsetName, Collection&lt;?&gt; lines, String lineEnding, boolean append)</code> // 指定字符集</p>
+
+<ul>
+<li><p><strong><code>FileUtils.writeStringToFile(File file, String data, Charset charset)</code></strong> &emsp; // 将字符串写入所给的文件中，重载方法多了是否追加</p></li>
+
+<li><p><strong><code>FileUtils.writeByteArrayToFile(File file, byte[] data)</code></strong> &emsp; // 将字节数组写入到文件中，重载方法多了是否追加、 offset and length，操作不当会造成 IndexOutOfBoundsException</p></li>
+</ul>
+
+<hr />
+
+<h3 id="copyfile">CopyFile</h3>
+
+<ul>
+<li><p><strong><code>FileUtils.copyFile(File srcFile, File destFile)</code></strong> &emsp; // 将源文件的内容复制到目标文件中，若目标文件不存在，则新建该文件及文件路径；若目标文件存在，则覆盖其内容</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fileUtilsCopy</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> IOException <span style="color:#f92672">{</span>
+    File srcFile <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;D:\\DevTools\\demo\\file\\sample.txt&#34;</span><span style="color:#f92672">);</span>
+    File destFile <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;D:\\DevTools\\demo\\file\\sampleCopy.txt&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#75715e">// copy srcfile to destfile
+</span><span style="color:#75715e"></span>    FileUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">copyFile</span><span style="color:#f92672">(</span>srcFile<span style="color:#f92672">,</span> destFile<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span></code></pre></div></li>
+</ul>
+
+<p>重载方法 <code>FileUtils.copyFile(File srcFile, File destFile, boolean preserveFileDate)</code> 中的 preserveFileDate 指是否要将源文件的修改日期也保留到目标文件中</p>
+
+<p><code>FileUtils.copyFile(File srcFile, FileOutputStream out)</code> 将文件输出流作为复制的目标</p>
+
+<p>当用 FileUtils.copyFile() 时，若源文件或目标文件所给的路径是文件夹时，则会抛出 IOException 异常</p>
+
+<ul>
+<li><p><strong><code>FileUtils.copyDirectory(File srcDir, File destDir)</code></strong> &emsp; // 复制源文件夹及所有文件到目标文件夹，同理，存在则覆盖，不存在则新建</p></li>
+
+<li><p><strong><code>FileUtils.copyFileToDirectory(File srcFile, File destDir)</code></strong> &emsp; // 复制源文件到目标文件夹中</p></li>
+
+<li><p><strong><code>FileUtils.copyInputStreamToFile(InputStream in, File destFile)</code></strong> &emsp; // 复制输入流到目标文件中</p></li>
+</ul>
+
+<hr />
+
+<h3 id="movefile">MoveFile</h3>
+
+<ul>
+<li><p><strong><code>FileUtils.moveFile(File srcFile, File destFile)</code></strong> &emsp; // 将源文件移到目标文件中</p></li>
+
+<li><p><strong><code>FileUtils.moveFileToDirectory(File srcFile, File destDir, boolean createDestDir)</code></strong> &emsp; // 若是创建文件夹失败，且目标文件夹不存在就会抛出 FileNotFoundException；若是目标文件夹中有与源文件同名的，则抛出 apache.common.io.FileExistsException</p></li>
+</ul>
+
+<hr />
+
+<h3 id="deletefile">DeleteFile</h3>
+
+<ul>
+<li><p><strong><code>FileUtils.deleteQuietly(File file)</code></strong> &emsp; // 删除文件且不抛出异常，删除成功返回 true，失败则 false</p></li>
+
+<li><p><strong><code>FileUtils.forceDelete(File file)</code></strong> &emsp; // 删除文件，当文件不存在时，抛出 FileNotFoundException</p></li>
+
+<li><p><strong><code>FileUtils.forceDeleteOnExit(File file)</code></strong> &emsp; // 当 JVM 退出时，删除所给的对象，若给的时文件夹，则会删除它及其文件；可以用来删除临时文件或缓存文件</p></li>
+</ul>
 
   
 
@@ -202,15 +392,15 @@
     <ol class="list-unstyled">
 
 
-<li><a href="/2022/03/multithreading/">Multithreading</a></li>
+<li><a href="/2022/03/develop_standard/">Develop_Standard</a></li>
 
-<li><a href="/2022/03/apache_common_io/">Apache_common_io</a></li>
+<li><a href="/2022/03/advance/">Advance</a></li>
 
-<li><a href="/2022/03/iostream/">IOStream</a></li>
+<li><a href="/2022/03/querystatement/">QueryStatement</a></li>
 
-<li><a href="/2022/03/stringclass/">StringClass</a></li>
+<li><a href="/2022/03/primary_key/">Primary_key</a></li>
 
-<li><a href="/2022/03/exception/">Exception</a></li>
+<li><a href="/2022/03/datatype/">DataType</a></li>
 
     </ol>
   </section>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Basic_operation1" />
+<meta property="og:description" content="MySQL 数据库和表的增删改查" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2022/03/basic_operation1/" />
+<meta property="article:published_time" content="2022-03-28T19:18:36+08:00" />
+<meta property="article:modified_time" content="2022-03-28T19:18:36+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Basic_operation1"/>
+<meta name="twitter:description" content="MySQL 数据库和表的增删改查"/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Basic_operation1",
+  "url": "https://junq0420.github.io/2022/03/basic_operation1/",
+  "wordCount": "412",
+  "datePublished": "2022-03-28T19:18:36+08:00",
+  "dateModified": "2022-03-28T19:18:36+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "MySQL, MySQL_Frank"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2022/03/basic_operation1/">
+
+    <title>Basic_operation1 | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/posts/" title="">Posts</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2022/03/basic_operation1/">Basic_operation1</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-03-28T19:18:36+08:00">2022-03-28</time>
+ in 
+<span class="fas fa-folder" aria-hidden="true"></span>&nbsp;<a href="/categories/mysql/" rel="category tag">MySQL</a>
+
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/mysql_frank/" rel="tag">MySQL_Frank</a>
+
+</p>
+  </header>
+  <p>MySQL 数据库和表的增删改查</p>
+
+<blockquote>
+<p><strong>学习笔记，仅供参考</strong></p>
+
+<p><strong>参考</strong>：<a href="https://www.yuque.com/frank-93a7b/fuck/yrgy2y">B站Mirco_Frank - MySQL 删库跑路</a></p>
+</blockquote>
+
+<hr />
+
+<p><strong>本文重点</strong>：数据库 | 表</p>
+
+<p><strong>思维导图</strong>：<img src="https://raw.githubusercontent.com/junq0420/blog_image/main/basic_operation.jpg" alt="mind_map" /></p>
+
+<hr />
+
+<h2 id="数据库的来历">🎈 数据库的来历</h2>
+
+<p>所谓的数据库，其实就是用来存储数据的仓库。比如，日常生活中常见的账号，密码等。</p>
+
+<p>早期将数据保存到内存中，但一旦关机数据就会消失。后来解决消失的问题，又将数据保存在文件中，这样数据在关机后就不会消失了。即 <code>瞬时状态</code> &ndash;&gt; <code>持久性数据</code>。</p>
+
+<p>然而，将数据存放在文件中后，若要对数据进行操作时，即增删改查就会很麻烦。而且，文件中的数据是不安全的。</p>
+
+<p>增删改查的术语：<strong style="color: red; background:yellow">CRUD</strong>，增加 (create)、删除 (delete)、 修改 (update)、 查找 (read) &ndash;&gt; 数据库操作的核心</p>
+
+<p>早期先后出现了分层数据库和网状数据库，但缺乏灵活性。随之就出现了关系型数据库 (例如： MySQL, oracle, SQL Server等)，它的一个特点是每张表都有一个公共的字段，将各个表都联系起来。更多了解：<a href="https://www.oracle.com/cn/database/what-is-database/#link3">Oracle 对数据库的相关简介</a></p>
+
+<hr />
+
+<h2 id="进入数据库">🎆 进入数据库</h2>
+
+<h3 id="一-服务的开启与关闭"><strong>一、服务的开启与关闭</strong></h3>
+
+<p>数据库与用户就像服务器与客服端一样，要想正常的使用，就必须要保证双方都正常运行着。用户当然就是运行终端，数据库则就需要打开它的服务。一般在 Windows 上，开机 MySQL 的服务就会自动启动。手动启动就要使用命令：</p>
+
+<blockquote>
+<p><code>net start mysql57</code> : 开启服务器，其中 mysql57 为服务的名称<br />
+<code>net stop mysql57</code> : 停止服务器</p>
+</blockquote>
+
+<p>&nbsp;</p>
+
+<h3 id="二-数据库的进入与退出"><strong>二、数据库的进入与退出</strong></h3>
+
+<p>在操作数据库之前肯定要先要连接上数据库，就像玩游戏之前要登陆账号一样。所以，先打开终端，然后输入连接 MySQL 数据库的命令：</p>
+
+<blockquote>
+<p><code>mysql -u root -p</code></p>
+</blockquote>
+
+<ul>
+<li><strong><code>-u</code></strong> : 表示用户登录</li>
+<li><strong><code>root</code></strong> : 表示是以管理员（最高级）的身份登录</li>
+<li><strong><code>-p</code></strong> : 表示用密码登录</li>
+</ul>
+
+<p>输入完密码之后，就连接上数据库了。数据库开始并不是空的，它有一些系统自带的库，如图所示：</p>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/system_info.jpg" alt="数据库初始信息" /></p>
+
+<p>若想退出数据库，可以使用命令：</p>
+
+<blockquote>
+<p><code>exit</code> | <code>/q</code> | <code>quit</code></p>
+</blockquote>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<h2 id="操作数据库">🎇 操作数据库</h2>
+
+<p>之前说过，操作数据库的核心就是 <code>增删改查</code>，所以下面依次介绍。</p>
+
+<h3 id="一-创建数据库-create"><strong>一、创建数据库 (create)</strong></h3>
+
+<blockquote>
+<p><code>create databse &lt;repo_name&gt;;</code> &emsp; // 简单创建</p>
+
+<p><code>create database if not exists &lt;repo_name&gt;;</code> &emsp;// √ 常用的创建，较安全</p>
+
+<p><code>create database if not exists &lt;repo_name&gt; charset=utf8;</code>  &emsp;// 带有设置字符编码的创建</p>
+</blockquote>
+
+<h3 id="二-删除数据库-drop"><strong>二、删除数据库 (drop)</strong></h3>
+
+<blockquote>
+<p><code>drop database &lt;repo_name&gt;;</code>  &emsp;// 简单删除</p>
+
+<p><code>drop database if exists &lt;repo_name&gt;;</code> &emsp; // √ 常用的删除，较安全</p>
+</blockquote>
+
+<h3 id="三-修改数据库-alter"><strong>三、修改数据库 (alter)</strong></h3>
+
+<blockquote>
+<p><code>alter database &lt;repo_name&gt; charset=gbk;</code>  &emsp;// 修改数据库的字符编码</p>
+</blockquote>
+
+<p>一般字符编码在开发过程中使用 <code>utf8</code> ，按操作系统分类的话，Windows 用 <em>gbk</em> ; Mac / Linux 用 *utf8*。</p>
+
+<h3 id="四-查看数据库-show"><strong>四、查看数据库 (show)</strong></h3>
+
+<blockquote>
+<p><code>show databases;</code>  &emsp;// 查看所有的数据库</p>
+</blockquote>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/show_db.jpg" alt="查看数据库" /></p>
+
+<blockquote>
+<p><code>show create database &lt;repo_name&gt;;</code>&emsp; // 查看创建某库时的信息</p>
+</blockquote>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/show_create.jpg" alt="查看创建某库时的信息" /></p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<h2 id="操作表">🧨 操作表</h2>
+
+<p>之前说过数据库就是一个放数据的大仓库，放仓库的东西肯定是要分类整理好的，在经过统计就可以得到一系列的货物表单，这些表单上记录着货物的种类、数量、价格等等信息。所以，数据库就会有一系列的表单。</p>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/table.jpg" alt="数据库与表"  width=500/></p>
+
+<p>接着，表中的一些货物属性如种类、数量、价格等等，在数据库中叫作 <strong style="color: red; background:yellow">字段 (Field)</strong> 。</p>
+
+<p><img width="500" src="https://raw.githubusercontent.com/junq0420/blog_image/main/field.jpg" alt="表与字段"/></p>
+
+<p>要想操作表，就要先指定所要操作的表。命令如下：</p>
+
+<blockquote>
+<p><code>use &lt;table_name&gt;;</code>  &emsp;// 指定某表并准备操作它</p>
+</blockquote>
+
+<p>接下来就是对表的增删改查了</p>
+
+<h3 id="一-创建表-create"><strong>一、创建表 (create)</strong></h3>
+
+<p><strong><em>1. 简单创建</em></strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> <span style="color:#f92672">&lt;</span>tab_name<span style="color:#f92672">&gt;</span> (
+<span style="color:#f92672">&gt;</span> id <span style="color:#66d9ef">int</span>,                   <span style="color:#f92672">//</span> id <span style="color:#960050;background-color:#1e0010">为字段名，</span><span style="color:#66d9ef">int</span> <span style="color:#960050;background-color:#1e0010">为整数数据类型</span>
+<span style="color:#f92672">&gt;</span> name <span style="color:#66d9ef">varchar</span>(<span style="color:#ae81ff">30</span>),         <span style="color:#f92672">//</span> <span style="color:#66d9ef">varchar</span> <span style="color:#960050;background-color:#1e0010">为字符串数据类型，</span><span style="color:#ae81ff">30</span> <span style="color:#960050;background-color:#1e0010">为最大长度</span>
+<span style="color:#f92672">&gt;</span> age <span style="color:#66d9ef">int</span>
+<span style="color:#f92672">&gt;</span> );</code></pre></div>
+<p>而有时会看到 <code>int(2)</code> 这种形式，这里 int 中的 2 为 <code>显示宽度</code> ，它指显示时，所能看到的最少数字个数。所以，int(2) 修饰的数据在显示时会有两个以上的数，若数据不够两位数则左边用 0 补齐。但要想真正看到它补 0 显示，还要在 int(2) 后加上关键字 <code>ZEROFILL</code> 。若是不加关键字所补的 0 就看不到，从而给人造成错觉。</p>
+
+<p><strong style="color: yellow">注意</strong>：不要把上面的 2 当作所能取到值的位数，int 这种数值类型有自己的取值范围，不会随你输入的数而改变。</p>
+
+<p><strong><em>2. ✔ 高级创建（装 B用法）</em></strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">exists</span> <span style="color:#f92672">&lt;</span>tab_name<span style="color:#f92672">&gt;</span> (
+<span style="color:#f92672">&gt;</span> id <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">auto_increment</span> <span style="color:#66d9ef">primary</span> <span style="color:#66d9ef">key</span> comment <span style="color:#e6db74">&#39;主键id&#39;</span>,
+<span style="color:#f92672">&gt;</span> name <span style="color:#66d9ef">varchar</span>(<span style="color:#ae81ff">30</span>) <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> comment <span style="color:#e6db74">&#39;姓名&#39;</span>,
+<span style="color:#f92672">&gt;</span> phone <span style="color:#66d9ef">varchar</span>(<span style="color:#ae81ff">20</span>) comment <span style="color:#e6db74">&#39;电话&#39;</span>,
+<span style="color:#f92672">&gt;</span> address <span style="color:#66d9ef">varchar</span>(<span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">default</span> <span style="color:#e6db74">&#39;暂时未知&#39;</span> comment <span style="color:#e6db74">&#39;住址&#39;</span>
+<span style="color:#f92672">&gt;</span> )<span style="color:#66d9ef">engine</span><span style="color:#f92672">=</span>innodb;</code></pre></div>
+<p>解释上述的一些名词：</p>
+
+<ul>
+<li><em><code>auto_increment</code></em> : 自动增长，每填加一个数据 id 就会自动加 1<br /></li>
+<li><em><code>primary key</code></em> : 主键，使 id 变为独一无二的，凭它就能区别每个数据</li>
+<li><em><code>comment</code></em> : 注释、说明该字段</li>
+<li><em><code>not null</code></em> : 非空，在填写数据时，该字段不能为空</li>
+<li><em><code>default</code></em> : 默认，在填写数据时，若不知道某字段信息也可以填 default ，数据库自动用默认值 “暂时未知” 填充</li>
+<li><em><code>engine=innodb</code></em> : 指使用 innodb 数据库引擎</li>
+</ul>
+
+<h3 id="二-删除表-delete"><strong>二、删除表 (delete)</strong></h3>
+
+<blockquote>
+<p><code>drop table if exists &lt;tab_name&gt;;</code>  &emsp;// 删除指定的表，删多个可用逗号隔开</p>
+</blockquote>
+
+<h3 id="三-修改表-alter"><strong>三、修改表 (alter)</strong></h3>
+
+<p>若对表做修改，就是操作它的字段，对字段进行增、删、改</p>
+
+<ul>
+<li><strong><em>改表之添加字段</em></strong>
+&gt; <code>alter table &lt;tab_name&gt; add &lt;field_name&gt; int comment '注释';</code>  &emsp;// 按照顺序添加新字段，并给出它的定义(数据类型，是否为空，注释等)</li>
+</ul>
+
+<blockquote>
+<p><code>alter table &lt;tab_name&gt; add &lt;field_name&gt; int comment '注释' after &lt;exist_field_name&gt;;</code>  &emsp;// 添加新字段在指定已有字段后面</p>
+</blockquote>
+
+<p>在第一条命令后加 <code>first</code> 即可添加到开头，所以根据基本命令再加上后缀就可以指定所要添加字段的位置</p>
+
+<ul>
+<li><strong><em>改表之删除字段</em></strong></li>
+</ul>
+
+<blockquote>
+<p><code>alter table &lt;tab_name&gt; drop &lt;field_name&gt;;</code>  &emsp;// 删除指定的已有字段</p>
+</blockquote>
+
+<ul>
+<li><strong><em>改表之修改字段</em></strong></li>
+</ul>
+
+<blockquote>
+<p><code>alter table &lt;tab_name&gt; change &lt;original_field_name&gt; &lt;new_field_name&gt; &lt;datatype&gt;;</code>  &emsp;// 修改指定的已有字段名和定义</p>
+
+<p><code>alter table &lt;tab_name&gt; modify &lt;original_field_name&gt; &lt;datatype&gt;;</code>  &emsp;// 修改指定的已有字段的定义</p>
+</blockquote>
+
+<p><strong style="color: yellow">区别</strong>：从上面可看出 <code>change</code> 和 <code>modify</code> 都能修改字段的定义，但是只有 <code>change</code> 能修改字段名，所以用 <code>change</code> 必须写两个字段名，<code>modify</code> 只需写一个。</p>
+
+<p>当然，想 <strong>修改表的名字</strong> 也是可以的</p>
+
+<blockquote>
+<p><code>alter table &lt;tab_name&gt; rename to &lt;new_tab_name&gt;;</code>  &emsp;// 修改表名</p>
+</blockquote>
+
+<h3 id="四-查看表-show"><strong>四、查看表 (show)</strong></h3>
+
+<p>查表有三种形式分别是：</p>
+
+<blockquote>
+<p><code>show tables;</code>  &emsp;// 查看指定的数据库中有哪些表</p>
+
+<p><code>show create table &lt;tab_name&gt;;</code>  &emsp;// 查看创建某表时的信息</p>
+
+<p><code>desc &lt;tab_name&gt;;</code>  &emsp;// 查看某表信息</p>
+</blockquote>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/show_tables.jpg" alt="看有哪些表" /></p>
+
+<p><img alt="建表信息" src="https://raw.githubusercontent.com/junq0420/blog_image/main/show_create_table.jpg" width=500></p>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/desc.jpg" alt="表信息" width=500></p>
+
+<p>从上图中可看出，<code>show create table</code> 和 <code>desc</code> 查看到的信息差不多，只是 show create 展现的是表的 SQL 语句，而 desc 展现表的结构信息。</p>
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2022/03/develop_standard/">Develop_Standard</a></li>
+
+<li><a href="/2022/03/advance/">Advance</a></li>
+
+<li><a href="/2022/03/querystatement/">QueryStatement</a></li>
+
+<li><a href="/2022/03/primary_key/">Primary_key</a></li>
+
+<li><a href="/2022/03/datatype/">DataType</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Advance" />
+<meta property="og:description" content="MySQL 的高级部分" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2022/03/advance/" />
+<meta property="article:published_time" content="2022-03-28T19:20:35+08:00" />
+<meta property="article:modified_time" content="2022-03-28T19:20:35+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Advance"/>
+<meta name="twitter:description" content="MySQL 的高级部分"/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Advance",
+  "url": "https://junq0420.github.io/2022/03/advance/",
+  "wordCount": "298",
+  "datePublished": "2022-03-28T19:20:35+08:00",
+  "dateModified": "2022-03-28T19:20:35+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "MySQL, MySQL_Frank"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2022/03/advance/">
+
+    <title>Advance | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/posts/" title="">Posts</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2022/03/advance/">Advance</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-03-28T19:20:35+08:00">2022-03-28</time>
+ in 
+<span class="fas fa-folder" aria-hidden="true"></span>&nbsp;<a href="/categories/mysql/" rel="category tag">MySQL</a>
+
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/mysql_frank/" rel="tag">MySQL_Frank</a>
+
+</p>
+  </header>
+  <p>MySQL 的高级部分</p>
+
+<blockquote>
+<p><strong>学习笔记，仅供参考</strong></p>
+
+<p><strong>参考</strong>：<a href="https://www.yuque.com/frank-93a7b/fuck/yrgy2y">B站Mirco_Frank - MySQL 删库跑路</a></p>
+</blockquote>
+
+<hr />
+
+<blockquote>
+<p><strong>关键字</strong>：视图 | 事务 | 索引 | 存储过程 | 函数</p>
+</blockquote>
+
+<hr />
+
+<p><strong>思维导图</strong>：</p>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/Advance_xmind.jpg" alt="mind_map" /></p>
+
+<hr />
+
+<h2 id="视图-view">🌳 视图(View)</h2>
+
+<p>所谓的视图，其实就是基于查询结果的一张虚拟表，用来 <strong>存放查询结果的</strong>，当下次再想查数据时，就不用重写 SQL 语句了。也可用来 <strong>保护数据信息</strong>，防止关键的数据被看到。</p>
+
+<p>视图的操作仍然是增删改查这四个，下面依次列举。</p>
+
+<h3 id="创建视图">创建视图</h3>
+
+<blockquote>
+<p><code>create view &lt;vw_name&gt; as select &lt;field_name&gt; from &lt;tab_name&gt;;</code> &emsp; // 创建视图</p>
+</blockquote>
+
+<h3 id="查看视图">查看视图</h3>
+
+<blockquote>
+<p><code>select tables;</code> &emsp; // 查看有哪些视图，一般视图命名要加 <code>vw_</code> 前缀以表示为视图</p>
+
+<p><code>select * from &lt;vw_name&gt;;</code> &emsp; // 查看视图的数据信息</p>
+
+<p><code>desc &lt;vw_name&gt;;</code> <code>show create view &lt;vw_name&gt;;</code> &emsp; // 查看视图的结构信息</p>
+
+<p><code>show table status where comment='view' \G;</code> &emsp; // 装逼操作，查询所有视图的状态</p>
+</blockquote>
+
+<h3 id="修改视图">修改视图</h3>
+
+<blockquote>
+<p><code>alter view &lt;vw_name&gt; as [modify select statement];</code> &emsp; // 用 alter 表示修改，然后修改查询语句即可</p>
+</blockquote>
+
+<h3 id="删除视图">删除视图</h3>
+
+<blockquote>
+<p><code>drop view &lt;vw_name&gt;;</code> &emsp; // 删除视图</p>
+</blockquote>
+
+<p>另外，还能在创建视图时设置试图算法。</p>
+
+<blockquote>
+<p><code>create algorithm=temporary view &lt;vw_name&gt; as [select statement];</code> &emsp; // 设置算法类型</p>
+</blockquote>
+
+<p>算法有三种：<strong>undefine(default)</strong>, <strong>merge</strong>, <strong>temporary</strong> ，一般若用子查询创建 view 出错，可用 temporary 来解决问题。</p>
+
+<hr />
+
+<h2 id="事务-transaction">🌴 事务(transaction)</h2>
+
+<p>事务一般用于金钱、货物交易等场所，它相当于一种安全措施。在这种安全措施下，允许你取消重来等操作。一旦结束了这种措施，那么你的操作全都成真。</p>
+
+<p>下面以生活中的淘宝购物、转账等示例，展开说明。</p>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/wallet_balance_mysql.jpg" alt="wallet_balance" /></p>
+
+<p>根据上面的现金表，完成 2 号转给 1 号 500 元。</p>
+
+<blockquote>
+<p><code>★ start transaction;</code> &emsp; // 开启事务</p>
+</blockquote>
+
+<p>update wallet set balance=balance-500 where id=2;</p>
+
+<blockquote>
+<p><code>★ savepoint &lt;rollback_name&gt;;</code> &emsp; // 设置回滚点 (类似游戏中的存档点)</p>
+</blockquote>
+
+<p>update wallet set balance=balance+500 where id=1;</p>
+
+<blockquote>
+<p><code>★ commit;</code> &emsp; // 提交事务，转账完成，一切成真</p>
+
+<p><code>★ rollback;</code> &emsp; // 回滚到最初位置，即刚开启事务时 (类似于虚拟机的快照，回到过去，败者食尘)</p>
+
+<p><code>★ rollback to &lt;rollback_name&gt;;</code> &emsp; // 回到指定的回滚点</p>
+</blockquote>
+
+<p><strong style="color: #f8f8">注意</strong> ：若回滚到某 savepoint，那么它后面的 savepoint 就都不存在了</p>
+
+<h3 id="事务四大特点-acid">事务四大特点(ACID)</h3>
+
+<ol>
+<li><p>atomicity 原子性 -&gt; 事务为一个不可分割的工作单位，事务的操作要么全成，要么全败</p></li>
+
+<li><p>consistency 一致性 -&gt; 事务结束后，数据要与事务中的操作一致</p></li>
+
+<li><p>isolation 隔离性 -&gt; 每个事务之间相互隔离</p></li>
+
+<li><p>durability 持久性 -&gt; 事务一旦提交，数据的改变就是永久写存的</p></li>
+</ol>
+
+<hr />
+
+<h2 id="索引-index">🌵 索引(index)</h2>
+
+<p>索引的使用可以帮助快速查询，但增、删、改的效率都会变低，而且占用空间。所以使用索引应该慎重，当要频繁查询某表时，可以考虑添加 index，如：高考查分。</p>
+
+<blockquote>
+<p><code>create index &lt;field_index&gt; on &lt;tab_name&gt;(field);</code> &emsp; // 给某表中的字段添加索引</p>
+</blockquote>
+
+<p>例：create index name_index on stu(name);</p>
+
+<blockquote>
+<p><code>alter table &lt;tab_name&gt; add index &lt;field_name&gt;(field);</code> &emsp; // 后期添加索引</p>
+
+<p><code>drop index &lt;field_name&gt; on &lt;tab_name&gt;;</code> &emsp; // 删除索引</p>
+</blockquote>
+
+<hr />
+
+<h2 id="存储过程-procedure">🌾 存储过程(procedure)</h2>
+
+<p>存储过程就相当于脚本、函数，提前写好一些 SQL 语句，当要使用时直接调用即可</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#75715e">/* 修改 SQL 语句的结束标识，防止在写的过程中语句被执行 */</span>
+<span style="color:#f92672">&gt;</span> delimiter <span style="color:#f92672">//</span>
+<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">procedure</span> <span style="color:#a6e22e">proc</span>()  <span style="color:#75715e">/* 创建过程 */</span>
+<span style="color:#f92672">&gt;</span> begin
+
+<span style="color:#75715e">/* 下面为要写的 SQL 语句 */</span>
+<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">update</span> wallet <span style="color:#66d9ef">set</span> balance<span style="color:#f92672">=</span>balance<span style="color:#f92672">+</span><span style="color:#ae81ff">50</span>;
+<span style="color:#f92672">&gt;</span> ....;
+
+<span style="color:#f92672">&gt;</span> end <span style="color:#f92672">//</span>  <span style="color:#f92672">-&gt;</span> <span style="color:#75715e">/* 结束创建过程，用修改的 ‘//’ 结束 */</span>
+<span style="color:#f92672">&gt;</span> delimiter ;  <span style="color:#f92672">-&gt;</span> <span style="color:#75715e">/* 改回标识 */</span></code></pre></div>
+<p>在写好过程后就可调用了</p>
+
+<blockquote>
+<p><code>call proc();</code> &emsp; // 调用过程</p>
+
+<p><code>drop procedure proc;</code> &emsp; // 删除过程</p>
+
+<p><code>show create procedure proc;</code> &emsp; // 查看过程</p>
+</blockquote>
+
+<hr />
+
+<h2 id="函数-functions">🌾 函数(functions)</h2>
+
+<p><a href="https://www.runoob.com/mysql/mysql-functions.html">菜鸟教程列举的函数</a> | <a href="https://www.w3schools.com/mysql/mysql_ref_functions.asp">W3C functions</a> | <a href="https://dev.mysql.com/doc/refman/5.7/en/built-in-function-reference.html">MySQL 5.7 文档</a></p>
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2022/03/develop_standard/">Develop_Standard</a></li>
+
+<li><a href="/2022/03/advance/">Advance</a></li>
+
+<li><a href="/2022/03/querystatement/">QueryStatement</a></li>
+
+<li><a href="/2022/03/primary_key/">Primary_key</a></li>
+
+<li><a href="/2022/03/datatype/">DataType</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

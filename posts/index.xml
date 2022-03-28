@@ -7,14 +7,98 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>除非特别声明, 本站采用技术 [Hugo](https://gohugo.io/) &amp; 主题 [hugo-theme-bootstrap4-blog](https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/).</copyright>
-    <lastBuildDate>Sat, 19 Mar 2022 13:55:40 +0800</lastBuildDate><atom:link href="https://junq0420.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Mar 2022 19:21:36 +0800</lastBuildDate><atom:link href="https://junq0420.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Develop_Standard</title>
+      <link>https://junq0420.github.io/2022/03/develop_standard/</link>
+      <pubDate>Mon, 28 Mar 2022 19:21:36 +0800</pubDate>
+      
+      <guid>https://junq0420.github.io/2022/03/develop_standard/</guid>
+      <description>&lt;p&gt;MySQL 的编写规范&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Advance</title>
+      <link>https://junq0420.github.io/2022/03/advance/</link>
+      <pubDate>Mon, 28 Mar 2022 19:20:35 +0800</pubDate>
+      
+      <guid>https://junq0420.github.io/2022/03/advance/</guid>
+      <description>&lt;p&gt;MySQL 的高级部分&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>QueryStatement</title>
+      <link>https://junq0420.github.io/2022/03/querystatement/</link>
+      <pubDate>Mon, 28 Mar 2022 19:20:18 +0800</pubDate>
+      
+      <guid>https://junq0420.github.io/2022/03/querystatement/</guid>
+      <description>&lt;p&gt;MySQL 的查询语句&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Primary_key</title>
+      <link>https://junq0420.github.io/2022/03/primary_key/</link>
+      <pubDate>Mon, 28 Mar 2022 19:19:52 +0800</pubDate>
+      
+      <guid>https://junq0420.github.io/2022/03/primary_key/</guid>
+      <description>&lt;p&gt;MySQL 的各种键属性&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>DataType</title>
+      <link>https://junq0420.github.io/2022/03/datatype/</link>
+      <pubDate>Mon, 28 Mar 2022 19:19:36 +0800</pubDate>
+      
+      <guid>https://junq0420.github.io/2022/03/datatype/</guid>
+      <description>&lt;p&gt;MySQL 常见的数据类型&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Basic_operation2</title>
+      <link>https://junq0420.github.io/2022/03/basic_operation2/</link>
+      <pubDate>Mon, 28 Mar 2022 19:18:40 +0800</pubDate>
+      
+      <guid>https://junq0420.github.io/2022/03/basic_operation2/</guid>
+      <description>&lt;p&gt;MySQL 数据的增删改查&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Basic_operation1</title>
+      <link>https://junq0420.github.io/2022/03/basic_operation1/</link>
+      <pubDate>Mon, 28 Mar 2022 19:18:36 +0800</pubDate>
+      
+      <guid>https://junq0420.github.io/2022/03/basic_operation1/</guid>
+      <description>&lt;p&gt;MySQL 数据库和表的增删改查&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Regex</title>
+      <link>https://junq0420.github.io/2022/03/regex/</link>
+      <pubDate>Mon, 28 Mar 2022 19:17:42 +0800</pubDate>
+      
+      <guid>https://junq0420.github.io/2022/03/regex/</guid>
+      <description>&lt;h1 id=&#34;正则表达式-regular-expression&#34;&gt;正则表达式(Regular Expression)&lt;/h1&gt;
+
+&lt;blockquote style=&#34;background: #f0f0f0; border-left: 0.3rem solid #66ccee; color: black; font-style: italic&#34;&gt;正则表达式常用来处理文本信息，所以在此记录一些符号表示的意思，以便日后参考。
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Collection-Framework</title>
+      <link>https://junq0420.github.io/2022/03/collection-framework/</link>
+      <pubDate>Fri, 25 Mar 2022 14:14:58 +0800</pubDate>
+      
+      <guid>https://junq0420.github.io/2022/03/collection-framework/</guid>
+      <description>&lt;p&gt;记录 JavaSE 中集合框架&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Multithreading</title>
       <link>https://junq0420.github.io/2022/03/multithreading/</link>
       <pubDate>Sat, 19 Mar 2022 13:55:40 +0800</pubDate>
       
       <guid>https://junq0420.github.io/2022/03/multithreading/</guid>
-      <description></description>
+      <description>&lt;p&gt;记录 JavaSE 中多线程的一些基本的概念和方法使用&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -139,7 +223,7 @@
       <pubDate>Fri, 30 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://junq0420.github.io/2021/07/java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/</guid>
-      <description>&lt;p&gt;​   记录Java基础语法与C语言的一些差别。&lt;/p&gt;</description>
+      <description>&lt;p&gt;​记录Java基础语法与C语言的一些差别。&lt;/p&gt;</description>
     </item>
     
     <item>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="QueryStatement" />
+<meta property="og:description" content="MySQL 的查询语句" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2022/03/querystatement/" />
+<meta property="article:published_time" content="2022-03-28T19:20:18+08:00" />
+<meta property="article:modified_time" content="2022-03-28T19:20:18+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="QueryStatement"/>
+<meta name="twitter:description" content="MySQL 的查询语句"/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "QueryStatement",
+  "url": "https://junq0420.github.io/2022/03/querystatement/",
+  "wordCount": "453",
+  "datePublished": "2022-03-28T19:20:18+08:00",
+  "dateModified": "2022-03-28T19:20:18+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "MySQL, MySQL_Frank"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2022/03/querystatement/">
+
+    <title>QueryStatement | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/posts/" title="">Posts</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2022/03/querystatement/">QueryStatement</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-03-28T19:20:18+08:00">2022-03-28</time>
+ in 
+<span class="fas fa-folder" aria-hidden="true"></span>&nbsp;<a href="/categories/mysql/" rel="category tag">MySQL</a>
+
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/mysql_frank/" rel="tag">MySQL_Frank</a>
+
+</p>
+  </header>
+  <p>MySQL 的查询语句</p>
+
+<blockquote>
+<p><strong>学习笔记，仅供参考</strong></p>
+
+<p><strong>参考</strong>：<a href="https://www.yuque.com/frank-93a7b/fuck/yrgy2y">B站Mirco_Frank - MySQL 删库跑路</a></p>
+</blockquote>
+
+<hr />
+
+<p><strong>思维导图</strong>：</p>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/qurey_statement_mysql.jpg" alt="mind_map" /></p>
+
+<hr />
+
+<p>在之前的数据操作中就已经知道想要查询数据可以使用 <code>select</code> 来查询数据信息。但那仅仅是基本的查询方式，下面时列举的是在基础之上加入过滤、条件等语句更进一步的精确查询。</p>
+
+<hr />
+
+<h2 id="单表查询">🧶 单表查询</h2>
+
+<ul>
+<li><p><code>select * from t1, t2;</code> &emsp; // 返回一个笛卡尔积(即返回 t1,t2 数据的所有组合)</p></li>
+
+<li><p><code>select 2*7 (from dual);</code> &emsp; // dual 为默认的伪表</p></li>
+
+<li><p><code>select * from &lt;tab_name&gt; where [condition];</code> &emsp; // where 带条件查询(有: &gt;, &lt;, =, =&gt;, &lt;=, and, or, not &hellip;)</p></li>
+</ul>
+
+<h3 id="与-where-组合的">与 <strong>where</strong> 组合的</h3>
+
+<ol>
+<li><p><code>select * from &lt;tab_name&gt; where &lt;field_name&gt; in (value1, value2, ...);</code> &emsp; // 等价于 (where field_name = value1 or field_name = value2 or &hellip;)</p></li>
+
+<li><p><code>select * from &lt;tab_name&gt; where &lt;field_name&gt; between 18 and 20;</code> &emsp; // 等价于 (where field_name &gt;= 18 and field_name &lt;= 20 )</p></li>
+
+<li><p><code>select * from &lt;tab_name&gt; where &lt;field_name&gt; is null;</code> &emsp; // 查看某字段为 null 的数据</p></li>
+</ol>
+
+<p><strong style="color: red">注</strong> : 还可以在关键字前加 <code>null</code> 来查看与条件相反的情况</p>
+
+<h3 id="聚合函数-数据库自带的-用于统计数据">聚合函数(数据库自带的，用于统计数据)</h3>
+
+<ul>
+<li><code>select sum(math) from score;</code> &emsp; // 求 math 字段所有数据之和</li>
+</ul>
+
+<p>类似的函数还有：avg(math) - 平均值；max(math) - 最大值；min(math) - 最小值；count(math) - math 列不为 null 的行数。</p>
+
+<blockquote style="background: #f0f0f0; border-left: 0.3rem solid #66ccee; color: black; font-style: italic">注意 : count(1), count(*) 和 count(字段) 的区别。
+
+在 InnoDB 引擎中，count(1), count(*) 都是统计数据行数，且`count(*)` 被 MySQL 优化多次，所以它统计也包含 null 的数据；
+
+而 `count(字段)` 只能统计行字段为非 NULL 的行数，因为其要判断数据该字段是否为 NULL，所以在效率上就会低些。
+</blockquote>
+
+<h3 id="模糊查询-like">模糊查询(like)</h3>
+
+<ul>
+<li><code>select * from &lt;tab_name&gt; where name like '张%'; ('张_')</code> &emsp; // 查询名字姓张的数据，<code>%</code> 代表一个或多个字符，而 <code>_</code> 只代表一个字符</li>
+</ul>
+
+<p>像之前查询字符集字符也用到了模糊查询。(show variables like &lsquo;characte<em>set</em>%&lsquo;)</p>
+
+<h3 id="升降排序-order-by">升降排序(order by)</h3>
+
+<ul>
+<li><code>select * from &lt;tab_name&gt; order by &lt;field_name&gt;;</code> &emsp; // 查表根据某字段来排序，默认为升序，字段后加 <code>desc</code> 表示降序</li>
+</ul>
+
+<h3 id="分组查询-group-by">分组查询(group by)</h3>
+
+<ul>
+<li><code>select avg(age), gender from &lt;tab_name&gt; group by gender;</code> &emsp; // 按照性别分组，查看男女的平均年龄。</li>
+</ul>
+
+<p>分组查询像是查看统计表一样，必须要有聚合函数，然后按照某字段进行分组，该字段要出现两次且前后相同</p>
+
+<ul>
+<li><code>select group_concat(fiedl1, field2, ...), gender from &lt;tab_name&gt; group by gender;</code> &emsp; // group_concat 能将括号中的字段数据拼接起来显示</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/group_concat_mysql.jpg" alt="group_concat" /></p>
+
+<h3 id="对查询结果再筛选-having">对查询结果再筛选(having)</h3>
+
+<ul>
+<li><code>select &lt;field_name&gt; from &lt;tab_name&gt; ... having [condition];</code> &emsp; // 对查询结果在筛选</li>
+</ul>
+
+<p>示例图如下：</p>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/having_mysql.jpg" alt="having" /></p>
+
+<p><strong style="color: #ff8800">区别</strong> :</p>
+
+<p><code>where</code> 是对 <strong>某表</strong> 中的某字段作条件筛选</p>
+
+<p><code>having</code> 是对 <strong>某查询结果(虚拟表)</strong> 中的字段再作条件筛选</p>
+
+<h3 id="约束查询-limit">约束查询(limit)</h3>
+
+<ul>
+<li><code>select * from &lt;tab_name&gt; limit 0,3;</code> &emsp; // limit 指对结果进行限制，0 表示限制数据的起始下标（类似数组下标）， 3 表示偏移量。即这条语句指仅显示前三条数据</li>
+</ul>
+
+<h3 id="重复归类-distinct">重复归类(distinct)</h3>
+
+<ul>
+<li><code>select distinct address from &lt;tab_name&gt;;</code> &emsp; // distinct 将重复的地区舍去，默认为 all</li>
+</ul>
+
+<h3 id="联合查询-union">联合查询(union)</h3>
+
+<ul>
+<li><code>select age, gender from t1 union select age, gender from t2;</code> &emsp; // 查看两表中的 age, gender</li>
+</ul>
+
+<p><strong style="color: #ff3550">区别</strong> : 两表中所选的<strong>字段个数</strong>必须一致，类型可以不同</p>
+
+<p>联合查询结果的虚拟表字段以 t1 表所选的字段为准，t2 表所查得的数据接在 t1 数据之后</p>
+
+<hr />
+
+<h2 id="多表查询">💎 多表查询</h2>
+
+<p>多表查询就是对多张表进行连接查询</p>
+
+<h3 id="内连接">内连接</h3>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/inner_mysql.jpg" alt="内连接效果图" /></p>
+
+<blockquote>
+<p><code>select name, age from t1 inner join t2 on t1.id=t2.id;</code> &emsp; // 内连接查询</p>
+</blockquote>
+
+<p><strong>过程</strong> ： 就像是先把 t1，t2 拼接在一起，然后通过 t1.id=t2.id 来找到满足条件的数据，再将数据放到所选的对应的字段中。(注：两张表要有公共的列，如：id：1，2，3&hellip;)</p>
+
+<blockquote>
+<p><code>select &lt;field1&gt;, &lt;field2&gt;, ... from (t1 inner join t2 on t1.id=t2.id) inner join t3 on t1.id=t3.id;</code> &emsp; // 三表内联查询，将两表内连的结果作为一个表再与其他表内联。</p>
+</blockquote>
+
+<h3 id="左连接-left-join">左连接 (left join)</h3>
+
+<blockquote>
+<p><code>select name, age from t1 left join t2 on t1.id=t2.id;</code> &emsp; // 左连接，以左表为主，右边没有的用 NULL 补齐</p>
+</blockquote>
+
+<h3 id="右连接-right-join">右连接 (right join)</h3>
+
+<blockquote>
+<p><code>select name, age from t1 right join t2 on t1.id=t2.id;</code> &emsp; // 右连接，以右表为主，左边没有的用 NULL 补齐</p>
+</blockquote>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/left_right_join_mysql.jpg" alt="左右连接对比图" /></p>
+
+<h3 id="交叉连接-cross-join">交叉连接 (cross join)</h3>
+
+<blockquote>
+<p><code>select * from t1 cross join t2; (= select * from t1, t2)</code> &emsp; // 返回一个笛卡尔积</p>
+</blockquote>
+
+<h3 id="自然连接-natural-join">自然连接 (natural join)</h3>
+
+<blockquote>
+<p><code>select * from t1 natural join t2;</code> &emsp; // 相当于内连接，但两表要有相同的字段名(如：t1.id=t2.id)，因此不用再加 on 条件。若两表没有相同的字段名(如：t1.id=t2.stuid)，则返回笛卡尔积</p>
+</blockquote>
+
+<p>当然还有 <code>natural left join</code> 和 <code>natural right join</code>。</p>
+
+<hr />
+
+<h2 id="子查询">📃 子查询</h2>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/sub_qurey_mysql.jpg" alt="子查询" /></p>
+
+<blockquote>
+<p><code>select * from student where id in (select id from math where score&gt;85);</code> &emsp; // 将某表的结果作为另一个表查询的筛选条件</p>
+
+<p><code>select * from student where exists (select id from math where score&gt;85);</code> &emsp; // exists 表示若有一个成绩大于 85 的，就打印所有的学生信息</p>
+</blockquote>
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2022/03/develop_standard/">Develop_Standard</a></li>
+
+<li><a href="/2022/03/advance/">Advance</a></li>
+
+<li><a href="/2022/03/querystatement/">QueryStatement</a></li>
+
+<li><a href="/2022/03/primary_key/">Primary_key</a></li>
+
+<li><a href="/2022/03/datatype/">DataType</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

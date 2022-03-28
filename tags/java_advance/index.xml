@@ -7,7 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>除非特别声明, 本站采用技术 [Hugo](https://gohugo.io/) &amp; 主题 [hugo-theme-bootstrap4-blog](https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/).</copyright>
-    <lastBuildDate>Sat, 19 Mar 2022 13:55:16 +0800</lastBuildDate><atom:link href="https://junq0420.github.io/tags/java_advance/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 25 Mar 2022 14:14:58 +0800</lastBuildDate><atom:link href="https://junq0420.github.io/tags/java_advance/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Collection-Framework</title>
+      <link>https://junq0420.github.io/2022/03/collection-framework/</link>
+      <pubDate>Fri, 25 Mar 2022 14:14:58 +0800</pubDate>
+      
+      <guid>https://junq0420.github.io/2022/03/collection-framework/</guid>
+      <description>&lt;p&gt;记录 JavaSE 中集合框架&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Multithreading</title>
+      <link>https://junq0420.github.io/2022/03/multithreading/</link>
+      <pubDate>Sat, 19 Mar 2022 13:55:40 +0800</pubDate>
+      
+      <guid>https://junq0420.github.io/2022/03/multithreading/</guid>
+      <description>&lt;p&gt;记录 JavaSE 中多线程的一些基本的概念和方法使用&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Apache_common_io</title>
       <link>https://junq0420.github.io/2022/03/apache_common_io/</link>

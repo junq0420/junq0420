@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Primary_key" />
+<meta property="og:description" content="MySQL 的各种键属性" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2022/03/primary_key/" />
+<meta property="article:published_time" content="2022-03-28T19:19:52+08:00" />
+<meta property="article:modified_time" content="2022-03-28T19:19:52+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Primary_key"/>
+<meta name="twitter:description" content="MySQL 的各种键属性"/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Primary_key",
+  "url": "https://junq0420.github.io/2022/03/primary_key/",
+  "wordCount": "217",
+  "datePublished": "2022-03-28T19:19:52+08:00",
+  "dateModified": "2022-03-28T19:19:52+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "MySQL, MySQL_Frank"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2022/03/primary_key/">
+
+    <title>Primary_key | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/posts/" title="">Posts</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2022/03/primary_key/">Primary_key</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-03-28T19:19:52+08:00">2022-03-28</time>
+ in 
+<span class="fas fa-folder" aria-hidden="true"></span>&nbsp;<a href="/categories/mysql/" rel="category tag">MySQL</a>
+
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/mysql_frank/" rel="tag">MySQL_Frank</a>
+
+</p>
+  </header>
+  <p>MySQL 的各种键属性</p>
+
+<blockquote>
+<p><strong>学习笔记，仅供参考</strong></p>
+
+<p><strong>参考</strong>：<a href="https://www.yuque.com/frank-93a7b/fuck/yrgy2y">B站Mirco_Frank - MySQL 删库跑路</a></p>
+</blockquote>
+
+<hr />
+
+<p><strong>思维导图</strong>：</p>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/DB_design_xmind.jpg" alt="mind_map" /></p>
+
+<hr />
+
+<h2 id="主键">🎑 主键</h2>
+
+<p>在现实生活中，想要查找一个人的信息，可以通过身份证号码到相关的部门机构查询。因为身份证对于每个公民都是独一无二的，所以就可以通过这种唯一的标志来查询搜索。</p>
+
+<p>而在数据库中像省份证这种具有唯一标识的字段就称为 <strong>主键(primary key)</strong>。在之前创建表时就已经使用了主键：</p>
+
+<blockquote>
+<p><code>id int auto_increment primary key comment '主键id'</code> &emsp; // 通过 <em>primary key</em> 关键字使 id 称为该表的主键</p>
+</blockquote>
+
+<p>要是在建表时忘记添加主键了，还可以后期添加主键：</p>
+
+<blockquote>
+<p><code>alter table &lt;tab_name&gt; add primary key (field_name);</code> &emsp; // 后期添加主键</p>
+
+<p><code>alter table &lt;tab_name&gt; drop primary key;</code> &emsp; // 删除主键</p>
+</blockquote>
+
+<p><strong style="color: red">作用</strong> :</p>
+
+<ol>
+<li><p>唯一标识数据 (如身份证)，非空的、唯一的、每人都具有的(术语叫：完整性)</p></li>
+
+<li><p>便于查询，关联其他表。无论在哪张表中，都可以通过主键找到</p></li>
+</ol>
+
+<hr />
+
+<h2 id="唯一键-unique">🧧 唯一键(unique)</h2>
+
+<p>唯一键表明其修饰的字段的<strong>数据不能有重复</strong>的，但<strong>可以为 NULL</strong>。但与主键不同的是，它<strong>能修饰多个字段</strong>，也不一定与其他表关联，而主键应该修饰一个字段就好。</p>
+
+<blockquote>
+<p><code>name varchar(20) unique comment '姓名'</code> &emsp; // 在创建表示添加唯一键</p>
+
+<p><code>alter table &lt;tab_name&gt; add unique (field_name);</code> &emsp; // 后期添加唯一键</p>
+
+<p><code>alter table &lt;tab_name&gt; drop index &lt;field_name&gt;;</code> &emsp; // 删除唯一键</p>
+</blockquote>
+
+<hr />
+
+<h2 id="外键-foreign-key">🎀 外键(foreign key)</h2>
+
+<p>外键能将某表中的字段与其他表的字段关联起来，以此将两张表联系起来，建立其表与表之间的关系。</p>
+
+<p>像学校的学生表与食堂的订单之间就可以通过外键联系起来。</p>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/foreign_key_example.jpg" alt="外键示例" /></p>
+
+<p>相关命令如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#960050;background-color:#1e0010">设置外键</span>:
+
+<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> <span style="color:#a6e22e">eatery</span> (
+<span style="color:#f92672">&gt;</span> id <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">primary</span> <span style="color:#66d9ef">key</span>,
+<span style="color:#f92672">&gt;</span> money <span style="color:#66d9ef">decimal</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">4</span>),
+<span style="color:#f92672">&gt;</span> stuid <span style="color:#66d9ef">int</span>,
+<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">foreign</span> <span style="color:#66d9ef">key</span> (stuid) <span style="color:#66d9ef">references</span> <span style="color:#a6e22e">stu</span>(stuid)
+<span style="color:#f92672">&gt;</span> ); 
+
+<span style="color:#f92672">//</span> <span style="color:#960050;background-color:#1e0010">第一个</span>(stuid)<span style="color:#960050;background-color:#1e0010">是食堂表的</span> stuid <span style="color:#960050;background-color:#1e0010">字段被设置为外键</span>
+<span style="color:#f92672">//</span> <span style="color:#960050;background-color:#1e0010">第二个</span>(stuid)<span style="color:#960050;background-color:#1e0010">是外键来自于</span> stu <span style="color:#960050;background-color:#1e0010">学生表中的</span> stuid <span style="color:#960050;background-color:#1e0010">字段</span></code></pre></div>
+<blockquote>
+<p><code>show create table &lt;tab_name&gt;;</code> &emsp; // 查看某表中的外键以及它的别名</p>
+
+<p><code>alter table &lt;tab_name&gt; drop foreign key &lt;alias&gt;;</code> &emsp; // 通过外键的别名删除外键</p>
+</blockquote>
+
+<p>当然，关联起两个在操作时就会有一些联动、关联。通常有<strong>置空</strong>和<strong>级联</strong>：</p>
+
+<ul>
+<li><p><strong>置空</strong>：当主表(学生表)的某条数据被<code>删除</code>，从表(食堂订单表)的外键被设置为 NULL</p></li>
+
+<li><p><strong>级联</strong>：当主表(学生表)的某条数据被<code>更新</code>时，从表(食堂订单表)的外键也跟着被更新</p></li>
+</ul>
+
+<p>外键的置空和级联的设置如下：</p>
+
+<blockquote>
+<p><code>foreign key (stuid) references stu(stuid) on delete set null on update cascade</code> &emsp; // 删除时置空，更新时级联</p>
+</blockquote>
+
+<p>！要设置为外键的字段不能为 <code>not null</code> ，否则不能添加主键约束</p>
+
+<p>！添加的外键要与主表中的键，<font style="color: red">数据类型一致</font></p>
+
+<p>！在高并发的情况下，绝对不允许使用外键。大数据加上频繁变动等于服务器卡死机</p>
+
+<p><strong style="color: yellow">注意</strong> :</p>
+
+<ol>
+<li><p>外键不能有主表之外的数据，如 &lsquo;stuid=4&rsquo;</p></li>
+
+<li><p>当更新、删除主表数据时，从表会根据设置而变动</p></li>
+
+<li><p>若想销毁主从表，应先删除从表，然后再删除主表</p></li>
+</ol>
+
+<hr />
+
+<h2 id="设计表所要考虑的问题">设计表所要考虑的问题</h2>
+
+<ol>
+<li><p>保证表中有主键，而且选择尽量选择那些不经常改动的字段作为主键，一个就好</p></li>
+
+<li><p>考虑字段的数据类型、可否为空、是否给约束或 default ，根据实际去决定</p></li>
+
+<li><p>是否需要引入外键或者被引用</p></li>
+</ol>
+
+<hr />
+
+<h2 id="一些数据库术语">🎁 一些数据库术语</h2>
+
+<h3 id="1-基本概念">1. 基本概念</h3>
+
+<ul>
+<li><p>关系型数据库的 ‘关系’ 是靠两表间的 <code>公共字段</code> 联系起来的，从而确定了 <code>数据完整性</code></p></li>
+
+<li><p><code>数据冗余</code> 比如高考的总分字段，明明可以通过各科的成绩相加得出，但为了让考生能够快速查询到总分，就添加了总分字段。其优点：提高查询能，缺点：数据过多</p></li>
+
+<li><p><code>数据完整性</code> 指字段的数据类型是否正确，范围是否合理等因素</p></li>
+</ul>
+
+<p>同一事物在不同场合的称呼不同。</p>
+
+<table style="border 2px solid black">
+        <tr>
+            <th>行</th>
+            <th>一条数据</th>
+            <th>实体(OOP)</th>
+        </tr>
+        <tr>
+            <th>列</th>
+            <th>一个字段</th>
+            <th>属性(OOP)</th>
+        </tr>
+</table>
+
+<h3 id="实体与实体间的关系-两表间数据的关系">实体与实体间的关系(两表间数据的关系)</h3>
+
+<p><img alt="四种关系" src="https://raw.githubusercontent.com/junq0420/blog_image/main/four_relationship.jpg" width="75%"></p>
+
+<h3 id="三种范式">三种范式</h3>
+
+<ol>
+<li><p>确定字段的 <code>原子性</code> (每个字段不能再被分割)</p></li>
+
+<li><p>非主键字段必须依赖主键字段 (别瞎几把找事，如学生表中不能有 ‘财富’， ‘是否单身’等无关的字段)</p></li>
+
+<li><p>消除传递依赖 (尽可能地消除数据冗余，重复字段，如高考总分不能消除，但大学考试就可以没有总分)</p></li>
+</ol>
+
+<p><strong style="color: green; font-size: large">总结</strong> : Database Design 最终还是要根据实际的项目来具体的设计。</p>
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2022/03/develop_standard/">Develop_Standard</a></li>
+
+<li><a href="/2022/03/advance/">Advance</a></li>
+
+<li><a href="/2022/03/querystatement/">QueryStatement</a></li>
+
+<li><a href="/2022/03/primary_key/">Primary_key</a></li>
+
+<li><a href="/2022/03/datatype/">DataType</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>
