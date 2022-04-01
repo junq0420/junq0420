@@ -28,7 +28,7 @@
   "@type": "BlogPosting",
   "headline": "Collection-Framework",
   "url": "https://junq0420.github.io/2022/03/collection-framework/",
-  "wordCount": "931",
+  "wordCount": "1374",
   "datePublished": "2022-03-25T14:14:58+08:00",
   "dateModified": "2022-03-25T14:14:58+08:00",
   "author": {
@@ -48,7 +48,7 @@
     
     <!-- combined, minified CSS -->
     
-    <link href="https://junq0420.github.io/css/style.6a1ff189168a1aeda12e6e0185f4c798d67471851b7525c783e3a7ef40be4a1a.css" rel="stylesheet" integrity="sha256-ah/xiRaKGu2hLm4BhfTHmNZ0cYUbdSXHg&#43;On70C&#43;Sho=" crossorigin="anonymous">
+    <link href="https://junq0420.github.io/css/style.5661e2c97fcfc5e47dc9df16e3ca8a3598b1d2f4acbec96eec49c72a9d6e7a31.css" rel="stylesheet" integrity="sha256-VmHiyX/PxeR9yd8W48qKNZix0vSsvslu7EnHKp1uejE=" crossorigin="anonymous">
     
 
     <!-- minified Font Awesome for SVG icons -->
@@ -70,10 +70,10 @@
         <nav class="nav blog-nav">
           <a class="nav-link " href="https://junq0420.github.io">Home</a>
           
+          <a class="nav-link" href="/archives/" title="">Archives</a>
+          
+          
           <a class="nav-link" href="/categories/" title="">Categories</a>
-          
-          
-          <a class="nav-link" href="/posts/" title="">Posts</a>
           
           
           <a class="nav-link" href="/tags/" title="">Tags</a>
@@ -478,27 +478,162 @@ list<span style="color:#f92672">.</span><span style="color:#a6e22e">addFirst</sp
 </span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">addLast</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Last&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// list: [ &#34;Frank&#34;, &#34;Tom&#34;, &#34;Jerry&#34;, &#34;Last&#34;]
 </span></code></pre></div></li>
 
-<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+<li><p><strong><em><code>clear()</code></em></strong> &emsp; // 清空集合</p></li>
 
-<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+<li><p><strong><em><code>clone()</code></em></strong> &emsp; // 返回一个复制的 LinkedList 集合</p></li>
 
-<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+<li><p><strong><em><code>contains(Object o)</code></em></strong> &emsp; // 判断该集合是否含有所给的元素，有 true；无 false</p></li>
 
-<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+<li><p><strong><em><code>element()</code></em></strong> &emsp; // 返回但不删除集合的首元素，空集合则抛出 NoSuchElementException</p></li>
 
-<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+<li><p><strong><em><code>get(int index)</code></em></strong> &emsp; // 获取集合中指定下标元素</p></li>
 
-<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+<li><p><strong><em><code>getFirst()</code></em></strong> &emsp; // 获取集合首元素</p></li>
 
-<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+<li><p><strong><em><code>getLast()</code></em></strong> &emsp; // 获取集合尾元素</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 假设 list 为: [1, 2, 3, 4, 5]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">element</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: 1
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>3<span style="color:#f92672">);</span>  <span style="color:#75715e">// return: 4
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">getFirst</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: 1
+</span><span style="color:#75715e"></span>lsit<span style="color:#f92672">.</span><span style="color:#a6e22e">getLast</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: 5
+</span></code></pre></div></li>
 
-<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+<li><p><strong><em><code>indexOf(Object o)</code></em></strong> &emsp; // 从头到尾的顺序，返回集合中第一个与所给元素相同的元素下标，没有则返回 -1</p></li>
 
-<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+<li><p><strong><em><code>lastIndexOf(Object o)</code></em></strong> &emsp; // 从尾到头的顺序，返回集合中第一个与所给元素相同的元素下标，没有则返回 -1</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 假设 list 为 [1, 3, 2, 1, 4]
+</span><span style="color:#75715e"></span>lsit<span style="color:#f92672">.</span><span style="color:#a6e22e">indexOf</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>  <span style="color:#75715e">// return: 0
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">lastIndexOf</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>  <span style="color:#75715e">// return: 3
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">indexOf</span><span style="color:#f92672">(</span>9<span style="color:#f92672">);</span>  <span style="color:#75715e">// return: -1
+</span></code></pre></div></li>
 
-<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+<li><p><strong><em><code>offer(E e)</code></em></strong> &emsp; // 将所给元素添加到该集合的尾部</p></li>
 
-<li><p><strong><em><code>LinkedList()</code></em></strong> &emsp; //</p></li>
+<li><p><strong><em><code>offerFirst(E e)</code></em></strong> &emsp; // 将所给元素插入到该集合的开头</p></li>
+
+<li><p><strong><em><code>offerLast(E e)</code></em></strong> &emsp; // 将所给元素插入到该集合的末尾</p></li>
+
+<li><p><strong><em><code>peek(E e)</code></em></strong> &emsp; // 获取但不删除该集合的首元素，若集合为空则返回 null</p></li>
+
+<li><p><strong><em><code>peekFirst(E e)</code></em></strong> &emsp; // 获取但不删除该集合的首元素，若集合为空则返回 null</p></li>
+
+<li><p><strong><em><code>peekLast(E e)</code></em></strong> &emsp; // 获取但不删除该集合的尾元素，若集合为空则返回 null</p></li>
+
+<li><p><strong><em><code>poll(E e)</code></em></strong> &emsp; // 获取且删除该集合的首元素，若集合为空则返回 null</p></li>
+
+<li><p><strong><em><code>pollFirst(E e)</code></em></strong> &emsp; // 获取且删除该集合的首元素，若集合为空则返回 null</p></li>
+
+<li><p><strong><em><code>pollLast(E e)</code></em></strong> &emsp; // 获取且删除该集合的尾元素，若集合为空则返回 null</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 假设 list 为 [&#34;Tom&#34;, &#34;Jerry&#34;]
+</span><span style="color:#75715e">//   listEmpty 为 []
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">offer</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Frank&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// list: [&#34;Tom&#34;, &#34;Jerry&#34;, &#34;Frnak&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">offerFirst</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;First&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// list: [&#34;First&#34;, &#34;Tom&#34;, &#34;Jerry&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">offerLast</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Last&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// list: [&#34;Tom&#34;, &#34;Jerry&#34;, &#34;Last&#34;]
+</span><span style="color:#75715e"></span>
+list<span style="color:#f92672">.</span><span style="color:#a6e22e">peek</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: Tom
+</span><span style="color:#75715e"></span>listEmpty<span style="color:#f92672">.</span><span style="color:#a6e22e">peek</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: null
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">peekFirst</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: Tom
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">peekLast</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: Jerry
+</span><span style="color:#75715e"></span>listEmpty<span style="color:#f92672">.</span><span style="color:#a6e22e">peekFirst</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: null
+</span><span style="color:#75715e"></span>
+list<span style="color:#f92672">.</span><span style="color:#a6e22e">poll</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: Tom, list: [&#34;Jerry&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">pollFirst</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: Tom, list: [&#34;Jerry&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">pollLast</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: Jerry, list: [&#34;Tom&#34;]
+</span><span style="color:#75715e"></span>listEmpty<span style="color:#f92672">.</span><span style="color:#a6e22e">poll</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: null
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// ★ 由前面 LinkedList 的继承图就能看出，
+</span><span style="color:#75715e">//    LinkedList 还是 Queue 的实现类，
+</span><span style="color:#75715e">//    所以它也具备 Queue 的进队出队 (offer, peek, poll) 方法
+</span><span style="color:#75715e">//    即遵循 FIFO(First Input First Output) 原则
+</span></code></pre></div></li>
+
+<li><p><strong><em><code>pop()</code></em></strong> &emsp; // 从给集合表示的堆栈中弹出一个元素，即返回并删除该集合的首元素</p></li>
+
+<li><p><strong><em><code>push(E e)</code></em></strong> &emsp; // 从给集合表示的堆栈中压入一个元素，即插入所给元素到该集合的首位</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// suppose list is [1, 2, 3]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">pop</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: 1, list: [2, 3]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">push</span><span style="color:#f92672">(</span>10<span style="color:#f92672">);</span>  <span style="color:#75715e">// list: [10, 1, 2, 3]
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 所以 LinkedList 当堆栈用时，
+</span><span style="color:#75715e">// 是集合的开头当栈顶，末尾当栈底
+</span></code></pre></div></li>
+
+<li><p><strong><em><code>remove()</code></em></strong> &emsp; // 返回并删除该集合的首元素</p></li>
+
+<li><p><strong><em><code>remove(int index)</code></em></strong> &emsp; // 删除该集合中所给下标的元素</p></li>
+
+<li><p><strong><em><code>remove(Object o)</code></em></strong> &emsp; // 从头到尾顺序，删除该集合第一个与所给对象相同的元素，若存在的话，返回 true 表示删除成功</p></li>
+
+<li><p><strong><em><code>removeFirst()</code></em></strong> &emsp; // 返回并删除该集合的首元素</p></li>
+
+<li><p><strong><em><code>removeFirstOccurrence​(Object o)</code></em></strong> &emsp; // 从头到尾顺序，删除该集合第一个与所给对象相同的元素</p></li>
+
+<li><p><strong><em><code>removeLast()</code></em></strong> &emsp; // 返回并删除该集合的尾元素</p></li>
+
+<li><p><strong><em><code>removeLastOccurrence​(Object o)</code></em></strong> &emsp; // 从头到尾顺序，删除该集合最后一个与所给对象相同的元素</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 假设 list 为 [&#34;Tom&#34;, &#34;Jerry&#34;, &#34;Frank&#34;, &#34;Tom&#34;, &#34;Tom&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: Tom, list: [&#34;Jerry&#34;, &#34;Frank&#34;, &#34;Tom&#34;, &#34;Tom&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">(</span>2<span style="color:#f92672">);</span>  <span style="color:#75715e">// return: Frank, list: [&#34;Tom&#34;, &#34;Jerry&#34;, &#34;Tom&#34;, &#34;Tom&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// return: true, list: [&#34;Jerry&#34;, &#34;Frank&#34;, &#34;Tom&#34;, &#34;Tom&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">removeFirst</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: Tom, list: [&#34;Jerry&#34;, &#34;Frank&#34;, &#34;Tom&#34;, &#34;Tom&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">removeFirstOccurrence</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// return: true, list: [&#34;Jerry&#34;, &#34;Frank&#34;, &#34;Tom&#34;, &#34;Tom&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">removeLast</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: Tom, list: [&#34;Tom&#34;, &#34;Jerry&#34;, &#34;Frank&#34;, &#34;Tom&#34;]
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">removeLastOccurrence</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// return: true, list: [&#34;Tom&#34;, &#34;Jerry&#34;, &#34;Frank&#34;, &#34;Tom&#34;]
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 与 ArrayList 一样，若存的为整数，要用类型转换，否则默认调用的为下标的方法
+</span></code></pre></div></li>
+
+<li><p><strong><em><code>set(int index, E e)</code></em></strong> &emsp; // 用所给的元素替换该集合所给下标的元素</p></li>
+
+<li><p><strong><em><code>size()</code></em></strong> &emsp; // 返回该集合含有元素的数量</p></li>
+
+<li><p><strong><em><code>toArray()</code></em></strong> &emsp; // 将集合中的元素从头到尾到复制到 Object[] 中，并将其返回</p></li>
+</ul>
+
+<hr />
+
+<h2 id="vector">🔪 Vector</h2>
+
+<p>前两个是比较常用的，Vector 和 Stack 会用的相对较少，所以简要记录。首先，Vector 类也是 List 的实现类，也是类似一种动态数组，能根据需求增减元素且没有大小限制。其次，它也是通过下标来访问其元素。最后，与前两个不同的是，它是线程同步的。所以能适合在多线程中保证线程安全，而不需要线程安全时，可用 ArrayList 来代替。</p>
+
+<p>根据网上一些表述，此类由于保证同步而性能上不高，它的同步是因为给每个方法都加了 synchronized 。还有就是可能出的比较早，后续有更好的类取代了它</p>
+
+<p>具体的方法参考 <a href="https://docs.oracle.com/javase/9/docs/api/java/util/Vector.html">Vector-API</a> ，下面列举一些相对独特的方法</p>
+
+<h3 id="构造器与方法">构造器与方法</h3>
+
+<ul>
+<li><p><strong><em><code>Vector​()</code></em></strong> &emsp; // 构建一个空向量，初始容量为 10，容量递增为 0</p></li>
+
+<li><p><strong><em><code>Vector(int initialCapacity)</code></em></strong> &emsp; // 构建一个空向量，并指定初始容量，容量递增为 0</p></li>
+
+<li><p><strong><em><code>capacity()</code></em></strong> &emsp; // 返回该向量的当前容量</p></li>
+
+<li><p><strong><em><code>setSize​(int newSize)</code></em></strong> &emsp; // 设置该向量的大小</p></li>
+</ul>
+
+<hr />
+
+<h2 id="stack">📚 Stack</h2>
+
+<p>栈作为一种数据结构，所具有的特点就是 LIFO(Last Input Frist Output) ，常用的就是它的进栈和出栈</p>
+
+<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main//Collection_Stack.jpg" alt="Stack" width="45%"></p>
+
+<h3 id="构造器与方法-1">构造器与方法</h3>
+
+<ul>
+<li><p><strong><em><code>Stack()</code></em></strong> &emsp; // 创建一个空栈</p></li>
+
+<li><p><strong><em><code>empty()</code></em></strong> &emsp; // 判断该栈是否为空</p></li>
+
+<li><p><strong><em><code>peek()</code></em></strong> &emsp; // 查看但不删除栈顶元素</p></li>
+
+<li><p><strong><em><code>pop()</code></em></strong> &emsp; // 弹出并返回栈顶元素</p></li>
+
+<li><p><strong><em><code>push(E e)</code></em></strong> &emsp; // 将所给元素压入栈顶</p></li>
+
+<li><p><strong><em><code>search(Object o)</code></em></strong> &emsp; // 搜索所给元素在栈中的位置，并将其放回</p></li>
 </ul>
 
   
