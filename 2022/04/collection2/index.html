@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Collection2" />
+<meta property="og:description" content="记录 JavaSE 中集合框架之 Iterator、Queue、Map" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2022/04/collection2/" />
+<meta property="article:published_time" content="2022-04-02T16:37:30+08:00" />
+<meta property="article:modified_time" content="2022-04-02T16:37:30+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Collection2"/>
+<meta name="twitter:description" content="记录 JavaSE 中集合框架之 Iterator、Queue、Map"/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Collection2",
+  "url": "https://junq0420.github.io/2022/04/collection2/",
+  "wordCount": "1509",
+  "datePublished": "2022-04-02T16:37:30+08:00",
+  "dateModified": "2022-04-02T16:37:30+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "Java, Java_Advance"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2022/04/collection2/">
+
+    <title>Collection2 | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.5661e2c97fcfc5e47dc9df16e3ca8a3598b1d2f4acbec96eec49c72a9d6e7a31.css" rel="stylesheet" integrity="sha256-VmHiyX/PxeR9yd8W48qKNZix0vSsvslu7EnHKp1uejE=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/archives/" title="">Archives</a>
+          
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2022/04/collection2/">Collection2</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-04-02T16:37:30+08:00">2022-04-02</time>
+ in 
+<span class="fas fa-folder" aria-hidden="true"></span>&nbsp;<a href="/categories/java/" rel="category tag">Java</a>
+
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/java_advance/" rel="tag">Java_Advance</a>
+
+</p>
+  </header>
+  <p>记录 JavaSE 中集合框架之 Iterator、Queue、Map</p>
+
+<blockquote>
+<p><strong>学习笔记，仅供参考</strong></p>
+
+<p><strong>参考</strong>：<a href="https://www.yuque.com/books/share/ddbdba56-dc9f-4997-9e18-d9e69309d343/wgctzt">B站Mirco_Frank - java 进阶</a> | <a href="https://docs.oracle.com/javase/tutorial/collections/index.html">官网教程</a> | <a href="https://docs.oracle.com/javase/9/docs/api/java/util/Collection.html">JDK-9 API</a> | <a href="https://www.javatpoint.com/collections-in-java">javatpoint 教程-可供练习</a></p>
+</blockquote>
+
+<hr />
+
+<p><strong>目录</strong></p>
+
+<ul>
+<li><p><a href="#Iterator">迭代器</a></p></li>
+
+<li><p><a href="#PriorityQueue">PriorityQueue &amp; Deque</a></p></li>
+
+<li><p><a href="#HashSet">HashSet</a></p></li>
+
+<li><p><a href="#TreeSet">TreeSet</a></p></li>
+
+<li><p><a href="#Map">Map</a></p></li>
+
+<li><p><a href="#HashMap">HashMap</a></p></li>
+</ul>
+
+<hr />
+
+<p>在了解 Queue、Map 之前先把贵人 Iterator 先介绍了，毕竟发达了不能忘了贵人的帮助</p>
+
+<h2 id="a-name-iterator-a-迭代器-iterator"><a name="Iterator"></a>🔄 迭代器(Iterator)</h2>
+
+<p>字典中迭代指 <strong>重复一个过程</strong> (to repeat a process)，那么迭代器就是用来迭代的机器，而在 Java 中这种 “机器” 可能指的是某接口、类、方法等。从之前的继承图中可看出贵人 Iterator 是个接口 <code>Iterator&lt;E&gt;</code>，可以让 Collection 的所有类都能使用它的方法来迭代集合的元素，在集合框架中可以称为是 <strong>通用光标</strong>。</p>
+
+<p><strong>优点</strong> ：Collection 的所有类都能用，无论是连续存储的 ArrayList 还是离散存储的 LinkedList；容易完成集合的读取和删除数据操作，而传统的 for 循环则不能较好地对集合元素</p>
+
+<p><strong>缺点</strong> ：只能单一方向的迭代集合元素；增删改查中 <strong>只能完成删和查，不允许增和改</strong></p>
+
+<h3 id="方法">方法</h3>
+
+<ul>
+<li><p><strong><em><code>hasNext()</code></em></strong> &emsp; // 判断迭代时是否还有元素，类似于 Scanner 的 hasNext()</p></li>
+
+<li><p><strong><em><code>next()</code></em></strong> &emsp; // 返回迭代中的下个元素</p></li>
+
+<li><p><strong><em><code>remove()</code></em></strong> &emsp; // 删除最近的迭代元素，也可选择将删除的元素返回</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 假设 ArrayList 类型的 list 为 [&#34;Tom&#34;, &#34;Jerry&#34;, &#34;Frank&#34;, &#34;Mike&#34;]
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/**
+</span><span style="color:#75715e">*  用迭代器来查看集合的元素
+</span><span style="color:#75715e">*/</span>
+<span style="color:#75715e">// 新建迭代器，用集合的 iterator 方法返回一个迭代器
+</span><span style="color:#75715e"></span>Iterator<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> iterator <span style="color:#f92672">=</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">iterator</span><span style="color:#f92672">();</span>
+<span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>iterator<span style="color:#f92672">.</span><span style="color:#a6e22e">hasNext</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// get element of list by using next()
+</span><span style="color:#75715e"></span>    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>iterator<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; | &#34;</span><span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">    print result:
+</span><span style="color:#75715e">    Tom | Jerry | Frank | Mike    
+</span><span style="color:#75715e">*/</span>
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e">*  用迭代器来删除集合的元素
+</span><span style="color:#75715e">*/</span>
+Iterator<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> iteratorRm <span style="color:#f92672">=</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">iterator</span><span style="color:#f92672">();</span>
+<span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>iteratorRm<span style="color:#f92672">.</span><span style="color:#a6e22e">hasNext</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>iteratorRm<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">().</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Frank&#34;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+        iterator<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// list: [&#34;Tom&#34;, &#34;Jerry&#34;, &#34;Mike&#34;]
+</span></code></pre></div></li>
+</ul>
+
+<h3 id="与-for-循环的区别">与 for 循环的区别</h3>
+
+<p>在之前遍历数组时，经常会使用 for 循环来遍历完成。而在集合中也可用 for 来遍历，下面就来看看它们的区别</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 假设 ArrayList 类型的 list 为 [&#34;Tom&#34;, &#34;Jerry&#34;, &#34;Frank&#34;, &#34;Mike&#34;] 
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     *  查看元素
+</span><span style="color:#75715e">     */</span>
+
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;===Iterator===&#34;</span><span style="color:#f92672">);</span>
+    Iterator<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> iterator <span style="color:#f92672">=</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">iterator</span><span style="color:#f92672">();</span>
+    <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>iterator<span style="color:#f92672">.</span><span style="color:#a6e22e">hasNext</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>iterator<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; | &#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;===For-i===&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">();</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>      
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>i<span style="color:#f92672">)</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; | &#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;===For-each===&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>String value <span style="color:#f92672">:</span> list<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>value <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; | &#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/******************************************************/</span>
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     *  删除元素
+</span><span style="color:#75715e">     */</span>
+
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;===Iterator===&#34;</span><span style="color:#f92672">);</span>
+    Iterator<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> iterator <span style="color:#f92672">=</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">iterator</span><span style="color:#f92672">();</span>
+    <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>iterator<span style="color:#f92672">.</span><span style="color:#a6e22e">hasNext</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>iterator<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">().</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Frank&#34;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+            iterator<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;===For-i===&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">();</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>            
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>i<span style="color:#f92672">).</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Frank&#34;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+            list<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">(</span>i<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/*******************************************************/</span>
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     *  修改元素
+</span><span style="color:#75715e">     */</span>
+
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;===For-i===&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">();</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>            
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>i<span style="color:#f92672">).</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Frank&#34;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+            list<span style="color:#f92672">.</span><span style="color:#a6e22e">set</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Fuck&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span></code></pre></div>
+<p>从上面代码能可看出三种方法都能完成遍历打印元素，但在之前就已经知道 for-each 不能对操作数据，它的过程相当于依次将数组元素复制出来，无法对真正的数组造成影响</p>
+
+<p>由于迭代器的 hasNext() 做判断，next() 获取元素，remove() 方法删除元素，所以它没法来修改集合。故在集合中，想查看和删除可以用迭代器，而修改和增加还是要用 for-i 循环</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image//iterator_forloop.jpg" alt="iterator_forloop" /></p>
+
+<p>较大数据的情况下，查询数据时三者性能比较，若集合为 ArrayList 这种连续存储的，三者性能相当；若集合为 LinkedList 这种离散存储的，iterator, for-each &gt;&gt; for-i，在测试时明显感觉到 for-i 要等待十几秒</p>
+
+<p>参考 <a href="https://blog.csdn.net/Jae_Wang/article/details/80526216">iterator详解以及和for循环的区别</a> | <a href="https://blog.csdn.net/qq_31459039/article/details/79411998">List遍历：for，foreach Iterator 速度比较</a></p>
+
+<hr />
+
+<h2 id="a-name-priorityqueue-a-priorityqueue-deque"><a name="PriorityQueue"></a>👩🏿‍🤝‍🧑🏻 PriorityQueue &amp; Deque</h2>
+
+<p>说完贵人后继续回到 Collection 家族上来，接着了解 Queue 的实现类，PriorityQueue 和 Deque。队列主要体现的就是先进先出的思想</p>
+
+<p>先了解 PriorityQueue，与 List 一样也是大小无限制，有序的，但此顺序是根据 <strong>自然顺序</strong>（如字母或数字大小） 或者构造时所指定的顺序来进行排序。它不允许 null 元素，也不允许插入不可比较 (non-comparable) 的对象</p>
+
+<p>底层上，也是由数组来存储元素，当容量不够时，也能自动扩容。</p>
+
+<p>在性能上，入队和出队方法 (offer, poll, remove() 和 add) 是 <strong><em>O(logn)</em></strong> 的时间复杂度；remove(Object) 和 contains(Object) 方法是线性时间复杂度 <strong><em>O(n)</em></strong> ；查询方法 (peek, element, size) 则是常量时间复杂度 <strong><em>O(1)</em></strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 创建 PriorityQueue 对象
+</span><span style="color:#75715e"></span>    PriorityQueue<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> queue <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PriorityQueue<span style="color:#f92672">&lt;&gt;();</span>
+    
+    <span style="color:#75715e">// add element
+</span><span style="color:#75715e"></span>    queue<span style="color:#f92672">.</span><span style="color:#a6e22e">offer</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">);</span>
+    queue<span style="color:#f92672">.</span><span style="color:#a6e22e">offer</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Jerry&#34;</span><span style="color:#f92672">);</span>
+    queue<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Frank&#34;</span><span style="color:#f92672">);</span>
+    queue<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Mike&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// queue: [&#34;Frank&#34;, &#34;Mike&#34;, &#34;Jerry&#34;, &#34;Tom&#34;]
+</span><span style="color:#75715e"></span>    
+    <span style="color:#75715e">// remove element
+</span><span style="color:#75715e"></span>    queue<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// queue: [&#34;Mike&#34;, &#34;Jerry&#34;, &#34;Tom&#34;]
+</span><span style="color:#75715e"></span>    queue<span style="color:#f92672">.</span><span style="color:#a6e22e">poll</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// queue: [&#34;Mike&#34;, &#34;Jerry&#34;, &#34;Tom&#34;]
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// query element
+</span><span style="color:#75715e"></span>    queue<span style="color:#f92672">.</span><span style="color:#a6e22e">element</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: Frank
+</span><span style="color:#75715e"></span>    queue<span style="color:#f92672">.</span><span style="color:#a6e22e">peek</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: Frank
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// get size of queue
+</span><span style="color:#75715e"></span>    queue<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// return: 4
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">/*
+</span><span style="color:#75715e">        ★ 区别：
+</span><span style="color:#75715e">        1. offer, add 都能添加元素。但当队列满时，offer 返回 false，add 抛异常
+</span><span style="color:#75715e">        2. poll, remove 都能删除队列头元素。同样队列满时，poll 返回 null，remove 抛异常
+</span><span style="color:#75715e">        3. peek, element 都返回但不删除头元素。队满时，peek 返回 null，element 抛异常
+</span><span style="color:#75715e">    */</span></code></pre></div>
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/Collection_Queue_methods.jpg" alt="Summary_Queue_methods" /></p>
+
+<p>再来看 Deque，它是 Queue 的子接口，全称为 <code>double ended queue</code> 即双向队列，头和尾都能作为操作数据的起始点，实现类有：ArrayQueue，LinkedList 等。同样没有大小的限制，所具有的方法与 PriorityQueue 一样有两种形式，抛异常或返回值(null/false)。如下图所示</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/Deque_methods.jpg" alt="Deque_methods" /></p>
+
+<p>由于双向队列可以正反方向处理数据，所以它也可以降维为单向的队列或者堆栈，这也是为什么 LinkedList 既能作队列又能作堆栈的原因。下面为方法的对照图</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/deque_as_queue.jpg" alt="deque_as_queue" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/Deque_as_stack.jpg" alt="Deque_as_stack" /></p>
+
+<hr />
+
+<h2 id="a-name-hashset-a-hashset"><a name="HashSet"></a>📮 HashSet</h2>
+
+<p>HashSet 是 Set 接口下的一个实现类，继承图如下</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/HashSet_extend_map.jpg" alt="HashSet" width=150></p>
+
+<p><strong>特点</strong>：不重复、无序，允许至多有一个 null ；基本的操作方法 (add, remove, contains, size) 都是 <strong><em>O(1)</em></strong> 的性能</p>
+
+<p><strong>底层</strong>：当用构造器创建时实际返回的是 HashMap 的实例，而 HashMap 是 Map 家族的，后面在说。HashMap 的底层则是基于 HashTable(哈希表)，它是一种数据结构。在 JKD1.7 前是 <code>数组+链表</code> 的形式，而 JDK1.8 之后是 <code>数组+链表/红黑树</code>。并且 HashSet 的不重复的性质就是由此实现的</p>
+
+<p><strong style="font-family: cursive; font-size: 120%">元素不重复的原理</strong></p>
+
+<p>先根据元素的哈希值进行分组，然后再通过链表/红黑树存储数据，步骤如下：</p>
+
+<ol>
+<li><p>根据哈希值分组</p></li>
+
+<li><p>对相同的哈希值进行链式存储</p></li>
+
+<li><p>若链表上的元素大于 8 个时，转为红黑树存储</p></li>
+</ol>
+
+<p>由于是根据哈希值分组，所以 HashSet 输出时的顺序也是根据哈希值的顺序而不是插入的顺序。下面通过代码来阐述整个过程</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    HashSet<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> set <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashSet<span style="color:#f92672">&lt;&gt;();</span>
+    set<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;abc&#34;</span><span style="color:#f92672">);</span>
+    set<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;def&#34;</span><span style="color:#f92672">);</span>
+    set<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;hello&#34;</span><span style="color:#f92672">);</span>
+    set<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;world&#34;</span><span style="color:#f92672">);</span>
+    
+    <span style="color:#75715e">// set: [abc, def, hello, world]
+</span><span style="color:#75715e"></span>
+    set<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;abc&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// set: [abc, def, hello, world]
+</span></code></pre></div>
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/HashSet_low_level.jpg" alt="HashSet不重复原理" /></p>
+
+<p>首先创建了 HashSet 对象，然后添加数据。而当 set 调用 add() 时，add 会调用元素的 hashCode() 和 equals() 方法来判断是否重复</p>
+
+<p>添加第一个 &ldquo;abc&rdquo; 时，调用 &ldquo;abc&rdquo; 的hashCode 获取哈希值为 96354，又集合中没有 96354 这个哈希值元素，故将其添加到集合中</p>
+
+<p>同样添加 &ldquo;def&rdquo; 时，也是如此，集合中没有 99333 这个哈希值元素，故添加之</p>
+
+<p>假设 &ldquo;hello&rdquo; 和 &ldquo;world&rdquo; 具有相同的哈希值 12345，那么当添加 &ldquo;world&rdquo; 时，会在集合中找到 12345，然后调用 equals 方法来比较集合中哈希值为 12345 的元素的内容是否与所添加的元素内容相同，不同则链式添加，相同则不再添加</p>
+
+<p>而在添加第二个 &ldquo;abc&rdquo; 时，计算的哈希值能够在集合中找到，接着又调用 equals 方法比较出集合中已存在相同的元素，故不在将 &ldquo;abc&rdquo; 加入到集合中</p>
+
+<h3 id="方法-1">方法</h3>
+
+<p>方法与之前的用法类似，这里就不再代码示例</p>
+
+<ul>
+<li><p><strong><em><code>add(E e)</code></em></strong> &emsp; // 若集合中不存在此元素，将所给元素添加至集合</p></li>
+
+<li><p><strong><em><code>clear()</code></em></strong> &emsp; // 清空集合中的元素</p></li>
+
+<li><p><strong><em><code>contains(Object o)</code></em></strong> &emsp; // 判断集合中是否存在所给的元素</p></li>
+
+<li><p><strong><em><code>isEmpty()</code></em></strong> &emsp; // 判断集合是否为空</p></li>
+
+<li><p><strong><em><code>iterator()</code></em></strong> &emsp; // 返回该集合的迭代器</p></li>
+
+<li><p><strong><em><code>remove(Object o)</code></em></strong> &emsp; // 若存在则在集合中删除所给元素</p></li>
+
+<li><p><strong><em><code>size()</code></em></strong> &emsp; // 返回集合所拥有元素的个数</p></li>
+</ul>
+
+<p>LinkedHashSet 则是有顺序的 HashSet，它的元素都是按照插入时的顺序来进行排列的，同样也是去重的，允许有 null</p>
+
+<hr />
+
+<h2 id="a-name-treeset-a-treeset"><a name="TreeSet"></a>🌲 TreeSet</h2>
+
+<p>TreeSet 类也是 Set 的一个实现类，与HashSet 不同的是，它是用树来存储数据的。特点上，不重复、自然顺序(升序)、不允许 null。性能上，增删查(add, remove, contains) 都是 <strong><em>O(logn)</em></strong></p>
+
+<h3 id="特别方法">特别方法</h3>
+
+<p>增删改查等常规的方法就不再记录，下面记录些 TreeSet 特有的方法</p>
+
+<ul>
+<li><p><strong><em><code>ceiling(E e)</code></em></strong> &emsp; // 返回集合中大于或等于所给元素的最小值，即稍大于所给值的元素，没有则返回 null</p></li>
+
+<li><p><strong><em><code>floor(E e)</code></em></strong> &emsp; // 返回集合中小于或等于所给元素的最大值，即稍小于所给值的元素，没有则返回 null</p></li>
+
+<li><p><strong><em><code>higher(E e)</code></em></strong> &emsp; // 返回集合中严格大于所给元素的最小值，即稍大于所给值的元素，没有则返回 null</p></li>
+
+<li><p><strong><em><code>lower(E e)</code></em></strong> &emsp; // 返回集合中严格小于所给元素的最大值，即稍小于所给值的元素，没有则返回 null</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 创建 TreeSet 对象 set
+</span><span style="color:#75715e"></span>TreeSet<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> set <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeSet<span style="color:#f92672">&lt;&gt;();</span>
+
+set<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">);</span>
+set<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Jerry&#34;</span><span style="color:#f92672">);</span>
+set<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Frank&#34;</span><span style="color:#f92672">);</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>set<span style="color:#f92672">);</span>
+<span style="color:#75715e">// 输出 set 为 [&#34;Frank&#34;, &#34;Jerry&#34;, &#34;Tom&#34;]
+</span><span style="color:#75715e">// 按照字母的升序进行排列
+</span><span style="color:#75715e"></span>
+set<span style="color:#f92672">.</span><span style="color:#a6e22e">ceiling</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Mike&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// return: Tom  
+</span><span style="color:#75715e"></span>set<span style="color:#f92672">.</span><span style="color:#a6e22e">floor</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Mike&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// return: Jerry
+</span><span style="color:#75715e"></span>set<span style="color:#f92672">.</span><span style="color:#a6e22e">ceiling</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Zero&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// return: null
+</span><span style="color:#75715e">// 对于字符串它是先根据首字符的 ASCII 比大小，若一样在比第二个，依次下去
+</span></code></pre></div></li>
+
+<li><p><strong><em><code>descendingIterator()</code></em></strong> &emsp; // 返回降序形式的迭代器</p></li>
+
+<li><p><strong><em><code>descendingSet()</code></em></strong> &emsp; // 返回此集合的反序集合，该反序集合类型为 <code>NavigableSet</code> 词典意思为可导航、可航行，继承自 SortedSet 应该是能进行排序</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 假设集合 set 为 [Frank, Jerry, Tom]
+</span><span style="color:#75715e"></span>Iterator iterator <span style="color:#f92672">=</span> set<span style="color:#f92672">.</span><span style="color:#a6e22e">descendingIterator</span><span style="color:#f92672">();</span>
+<span style="color:#75715e">// 迭代输出为：Tom, Jerry, Frank
+</span><span style="color:#75715e">// 正好与 set 的排序相反，即降序
+</span><span style="color:#75715e"></span>
+NavigableSet<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> reverseSet <span style="color:#f92672">=</span> set<span style="color:#f92672">.</span><span style="color:#a6e22e">descendingSet</span><span style="color:#f92672">();</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>reverseSet<span style="color:#f92672">);</span>
+<span style="color:#75715e">// 打印反序集合为：[Tom, Jerry, Frank]
+</span></code></pre></div></li>
+
+<li><p><strong><em><code>first()</code></em></strong> &emsp; // 返回此集合的第一个元素，及最小的</p></li>
+
+<li><p><strong><em><code>last()</code></em></strong> &emsp; // 返回此集合的最后一个元素，及最大的</p></li>
+
+<li><p><strong><em><code>headSet(E toElement)</code></em></strong> &emsp; // 将集合中那些 <strong>严格小于</strong> 所给元素的元素组成一个小集合并返回，返回集合的类型为 <code>SortedSet</code></p></li>
+
+<li><p><strong><em><code>headSet(E toElement, boolean inclusive)</code></em></strong> &emsp; // 将集合中那些 <strong>小于或等于 (inclusive is true)</strong> 所给元素的元素组成一个小集合并返回，返回集合的类型为 <code>NavigableSet</code></p></li>
+
+<li><p><strong><em><code>tailSet(E toElement)</code></em></strong> &emsp; // 将集合中那些 <strong>大于或等于</strong> 所给元素的元素组成一个小集合并返回，返回集合的类型为 <code>SortedSet</code></p></li>
+
+<li><p><strong><em><code>tailSet(E toElement, boolean inclusive)</code></em></strong> &emsp; // 将集合中那些 <strong>大于或等于 (inclusive is true)</strong> 所给元素的元素组成一个小集合并返回，返回集合的类型为 <code>NavigableSet</code></p></li>
+
+<li><p><strong><em><code>subSet(E fromElement, E toElement)</code></em></strong> &emsp; // 将集合中那些在 <strong>[fromElement, toElement)</strong> 所给元素的元素组成一个小集合并返回，返回集合的类型为 <code>SortedSet</code></p></li>
+
+<li><p><strong><em><code>subSet(E fromElement, boolean inclusive, E toElement, boolean inclusive)</code></em></strong> &emsp; // 将集合中那些 <strong><a href="inclusive is true">fromElement, toElement</a></strong> 所给元素的元素组成一个小集合并返回，返回集合的类型为 <code>NavigableSet</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 假设集合 set 为 [Frank, Jerry, Tom]
+</span><span style="color:#75715e"></span>SortedSet<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> sortedSet <span style="color:#f92672">=</span> set<span style="color:#f92672">.</span><span style="color:#a6e22e">headSet</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Jerry&#34;</span><span style="color:#f92672">);</span>
+NavigableSet<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> navigableSet <span style="color:#f92672">=</span> set<span style="color:#f92672">.</span><span style="color:#a6e22e">headSet</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Jerry&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>
+
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>set<span style="color:#f92672">);</span>  <span style="color:#75715e">// set: [Frank, Jerry, Tom]
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*======headSet======*/</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>sortedSet<span style="color:#f92672">);</span>  <span style="color:#75715e">// sortedSet: [Frank]
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>navigableSet<span style="color:#f92672">);</span>  <span style="color:#75715e">// navigableSet: [Frank, Jerry]
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*======tailSet======*/</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>set<span style="color:#f92672">.</span><span style="color:#a6e22e">tailSet</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Jerry&#34;</span><span style="color:#f92672">));</span>
+<span style="color:#75715e">// result: [Jerry, Tom]
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>set<span style="color:#f92672">.</span><span style="color:#a6e22e">tailSet</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Jerry&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">));</span>
+<span style="color:#75715e">// result: [Tom]
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*======tailSet======*/</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>set<span style="color:#f92672">.</span><span style="color:#a6e22e">subSet</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Frank&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">));</span>
+<span style="color:#75715e">// return: [Frank, Jerry]
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>set<span style="color:#f92672">.</span><span style="color:#a6e22e">subSet</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Frank&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">));</span>
+<span style="color:#75715e">// return: [Jerry]
+</span></code></pre></div></li>
+
+<li><p><strong><em><code>pollFirst()</code></em></strong> &emsp; // 查找并删除第一个元素，即最小的，集合为空则返回 null</p></li>
+
+<li><p><strong><em><code>pollLast()</code></em></strong> &emsp; // 查找并删除最后一个元素，即最大的，集合为空则返回 null</p></li>
+</ul>
+
+<hr />
+
+<h2 id="a-name-map-a-map"><a name="Map"></a>📅 Map</h2>
+
+<p><code>Map&lt;key, value&gt;</code> 接口，一种表示键值映射的对象，不能有重复的键且每个键至多映射一个值。一个图的内容可有三个角度观察：键集合、值集合和键值映射集合。顺序为迭代器返回元素的顺序，而 TreeMap 能够制定自己的顺序。</p>
+
+<p>一些图的实现对键和值有一定的约束，如有的禁止空键和空值；有的对键的类型有约束。想要插入一个不合法的键或值则会抛出非检查时异常，特别是 NullPointerException 或 ClassCastException；想查询一个不合法的键或值可能会抛出异常或返回 false。</p>
+
+<p>Map 不能够遍历，故要用 <code>keySet() - 键集合视图</code> 或 <code>entrySet() - 键值映射集合视图</code> 方法将其变为 Set 后在做遍历</p>
+
+<p>三个子类：HashMap（无序）、TreeMap（保持降序） 和 LinkedMap（保持插入顺序）</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/Map_graph.jpg" alt="map_graph" /></p>
+
+<p>下例简要展示如何创建及遍历 Map</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test1</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 非泛型 Map (Old style)
+</span><span style="color:#75715e"></span>        Map map <span style="color:#f92672">=</span> New <span style="color:#a6e22e">HashMap</span><span style="color:#f92672">();</span>  <span style="color:#75715e">// 创建 map
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 添加键值对
+</span><span style="color:#75715e"></span>        map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">);</span>
+        map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>2<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Jerry&#34;</span><span style="color:#f92672">);</span>
+        map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>5<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Frank&#34;</span><span style="color:#f92672">);</span>
+        map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>3<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Puck&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#75715e">// 转为集合，以便用迭代器遍历
+</span><span style="color:#75715e"></span>        Set set <span style="color:#f92672">=</span> map<span style="color:#f92672">.</span><span style="color:#a6e22e">entrySet</span><span style="color:#f92672">();</span>
+        Iterator iterator <span style="color:#f92672">=</span> set<span style="color:#f92672">.</span><span style="color:#a6e22e">iterator</span><span style="color:#f92672">();</span>
+        <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>iterator<span style="color:#f92672">.</span><span style="color:#a6e22e">hasNext</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+            <span style="color:#75715e">// 将获取的元素转为 Map.Entry，能够分开取键和值
+</span><span style="color:#75715e"></span>            Map<span style="color:#f92672">.</span><span style="color:#a6e22e">Entry</span> entry <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Map<span style="color:#f92672">.</span><span style="color:#a6e22e">Entry</span><span style="color:#f92672">)</span> iterator<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">();</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>entry<span style="color:#f92672">.</span><span style="color:#a6e22e">getKey</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;:&#34;</span> <span style="color:#f92672">+</span> entry<span style="color:#f92672">.</span><span style="color:#a6e22e">getValue</span><span style="color:#f92672">());</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span> 
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">    print result:
+</span><span style="color:#75715e">    1:Tom
+</span><span style="color:#75715e">    2:Jerry
+</span><span style="color:#75715e">    3:Puck
+</span><span style="color:#75715e">    5:Frank
+</span><span style="color:#75715e">*/</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test2</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 使用泛型 Map (New Style)
+</span><span style="color:#75715e"></span>        Map<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> map <span style="color:#f92672">=</span> HashMap<span style="color:#f92672">&lt;&gt;();</span>
+        map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>2<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">);</span>
+        map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>3<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Frank&#34;</span><span style="color:#f92672">);</span>
+        map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Jerry&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#75715e">// for-each 遍历元素
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>Map<span style="color:#f92672">.</span><span style="color:#a6e22e">Entry</span> entry <span style="color:#f92672">:</span> map<span style="color:#f92672">.</span><span style="color:#a6e22e">entrySet</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>entry<span style="color:#f92672">.</span><span style="color:#a6e22e">getKey</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;:&#34;</span> <span style="color:#f92672">+</span> entry<span style="color:#f92672">.</span><span style="color:#a6e22e">getValue</span><span style="color:#f92672">());</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">    print result:
+</span><span style="color:#75715e">    1:Jerry
+</span><span style="color:#75715e">    2:Tom
+</span><span style="color:#75715e">    3:Frank
+</span><span style="color:#75715e">*/</span>
+
+<span style="color:#75715e">// 在 Java 1.8 之后，通过新特性能够更加方便地进行遍历
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test3</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        Map<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> map <span style="color:#f92672">=</span> HashMap<span style="color:#f92672">&lt;&gt;();</span>
+        map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>2<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Jerry&#34;</span><span style="color:#f92672">);</span>
+        map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>3<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Frank&#34;</span><span style="color:#f92672">);</span>
+        map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#75715e">// 先返回该map的集合视图
+</span><span style="color:#75715e"></span>        map<span style="color:#f92672">.</span><span style="color:#a6e22e">entrySet</span><span style="color:#f92672">()</span>
+            <span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>  <span style="color:#75715e">// 返回该集合的顺序流
+</span><span style="color:#75715e"></span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">sorted</span><span style="color:#f92672">(</span>Map<span style="color:#f92672">.</span><span style="color:#a6e22e">Entry</span><span style="color:#f92672">.</span><span style="color:#a6e22e">comparingByKey</span><span style="color:#f92672">())</span>  <span style="color:#75715e">// 根据所提供的比较器来进行排序
+</span><span style="color:#75715e"></span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">foreach</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>  <span style="color:#75715e">// 用 for-each 新特性进行遍历
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// Note：其中比较器还能用 comparingByValue() 来由值来排序
+</span><span style="color:#75715e">//       用 comparingByKey(Comparator.reverseOrder()) 降序排列
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">    print result:
+</span><span style="color:#75715e">    1:Jerry
+</span><span style="color:#75715e">    2:Tom
+</span><span style="color:#75715e">    3:Frank
+</span><span style="color:#75715e">*/</span></code></pre></div>
+<h3 id="常规方法">常规方法</h3>
+
+<ul>
+<li><p><strong><em><code>cleaer()</code></em></strong> &emsp; // 移除该 map 所有的映射</p></li>
+
+<li><p><strong><em><code>containsKey()、containsValue()</code></em></strong> &emsp; // 判断 map 中是否包含制定的键或值，是返回 true</p></li>
+
+<li><p><strong><em><code>static Map.Entry entry(K k, V v)</code></em></strong> &emsp; // 静态方法，返回一个不可变的 Map.Entry，且包含所给的键值</p></li>
+
+<li><p><strong><em><code>static Map of(K k1, V v1)</code></em></strong> &emsp; // 静态方法，返回一个不可变的 Map，其中该 map 包含所给的键值；该方法重载是从无参到给十个键值对</p></li>
+
+<li><p><strong><em><code>equals(Object o)</code></em></strong> &emsp; // 比较该 map 与指定的对象是否元素相同</p></li>
+
+<li><p><strong><em><code>get(Object key)</code></em></strong> &emsp; // 获取指定键对应的值，若没有该键则返回 null</p></li>
+
+<li><p><strong><em><code>isEmpty()</code></em></strong> &emsp; // 判断该 map 是否为空</p></li>
+
+<li><p><strong><em><code>put(K k, V v)</code></em></strong> &emsp; // 添加一对键值，若输入的键已有值，则该值将被替换为所给的值</p></li>
+
+<li><p><strong><em><code>putAll(Map m)</code></em></strong> &emsp; // 将所给 m 的元素复制给此 map</p></li>
+
+<li><p><strong><em><code>putIfAbsent(K k, V v)</code></em></strong> &emsp; // 当 map 中不存在所给键时，才将所给键值对添加到图中，且返回 null</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        Map<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> map <span style="color:#f92672">=</span> HashMap<span style="color:#f92672">&lt;&gt;();</span>
+        map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">);</span>    <span style="color:#75715e">// 1 -&gt; Tom s
+</span><span style="color:#75715e"></span>        map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Jerry&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// 1 -&gt; Jerry
+</span><span style="color:#75715e"></span>        map<span style="color:#f92672">.</span><span style="color:#a6e22e">putIfAbsent</span><span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Frank&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// 1 -&gt; Jerry
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">    Different
+</span><span style="color:#75715e">    put(): 无论map有无该键都会添加所给键值对
+</span><span style="color:#75715e">    putIfAbsent(): 先判断map是否有该键，有则返回原有的值；无则添加所给键值对并返回 null
+</span><span style="color:#75715e">*/</span></code></pre></div></li>
+
+<li><p><strong><em><code>remove(Object k)</code></em></strong> &emsp; // 删除指定的键的映射，并返该键所映射的值；无该键则返回 null</p></li>
+
+<li><p><strong><em><code>remove(K k, V v)</code></em></strong> &emsp; // 删除 map 中包含的指定的键值，成功返回 true；失败返回 false</p></li>
+
+<li><p><strong><em><code>replace(K k, V v)</code></em></strong> &emsp; // 将 map 中的键所映射的值替换为所给的值，并将原值返回；若不存在所给键则返回 null</p></li>
+
+<li><p><strong><em><code>replace(K k, V oldV, V newV)</code></em></strong> &emsp; // 将 map 中的映射替换为指定的键值对，成功为 true，反之 false</p></li>
+
+<li><p><strong><em><code>size()</code></em></strong> &emsp; // 返回 map 的大小</p></li>
+
+<li><p><strong><em><code>values()</code></em></strong> &emsp; // 返回 Collection 值集合视图</p></li>
+</ul>
+
+<hr />
+
+<h2 id="a-name-hashmap-a-hashmap-linkedmap-treemap"><a name="HashMap"></a>🔋 HashMap, LinkedMap, TreeMap</h2>
+
+<p>HashMap 实现类，特点有：没有重复键、允许有一个 null 键和多个 null 值、不能保证顺序、不同步的、初始容量 16 和 load factor 0.75</p>
+
+<h3 id="底层原理">底层原理</h3>
+
+<p>hashing 指将对象转为整数值的过程，更方便索引和搜索，HashMap 是由一组头节点组成的数组，节点结构如下</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/HashMap_Node.jpg" alt="Node" /></p>
+
+<p>其中每个头节点的下标又称为桶(Bucket)，由头节点所构成的一条链表，它的节点都有相同的桶值，这些桶又构成了 HashMap</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/HashMap_Bucket.jpg" alt="Bucket" /></p>
+
+<p><strong>与 HashTable 的区别</strong></p>
+
+<table style="text-align: center; color: black">
+    <th>
+        <tr style="background-color: rgb(199, 204, 190); font-weight: bold">
+            <td>HashMap</td>
+            <td>HashTable</td>
+        </tr>
+    </th>
+    <tb>
+        <tr style="background-color: white">
+            <td>线程不同步</td>
+            <td>线程同步</td>
+        </tr>
+        <tr style="background-color: rgb(239, 241, 235)">
+            <td>允许有一个空键和多个空值</td>
+            <td>不能有空键和空值</td>
+        </tr>
+        <tr style="background-color: white">
+            <td>default capacity 16; loadfactor 0.75</td>
+            <td>default capacity 11; loadfactor 0.75</td>
+        </tr>
+        <tr style="background-color: rgb(239, 241, 235)">
+            <td>线程不需等待，所以性能高</td>
+            <td>线程需等待，故性能较低</td>
+        </tr>
+        <tr style="background-color: white">
+            <td>在 JDK 1.2 引进</td>
+            <td>JDK 1.0 就被引进</td>
+        </tr>
+    </tb>
+</table>
+
+<p>hashMap 中插入键值对的过程</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">// 1. 添加键值对
+</span><span style="color:#75715e"></span>    HashMap<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Integer<span style="color:#f92672">&gt;</span> map <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;();</span>
+    map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">,</span> 1<span style="color:#f92672">);</span>  <span style="color:#75715e">// 其 hashcode 为 84274
+</span><span style="color:#75715e"></span>    map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Jerry&#34;</span><span style="color:#f92672">,</span> 2<span style="color:#f92672">);</span>  <span style="color:#75715e">// hashcode 为 71462654
+</span><span style="color:#75715e"></span>    map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Frank&#34;</span><span style="color:#f92672">,</span> 3<span style="color:#f92672">);</span>  <span style="color:#75715e">// hashcode 为 68139378
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 2. 计算下标(桶) 公式为 Index= hashcode &amp; (16 - 1)
+</span><span style="color:#75715e"></span>    Index <span style="color:#f92672">=</span> hashcode <span style="color:#f92672">&amp;</span> <span style="color:#f92672">(</span>16 <span style="color:#f92672">-</span> 1<span style="color:#f92672">);</span>  
+    <span style="color:#75715e">// “Tom” -&gt; 2 | &#34;Jerry&#34; -&gt; 14 | &#34;Frank&#34; -&gt; 2
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 3. 当有相同的 hashcode 时，就会调用 equals() 来
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//    比较内容是否相同，以此保证无重复
+</span></code></pre></div>
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/HashMap_put.jpg" alt="put" /></p>
+
+<p>用 <code>map.get(K key)</code> 取值时与之相似，先计算 Hashcode 值，再计算下标，让后通过 equals() 比较所给的 key 与节点的 key 是否相同，相同则将其值返回，不同再与下个节点比较，都不同则返回 null</p>
+
+<p>LinkedHashMap 与 HashMap 相似，只是它在遍历时，则是以插入元素的顺序来输出结果的</p>
+
+<p>TreeMap 则不能有 null 键但能有多个 null 值，且遍历时以键升序的形式遍历，底层是基于红黑树实现的</p>
+
+<h3 id="treemap-的一些方法">TreeMap 的一些方法</h3>
+
+<ul>
+<li><p><strong><em><code>ceilingEntry(K k) | ceilingKey(K k)</code></em></strong> &emsp; // 返回 map 中大于等于所给键值对的最小值，没有则返回 null</p></li>
+
+<li><p><strong><em><code>floorEntry(K k) | floorKey(K k)</code></em></strong> &emsp; // 返回 map 中小于等于所给键值的最大值，则有返回 null</p></li>
+
+<li><p><strong><em><code>higherEntry(K k) | higherKey(K k)</code></em></strong> &emsp; // 返回 map 中严格大于所给键的最小值，没有则 null</p></li>
+
+<li><p><strong><em><code>lowerEntry(K k) | lowerKey(K k)</code></em></strong> &emsp; // 返回 map 中严格小于所给键的最大值，没有则 null</p></li>
+
+<li><p><strong><em><code>firstEntry() | firstKey()</code></em></strong> &emsp; // 返回当前 map 中最小键的映射，若 map 为空则返回 null</p></li>
+
+<li><p><strong><em><code>lastEntry() | lastKey()</code></em></strong> &emsp; // 返回当前 map 中最大键的映射，若 map 为空则返回 null</p></li>
+
+<li><p><strong><em><code>headMap(K toKey) | headMap(K toKey, boolean inclusive)</code></em></strong> &emsp; // 返回该 map 中严格小于所给键的映射视图，其中 inclusive 为 true 表示包含边界值，即小于等于</p></li>
+
+<li><p><strong><em><code>tailMap(K toKey) | tailMap(K toKey, boolean inclusive)</code></em></strong> &emsp; // 与 headMap 相反</p></li>
+
+<li><p><strong><em><code>subMap(K fromKey, boolean fromInclusive, K toKey, boolean toInclusive)</code></em></strong> &emsp; // 返回键从 fromKey 到 toKey 的子图</p></li>
+
+<li><p><strong><em><code>subMap(K fromKey, K toKey)</code></em></strong> &emsp; // 返回键在 [ fromKey, toKey ) 范围内的子图</p></li>
+
+<li><p><strong><em><code>pollFirstEntry()</code></em></strong> &emsp; // 删除并返回该 map 中最小键的映射，若 map 为空则返回 null</p></li>
+
+<li><p><strong><em><code>pollLastEntry()</code></em></strong> &emsp; // 删除并返回该 map 中最大键的映射，若 map 为空则返回 null</p></li>
+</ul>
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2022/04/collection2/">Collection2</a></li>
+
+<li><a href="/2022/03/develop_standard/">Develop_Standard</a></li>
+
+<li><a href="/2022/03/advance/">Advance</a></li>
+
+<li><a href="/2022/03/querystatement/">QueryStatement</a></li>
+
+<li><a href="/2022/03/primary_key/">Primary_key</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

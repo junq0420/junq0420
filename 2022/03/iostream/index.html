@@ -140,7 +140,7 @@
 <p><a name="return-top"></a>
         <div class="icon">
             <a href="#return-top">
-                <img src="https://raw.githubusercontent.com/junq0420/blog_image/main/scroll_top.jpg
+                <img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/scroll_top.jpg
 " alt="row" height="50px">
             </a>
         </div></p>
@@ -227,13 +227,13 @@
 
 <p>下面以水库输水来说明流的过程</p>
 
-<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/Water_stream_exp.jpg" alt="Water_stream_exp" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/Water_stream_exp.jpg" alt="Water_stream_exp" /></p>
 
 <p>输入输出是有相对性的，可以从 src 到 dist, 或者 dist 到 src</p>
 
 <p>接着来探讨程序中的 IO 流概念，在<code>程序中流就是一串数据</code>，当程序要 <code>从源读取数据</code> 时就要使用 <strong><code>input</code></strong>; 当程序要 <code>向源写入数据</code> 时就要使用 <strong><code>output</code></strong>。所以一切都是以程序为主，以它作为主角，输入输出都是相对它而言的。</p>
 
-<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/Input_output_difference.jpg" alt="IO" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/Input_output_difference.jpg" alt="IO" /></p>
 
 <p>图片来自<a href="https://docs.oracle.com/javase/tutorial/essential/io/streams.html">官网文档</a></p>
 
@@ -392,7 +392,7 @@
 
 <p>心血来潮，顺便简要测试了单字节读写、手写缓存区读写、自带缓存区读写三种读写所消耗的时间</p>
 
-<p><img src="https://raw.githubusercontent.com/junq0420/blog_image/main/Buffered_spend_time.jpg" alt="spend-time" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/Buffered_spend_time.jpg" alt="spend-time" /></p>
 
 <p>由图可知，缓存区读写大约是单字节读写的十分之一，而手写的缓存区要稍慢于自带的，可能是内部建的 byte 数组底层优化的好</p>
 
@@ -485,9 +485,9 @@
 </span><span style="color:#75715e"></span><span style="color:#f92672">}</span></code></pre></div>
 <hr />
 
-<h3 id="a-name-转换流-转换流-a-inputstreamreader-outputstreamwwriter"><a name="转换流">转换流</a> (InputStreamReader &amp; OutputStreamWwriter)</h3>
+<h3 id="a-name-转换流-转换流-a-inputstreamreader-outputstreamwriter"><a name="转换流">转换流</a> (InputStreamReader &amp; OutputStreamWriter)</h3>
 
-<p>它俩是作为字节和字符相互转换的桥梁，通过 <code>InputStreamReader</code> 可以将文件中的字节转为字符，然后进行读取；同样，<code>OutputStreamWwriter</code> 是将写入的字符转为字节，然后放入文件中进行存储。</p>
+<p>它俩是作为字节和字符相互转换的桥梁，通过 <code>InputStreamReader</code> 可以将文件中的字节转为字符，然后进行读取；同样，<code>OutputStreamWriter</code> 是将写入的字符转为字节，然后放入文件中进行存储。</p>
 
 <p>使用场合：</p>
 
@@ -728,6 +728,8 @@
     <ol class="list-unstyled">
 
 
+<li><a href="/2022/04/collection2/">Collection2</a></li>
+
 <li><a href="/2022/03/develop_standard/">Develop_Standard</a></li>
 
 <li><a href="/2022/03/advance/">Advance</a></li>
@@ -735,8 +737,6 @@
 <li><a href="/2022/03/querystatement/">QueryStatement</a></li>
 
 <li><a href="/2022/03/primary_key/">Primary_key</a></li>
-
-<li><a href="/2022/03/datatype/">DataType</a></li>
 
     </ol>
   </section>
