@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Makefile" />
+<meta property="og:description" content="简要记录 makefile 的编写使用" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2022/05/makefile/" />
+<meta property="article:published_time" content="2022-05-19T18:57:55+08:00" />
+<meta property="article:modified_time" content="2022-05-19T18:57:55+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Makefile"/>
+<meta name="twitter:description" content="简要记录 makefile 的编写使用"/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Makefile",
+  "url": "https://junq0420.github.io/2022/05/makefile/",
+  "wordCount": "196",
+  "datePublished": "2022-05-19T18:57:55+08:00",
+  "dateModified": "2022-05-19T18:57:55+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "makefile"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2022/05/makefile/">
+
+    <title>Makefile | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.5661e2c97fcfc5e47dc9df16e3ca8a3598b1d2f4acbec96eec49c72a9d6e7a31.css" rel="stylesheet" integrity="sha256-VmHiyX/PxeR9yd8W48qKNZix0vSsvslu7EnHKp1uejE=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/archives/" title="">Archives</a>
+          
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2022/05/makefile/">Makefile</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-05-19T18:57:55+08:00">2022-05-19</time>
+ in 
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/makefile/" rel="tag">makefile</a>
+
+</p>
+  </header>
+  <p>简要记录 makefile 的编写使用</p>
+
+<blockquote>
+<p><strong>参考</strong>：<a href="https://www.bilibili.com/video/BV1Mx411m7fm?spm_id_from=333.999.0.0">B站-正月点灯笼-Makefile的写法</a></p>
+
+<p><strong>更多了解</strong>：<a href="https://seisman.github.io/how-to-write-makefile/index.html">跟我一起写Makefile</a></p>
+</blockquote>
+
+<hr />
+
+<p>makefile 主要用来简化编译运行程序的过程，以避免手动输入太长的命令</p>
+
+<h2 id="makefile-的格式">makefile 的格式</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile"><span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> dependencies
+    <span style="color:#f92672">[</span>tab<span style="color:#f92672">]</span> command
+<span style="color:#960050;background-color:#1e0010">(回车空一行)</span>
+
+<span style="color:#75715e"># -----注释-----
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e"># target 指要生成的目标程序，即编译过程的输出，如 C 语言的 a.out
+</span><span style="color:#75715e"># dependencies 指要所要生成目标程序的依赖，即编译过程的输入，如 test.c
+</span><span style="color:#75715e"># command 指编译所用到的命令，即编译过程，如 gcc test.c -o test
+</span><span style="color:#75715e"># [tab] 表明 command 前要用一个 tab 键，命令写完后要用回车空一行
+</span></code></pre></div>
+<p>下面以一个 gcc 编译 C 语言为例</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile"><span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> test.c
+    gcc test.c -o test
+</code></pre></div>
+<p>要使用 makefile，只需在终端输入 <code>make</code> 或 <code>make -f makefile_name</code> 执行编译，就相当于一个编译过程的脚本</p>
+
+<h2 id="多文件编译">多文件编译</h2>
+
+<p>当一个目标程序可能需要用到多个文件，那么该如何编写呢？思路是先将所需的文件先编译，然后再将编译的结果与主程序译一起编译为最终的目标程序</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/makefile1.jpg" alt="多文件思路" /></p>
+
+<p>通过上图，就知道了编写 makefile 的顺序，一般 makefile 的写法是从后往前写，即由果索因</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile"><span style="color:#a6e22e">main</span><span style="color:#f92672">:</span> main.c foo.o bar.o tool.o
+    gcc main.c foo.o bar.o tool.o -o main
+
+<span style="color:#a6e22e">foo.o</span><span style="color:#f92672">:</span> foo.c
+    gcc -c foo.c
+
+<span style="color:#a6e22e">bar.o</span><span style="color:#f92672">:</span> bar.c
+    gcc -c bar.c
+
+<span style="color:#a6e22e">tool.o</span><span style="color:#f92672">:</span> tool.c
+    gcc -c tool.c
+
+<span style="color:#a6e22e">clean</span><span style="color:#f92672">:</span> 
+    rm *.o main
+</code></pre></div>
+<p>上面的 makefile 中的 clean 部分是当程序编译运行成功后，即可将程序打包发走，那么这些编译后的可执行文件就不需要了，即在终端可通过 <code>make clean</code> 命令将这些结果程序删除掉</p>
+
+<h2 id="全局变量">全局变量</h2>
+
+<p>跟 C 语言一样，为了让 makefile 更具灵活性，允许将一些编译命令定义为全局变量，这样在后期改动时，就很省力。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile">CC <span style="color:#f92672">=</span> gcc  <span style="color:#75715e"># 定义编译器</span>
+CFLAGS <span style="color:#f92672">=</span> -lm -Wall -g  <span style="color:#75715e"># 定义 option</span>
+
+<span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> test.c
+    <span style="color:#66d9ef">$(</span>CC<span style="color:#66d9ef">)</span> <span style="color:#66d9ef">$(</span>CFLAGS<span style="color:#66d9ef">)</span> -o test.c
+</code></pre></div>
+<h2 id="生成多个执行程序">生成多个执行程序</h2>
+
+<p>下面将描述多个源文件编译为多个目标文件的过程</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/makefile2.jpg" alt="生成多个执行程序" /></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile">CC <span style="color:#f92672">=</span> gcc
+CFLAGS <span style="color:#f92672">=</span> -lm -Wall -g
+
+<span style="color:#a6e22e">all</span><span style="color:#f92672">:</span> max min
+
+<span style="color:#a6e22e">max</span><span style="color:#f92672">:</span> max.c foo.o bar.o
+    <span style="color:#66d9ef">$(</span>CC<span style="color:#66d9ef">)</span> <span style="color:#66d9ef">$(</span>CFLAGS<span style="color:#66d9ef">)</span> max.c foo.o bar.o -o max
+
+<span style="color:#a6e22e">min</span><span style="color:#f92672">:</span> min.c foo.o bar.o
+    <span style="color:#66d9ef">$(</span>CC<span style="color:#66d9ef">)</span> <span style="color:#66d9ef">$(</span>CFLAGS<span style="color:#66d9ef">)</span> min.c foo.o bar.o -o min
+
+<span style="color:#a6e22e">foo.o</span><span style="color:#f92672">:</span> foo.c
+    <span style="color:#66d9ef">$(</span>CC<span style="color:#66d9ef">)</span> <span style="color:#66d9ef">$(</span>CFLAGS<span style="color:#66d9ef">)</span> -c foo.c
+
+<span style="color:#a6e22e">bar.o</span><span style="color:#f92672">:</span> bar.c
+    <span style="color:#66d9ef">$(</span>CC<span style="color:#66d9ef">)</span> <span style="color:#66d9ef">$(</span>CFLAGS<span style="color:#66d9ef">)</span> -c bar.c
+
+<span style="color:#a6e22e">clean</span><span style="color:#f92672">:</span> 
+    rm *.o max min
+</code></pre></div>
+<p>all 让 makefile 能够编译 max 和 min，若不用 all，则 makefile 仅会执行 max 这一条编译过程，而 min 的编译会被跳过</p>
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2022/05/makefile/">Makefile</a></li>
+
+<li><a href="/2022/05/jdbc/">JDBC</a></li>
+
+<li><a href="/2022/04/collection2/">Collection2</a></li>
+
+<li><a href="/2022/03/develop_standard/">Develop_Standard</a></li>
+
+<li><a href="/2022/03/advance/">Advance</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>
