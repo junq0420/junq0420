@@ -7,7 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>除非特别声明, 本站采用技术 [Hugo](https://gohugo.io/) &amp; 主题 [hugo-theme-bootstrap4-blog](https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/).</copyright>
-    <lastBuildDate>Tue, 17 May 2022 15:56:12 +0800</lastBuildDate><atom:link href="https://junq0420.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 28 Aug 2022 09:49:02 +0800</lastBuildDate><atom:link href="https://junq0420.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JPA</title>
+      <link>https://junq0420.github.io/2022/08/jpa/</link>
+      <pubDate>Sun, 28 Aug 2022 09:49:02 +0800</pubDate>
+      
+      <guid>https://junq0420.github.io/2022/08/jpa/</guid>
+      <description>&lt;p&gt;记录 SpringBoot-JPA 的基础操作&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Generics</title>
+      <link>https://junq0420.github.io/2022/06/generics/</link>
+      <pubDate>Sun, 26 Jun 2022 21:41:17 +0800</pubDate>
+      
+      <guid>https://junq0420.github.io/2022/06/generics/</guid>
+      <description>&lt;p&gt;Java 泛型&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>JDBC</title>
       <link>https://junq0420.github.io/2022/05/jdbc/</link>

@@ -2,29 +2,53 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://junq0420.github.io/categories/</loc>
+    <lastmod>2022-08-28T10:03:26+08:00</lastmod>
+  </url><url>
+    <loc>https://junq0420.github.io/tags/linux/</loc>
+    <lastmod>2022-08-28T10:03:26+08:00</lastmod>
+  </url><url>
+    <loc>https://junq0420.github.io/categories/linux/</loc>
+    <lastmod>2022-08-28T10:03:26+08:00</lastmod>
+  </url><url>
+    <loc>https://junq0420.github.io/2022/08/linux_cmd/</loc>
+    <lastmod>2022-08-28T10:03:26+08:00</lastmod>
+  </url><url>
+    <loc>https://junq0420.github.io/</loc>
+    <lastmod>2022-08-28T10:03:26+08:00</lastmod>
+  </url><url>
+    <loc>https://junq0420.github.io/posts/</loc>
+    <lastmod>2022-08-28T10:03:26+08:00</lastmod>
+  </url><url>
+    <loc>https://junq0420.github.io/tags/</loc>
+    <lastmod>2022-08-28T10:03:26+08:00</lastmod>
+  </url><url>
+    <loc>https://junq0420.github.io/tags/git/</loc>
+    <lastmod>2022-08-28T09:51:16+08:00</lastmod>
+  </url><url>
+    <loc>https://junq0420.github.io/2022/08/git_basic/</loc>
+    <lastmod>2022-08-28T09:51:16+08:00</lastmod>
+  </url><url>
+    <loc>https://junq0420.github.io/categories/java/</loc>
+    <lastmod>2022-08-28T09:49:02+08:00</lastmod>
+  </url><url>
+    <loc>https://junq0420.github.io/tags/java_springboot/</loc>
+    <lastmod>2022-08-28T09:49:02+08:00</lastmod>
+  </url><url>
+    <loc>https://junq0420.github.io/2022/08/jpa/</loc>
+    <lastmod>2022-08-28T09:49:02+08:00</lastmod>
+  </url><url>
+    <loc>https://junq0420.github.io/2022/06/generics/</loc>
+    <lastmod>2022-06-26T21:41:17+08:00</lastmod>
+  </url><url>
+    <loc>https://junq0420.github.io/tags/java_advance/</loc>
+    <lastmod>2022-06-26T21:41:17+08:00</lastmod>
+  </url><url>
     <loc>https://junq0420.github.io/2022/05/makefile/</loc>
     <lastmod>2022-05-19T18:57:55+08:00</lastmod>
   </url><url>
     <loc>https://junq0420.github.io/tags/makefile/</loc>
     <lastmod>2022-05-19T18:57:55+08:00</lastmod>
-  </url><url>
-    <loc>https://junq0420.github.io/</loc>
-    <lastmod>2022-05-19T18:57:55+08:00</lastmod>
-  </url><url>
-    <loc>https://junq0420.github.io/posts/</loc>
-    <lastmod>2022-05-19T18:57:55+08:00</lastmod>
-  </url><url>
-    <loc>https://junq0420.github.io/tags/</loc>
-    <lastmod>2022-05-19T18:57:55+08:00</lastmod>
-  </url><url>
-    <loc>https://junq0420.github.io/categories/</loc>
-    <lastmod>2022-05-17T15:56:12+08:00</lastmod>
-  </url><url>
-    <loc>https://junq0420.github.io/categories/java/</loc>
-    <lastmod>2022-05-17T15:56:12+08:00</lastmod>
-  </url><url>
-    <loc>https://junq0420.github.io/tags/java_advance/</loc>
-    <lastmod>2022-05-17T15:56:12+08:00</lastmod>
   </url><url>
     <loc>https://junq0420.github.io/2022/05/jdbc/</loc>
     <lastmod>2022-05-17T15:56:12+08:00</lastmod>

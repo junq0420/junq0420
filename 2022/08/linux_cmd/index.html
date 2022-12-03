@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Linux_cmd" />
+<meta property="og:description" content="记录一些不熟练或之前未了解到的 Linux 命令，参考 linuxfun 书籍
+ 网址 : linux-training.be 链接 : 所参考书籍的下载连接
+目录 : * 1. 查看文本文件内容 * 2. shell expansion * 2.1. 命令与参数 * 2.2. 别名（alias） * 2.3. 特殊符号 * 2.4. Shell 变量 * 2.5. 嵌套(embedding)和选项(option) * 2.6. shell history * 3. 管道(Pipes)和命令 * 3.1. I/O 重定向 * 3." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2022/08/linux_cmd/" />
+<meta property="article:published_time" content="2022-08-28T10:03:26+08:00" />
+<meta property="article:modified_time" content="2022-08-28T10:03:26+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux_cmd"/>
+<meta name="twitter:description" content="记录一些不熟练或之前未了解到的 Linux 命令，参考 linuxfun 书籍
+ 网址 : linux-training.be 链接 : 所参考书籍的下载连接
+目录 : * 1. 查看文本文件内容 * 2. shell expansion * 2.1. 命令与参数 * 2.2. 别名（alias） * 2.3. 特殊符号 * 2.4. Shell 变量 * 2.5. 嵌套(embedding)和选项(option) * 2.6. shell history * 3. 管道(Pipes)和命令 * 3.1. I/O 重定向 * 3."/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Linux_cmd",
+  "url": "https://junq0420.github.io/2022/08/linux_cmd/",
+  "wordCount": "3616",
+  "datePublished": "2022-08-28T10:03:26+08:00",
+  "dateModified": "2022-08-28T10:03:26+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "Linux"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2022/08/linux_cmd/">
+
+    <title>Linux_cmd | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.5661e2c97fcfc5e47dc9df16e3ca8a3598b1d2f4acbec96eec49c72a9d6e7a31.css" rel="stylesheet" integrity="sha256-VmHiyX/PxeR9yd8W48qKNZix0vSsvslu7EnHKp1uejE=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/archives/" title="">Archives</a>
+          
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2022/08/linux_cmd/">Linux_cmd</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-08-28T10:03:26+08:00">2022-08-28</time>
+ in 
+<span class="fas fa-folder" aria-hidden="true"></span>&nbsp;<a href="/categories/linux/" rel="category tag">Linux</a>
+
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/linux/" rel="tag">Linux</a>
+
+</p>
+  </header>
+  
+
+<p>记录一些不熟练或之前未了解到的 Linux 命令，参考 linuxfun 书籍</p>
+
+<blockquote>
+<p><strong>网址</strong> : <a href="http://linux-training.be/">linux-training.be</a>
+<strong>链接</strong> : <a href="http://linux-training.be/files/books/LinuxFun.pdf">所参考书籍的下载连接</a></p>
+
+<p><strong>目录</strong> :
+<!-- vscode-markdown-toc -->
+* 1. <a href="#section1">查看文本文件内容</a>
+* 2. <a href="#section2">shell expansion</a>
+    * 2.1. <a href="#section2-1">命令与参数</a>
+    * 2.2. <a href="#section2-2">别名（alias）</a>
+    * 2.3. <a href="#section2-3">特殊符号</a>
+    * 2.4. <a href="#section2-4">Shell 变量</a>
+    * 2.5. <a href="#section2-5">嵌套(embedding)和选项(option)</a>
+    * 2.6. <a href="#section2-6">shell history</a>
+* 3. <a href="#section3">管道(Pipes)和命令</a>
+    * 3.1. <a href="#section3-1">I/O 重定向</a>
+    * 3.2. <a href="#section3-2">过滤器</a>
+    * 3.3. <a href="#section3-3">基本的 Unix 工具</a>
+* 4. <a href="#section4">Shell Script</a>
+* 5. <a href="#section5">用户管理</a>
+* 6. <a href="#section6">文件安全(file security)</a>
+* 7. <a href="#section7">linux 网络</a>
+* 8. <a href="#section8">进程 - 即一个正在执行的程序</a>
+    * 8.1. <a href="#section8-1">内核管理进程</a>
+    * 8.2. <a href="#section8-2">进程的系统调用</a>
+    * 8.3. <a href="#section8-3">孤儿进程和废弃进程</a>
+    * 8.4. <a href="#section8-4">特殊进程</a>
+    * 8.5. <a href="#section8-5">守护进程</a>
+    * 8.6. <a href="#section8-6">作业(Job) - 即一整条命令</a></p>
+
+<h2 id="9-包管理系统-section9">* 9. <a href="#section9">包管理系统</a></h2>
+</blockquote>
+
+<p>由于目录、文件的增删改查等命令经常用，这里就不在记录</p>
+
+<h2 id="1-a-name-section1-a-查看文本文件内容">1. <a name='section1'></a>查看文本文件内容</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 默认查看指定文件的前十行内容</span>
+head /etc/passwd
+
+<span style="color:#75715e"># 查看文件的前 n 行内容</span>
+head -n /etc/passwd
+
+<span style="color:#75715e"># tail 命令与 head 类似，它从尾开始看</span>
+tail -n /etc/passwd
+
+<span style="color:#75715e"># cat 将标准输入的内容复制到标准输出</span>
+cat ~/dev/Demo.c    <span style="color:#75715e"># look content of file on terminal</span>
+
+<span style="color:#75715e"># cat 也是 concatenate 的缩写，即将多个输入拼接再输出</span>
+echo one&gt;part1
+echo two&gt;part2
+echo three&gt;part3
+cat part1 part2 part3 &gt; all
+cat all
+out: one
+     two
+     three
+
+<span style="color:#75715e"># cat 创建文件，即将终端作为输入，输出到指定文件中</span>
+<span style="color:#75715e"># 终端书写是以 EOF(end of file) 作为书写结束</span>
+<span style="color:#75715e"># 一般默认为 CTRL+d</span>
+cat &gt;test.txt
+hello world!
+<span style="color:#f92672">[</span>Ctrl+d<span style="color:#f92672">]</span>
+
+<span style="color:#75715e"># cat 创建文件并自定义结束符，用 &lt;&lt; 来定义</span>
+cat &gt; winter.txt <span style="color:#e6db74">&lt;&lt;stop
+</span><span style="color:#e6db74">&gt; It&#39;s so cold!
+</span><span style="color:#e6db74">&gt; stop</span>
+
+<span style="color:#75715e"># cat 复制文件</span>
+cat winter.txt &gt; cold.txt
+
+<span style="color:#75715e"># tac 即 cat 的反写形式，它是以从尾到头的形式查看</span>
+tac ~/dev/Demo.c
+
+<span style="color:#75715e"># more | less 适用于查看超过一屏的文件内容，空格翻页，q 退出</span>
+less ~/dev/Demo.c
+
+<span style="color:#75715e"># strings 打印一个文件中可打印的内容</span>
+<span style="color:#75715e"># 例如可将一些二进制文件, java 字节码文件以可读的形式打印</span>
+strings /usr/bin/ls
+strings ~/dev/Demo.class</code></pre></div>
+<hr />
+
+<h2 id="2-a-name-section2-a-shell-expansion">2. <a name='section2'></a>shell expansion</h2>
+
+<h3 id="2-1-a-name-section2-1-a-命令与参数">2.1. <a name='section2-1'></a>命令与参数</h3>
+
+<p>shell 根据空白符将命令分为一个个参数，第一个参数作为要执行的命令，其他的为命令要用到的参数。通常命令的空白符会被忽略，但加上 &lsquo; 或 &ldquo; 号，会变为字符串输出，而且 <code>echo -e</code> 允许加转义字符。</p>
+
+<p>外部命令(External)，有它们自己的二进制文件，大多位与 /bin 或 /sbin 目录下；而内部命令(Builtin) 属于 shell 程序的一部分。可用 <code>type</code> 命令查看命令的类型，如 type cat 。echo 是既是内部的（默认），也是外部的。 <code>which</code> 在 Path 环境变量下查找命令的二进制文件路径，如 which cd 。</p>
+
+<h3 id="2-2-a-name-section2-2-a-别名-alias">2.2. <a name='section2-2'></a>别名（alias）</h3>
+
+<p>创建别名：<code>alias c='clear'</code> , <code>alias rm='rm -i'</code></p>
+
+<p>查看别名：<code>alias</code>（所有的）, <code>alias c rm</code>（指定的）</p>
+
+<p>删除别名：<code>unalias c</code></p>
+
+<h3 id="2-3-a-name-section2-3-a-特殊符号">2.3. <a name='section2-3'></a>特殊符号</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile"><span style="color:#960050;background-color:#1e0010">1.</span> <span style="color:#960050;background-color:#1e0010">分号(;)</span> <span style="color:#960050;background-color:#1e0010">-</span> <span style="color:#960050;background-color:#1e0010">分隔同行的多条命令</span>
+<span style="color:#960050;background-color:#1e0010">echo</span> <span style="color:#960050;background-color:#1e0010">one;</span> <span style="color:#960050;background-color:#1e0010">echo</span> <span style="color:#960050;background-color:#1e0010">two</span>
+
+<span style="color:#960050;background-color:#1e0010">2.</span> <span style="color:#960050;background-color:#1e0010">与号(&amp;)</span> <span style="color:#960050;background-color:#1e0010">-</span> <span style="color:#960050;background-color:#1e0010">跟在命令结尾，将该条命令放后台执行</span>
+<span style="color:#75715e"># 即创建子 shell 执行命令，结束后将结果返回给当前 shell
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">sleep</span> <span style="color:#960050;background-color:#1e0010">10</span> <span style="color:#960050;background-color:#1e0010">&amp;</span>
+
+<span style="color:#960050;background-color:#1e0010">3.</span> <span style="color:#960050;background-color:#1e0010">(</span><span style="color:#66d9ef">$?</span><span style="color:#960050;background-color:#1e0010">)</span> <span style="color:#960050;background-color:#1e0010">-</span> <span style="color:#960050;background-color:#1e0010">上条命令的退出码(exit</span> <span style="color:#960050;background-color:#1e0010">code)，0</span> <span style="color:#960050;background-color:#1e0010">指上条命令执行成功；非</span> <span style="color:#960050;background-color:#1e0010">0</span> <span style="color:#960050;background-color:#1e0010">则失败</span>
+<span style="color:#960050;background-color:#1e0010">echo</span> <span style="color:#66d9ef">$?</span>
+
+<span style="color:#960050;background-color:#1e0010">4.</span> <span style="color:#960050;background-color:#1e0010">双与(&amp;&amp;)</span> <span style="color:#960050;background-color:#1e0010">-</span> <span style="color:#960050;background-color:#1e0010">逻辑与，只有前条命令成功才会执行后条命令</span>
+<span style="color:#960050;background-color:#1e0010">echo</span> <span style="color:#960050;background-color:#1e0010">one</span> <span style="color:#960050;background-color:#1e0010">&amp;&amp;</span> <span style="color:#960050;background-color:#1e0010">echo</span> <span style="color:#960050;background-color:#1e0010">two</span>
+
+<span style="color:#960050;background-color:#1e0010">5.</span> <span style="color:#960050;background-color:#1e0010">(||)</span> <span style="color:#960050;background-color:#1e0010">-</span> <span style="color:#960050;background-color:#1e0010">逻辑非，前条失败后条才执行</span>
+<span style="color:#960050;background-color:#1e0010">zecho</span> <span style="color:#960050;background-color:#1e0010">one</span> <span style="color:#960050;background-color:#1e0010">||</span> <span style="color:#960050;background-color:#1e0010">echo</span> <span style="color:#960050;background-color:#1e0010">two</span>
+
+<span style="color:#960050;background-color:#1e0010">6.</span> <span style="color:#960050;background-color:#1e0010">&amp;&amp;</span> <span style="color:#960050;background-color:#1e0010">||</span> <span style="color:#960050;background-color:#1e0010">结合</span>
+<span style="color:#960050;background-color:#1e0010">rm</span> <span style="color:#960050;background-color:#1e0010">file1</span> <span style="color:#960050;background-color:#1e0010">&amp;&amp;</span> <span style="color:#960050;background-color:#1e0010">echo</span> <span style="color:#960050;background-color:#1e0010">success</span> <span style="color:#960050;background-color:#1e0010">||</span> <span style="color:#960050;background-color:#1e0010">echo</span> <span style="color:#960050;background-color:#1e0010">failure</span>
+<span style="color:#75715e"># 类似三目运算符 (? :)
+</span><span style="color:#75715e"></span>
+<span style="color:#960050;background-color:#1e0010">7.</span> <span style="color:#960050;background-color:#1e0010">井号</span> <span style="color:#960050;background-color:#1e0010">-</span> <span style="color:#960050;background-color:#1e0010">表注释</span>
+
+<span style="color:#960050;background-color:#1e0010">8.</span> <span style="color:#960050;background-color:#1e0010">反斜线(\)</span> <span style="color:#960050;background-color:#1e0010">-</span> <span style="color:#960050;background-color:#1e0010">转移字符</span>
+<span style="color:#960050;background-color:#1e0010">echo</span> <span style="color:#960050;background-color:#1e0010">escaping</span> <span style="color:#960050;background-color:#1e0010">\\\?\&amp;</span>
+<span style="color:#960050;background-color:#1e0010">当放在行尾，表示改行未完，下一行继续接着写</span>
+
+<span style="color:#960050;background-color:#1e0010">9.</span> <span style="color:#960050;background-color:#1e0010">刀乐符($)</span> <span style="color:#960050;background-color:#1e0010">-</span> <span style="color:#960050;background-color:#1e0010">获取变量的值(变量名大小写)</span>
+<span style="color:#960050;background-color:#1e0010">echo</span> $PATH <span style="color:#f92672">!=</span> echo $path
+</code></pre></div>
+<h3 id="2-4-a-name-section2-4-a-shell-变量">2.4. <a name='section2-4'></a>Shell 变量</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">- 创建变量
+var<span style="color:#f92672">=</span>tom
+echo <span style="color:#e6db74">&#34;hello </span>$var<span style="color:#e6db74">&#34;</span>  --&gt; hello tom
+echo <span style="color:#e6db74">&#39;hello $var&#39;</span>  --&gt; hello $var
+注意：双引号支持调用变量值，而单引号会原样打印
+
+- 查看<span style="color:#f92672">(</span>set<span style="color:#f92672">)</span>与删除变量<span style="color:#f92672">(</span>unset<span style="color:#f92672">)</span>
+set  --&gt; show all variables
+unset var  --&gt; remove var
+
+- $PS1<span style="color:#f92672">(</span>命令行提示符变量<span style="color:#f92672">)</span>
+
+- $PATH<span style="color:#f92672">(</span>寻找执行命令的路径，类似于 WIN 的环境变量<span style="color:#f92672">)</span>
+echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+<span style="color:#75715e"># 以冒号来分割各个路径</span>
+
+- env<span style="color:#f92672">(</span>显示导出的变量，即子 shell 也能访问到的变量<span style="color:#f92672">)</span>
+
+- export<span style="color:#f92672">(</span>导出变量<span style="color:#f92672">)</span>
+name<span style="color:#f92672">=</span>tom
+export name
+
+- <span style="color:#e6db74">${}</span>, 为了让变量值与字符串拼接
+prefix<span style="color:#f92672">=</span>Super
+echo $prefixman  --&gt; 空
+echo <span style="color:#e6db74">${</span>prefix<span style="color:#e6db74">}</span>man --&gt; Superman
+
+- unbound 变量, 即未定义的变量
+echo $MyVar --&gt; 空 <span style="color:#75715e"># MyVar 未定义</span>
+set -u
+echo $MyVar --&gt; -bash: my: unbound variable </code></pre></div>
+<h3 id="2-5-a-name-section2-5-a-嵌套-embedding-和选项-option">2.5. <a name='section2-5'></a>嵌套(embedding)和选项(option)</h3>
+
+<p>使用 $() 来完成 shell 嵌套，在当前的 shell 中临时开启一个子 shell，并将子 shell 的结果返回给当前 shell</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo $var  --&gt; 空
+echo <span style="color:#66d9ef">$(</span>var<span style="color:#f92672">=</span>7; echo var<span style="color:#66d9ef">)</span>  --&gt; <span style="color:#ae81ff">7</span>
+
+<span style="color:#75715e"># 利用嵌套查看目录信息而不跳转当前目录</span>
+echo <span style="color:#66d9ef">$(</span>cd test; ls -a<span style="color:#66d9ef">)</span></code></pre></div>
+<p>用命令 <code>set -o</code> 来显示当前 shell 的选项配置</p>
+
+<h3 id="2-6-a-name-section2-6-a-shell-history">2.6. <a name='section2-6'></a>shell history</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">- !!<span style="color:#f92672">(</span>显示并重复上条命令<span style="color:#f92672">)</span>
+echo hello
+!!  --&gt; 
+echo hello
+hello
+
+- !xx<span style="color:#f92672">(</span>显示并重复以xx字符开头的命令<span style="color:#f92672">)</span>
+<span style="color:#75715e"># xx 字符串也可使用正则表达式来进行匹配</span>
+
+- history<span style="color:#f92672">(</span>查看在此之前所使用过的命令<span style="color:#f92672">)</span>
+- history 10<span style="color:#f92672">(</span>查看上10条命令<span style="color:#f92672">)</span>
+<span style="color:#75715e"># 查看历史时，每条命令前还有个命令编号</span>
+
+- !n<span style="color:#f92672">(</span>显示并执行某条命令；其中 n 指某条命令编号<span style="color:#f92672">)</span>
+
+- ctrl-r<span style="color:#f92672">(</span>进入历史命令的搜索模式<span style="color:#f92672">)</span>
+
+- $HISTSIZE<span style="color:#f92672">(</span>当前shell 会话能在内存中记录的历史命令条数<span style="color:#f92672">)</span>
+echo $HISTSIZE --&gt; <span style="color:#ae81ff">1000</span>
+
+- $HISTFILE<span style="color:#f92672">(</span>历史命令所存放的文件<span style="color:#f92672">)</span>
+echo $HISTFILE --&gt; /home/username/.bash_history
+
+- $HISTFILESIZE<span style="color:#f92672">(</span>离开 shell 会话后, bash_history 能够报存的命令条数<span style="color:#f92672">)</span>
+
+- 在命令前加个空格，能防止该命令被记录</code></pre></div>
+<hr />
+
+<h2 id="3-a-name-section3-a-管道-pipes-和命令">3. <a name='section3'></a>管道(Pipes)和命令</h2>
+
+<h3 id="3-1-a-name-section3-1-a-i-o-重定向">3.1. <a name='section3-1'></a>I/O 重定向</h3>
+
+<p>shell 有三种基本的 I/O 流，分别是 stdin(stream 0)、stdout(stream 1) 和 stderr(stream 2)。</p>
+
+<p><img src="https://gcore.jsdelivr.net/gh/junq0420/blog_image/shell-IO.jpg" alt="shell-io" /></p>
+
+<p>其中，stdin 用来接收用户键盘的输入，而 stdout 发动输出结果、stderr 发送错误信息。</p>
+
+<p>输出重定向(output redirection)，将输出结果重定向到指定的路径，用大于号 <code>&gt; stdout</code> 来代表重定向</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo hello  <span style="color:#75715e"># 屏幕显示 hello</span>
+echo hello &gt; hello.txt  <span style="color:#75715e"># 将 hello 导向 hello.txt 文件中</span>
+<span style="color:#75715e"># 注意，当 shell 看到 &gt; 后，会先清空文件中的内容在完成重定向</span>
+
+set -o noclobber <span style="color:#75715e"># 防止重定向重写已有文件</span>
+
+echo hello &gt;| hello.txt
+<span style="color:#75715e"># 无视 noclobber，强行重定向</span>
+
+echo world &gt;&gt; hello.txt
+<span style="color:#75715e"># 重定向且将结果追加文件内容之后</span></code></pre></div>
+<p>错误重定向(error redirection)，将 shell 的错误信息重定向到指定的路径。用 <code>2&gt;</code> 来完成重定向</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echoa hello <span style="color:#75715e"># 屏幕显示错误信息</span>
+echoa 2&gt; err.txt <span style="color:#75715e"># 错误信息被存放在 err 文件中</span>
+
+2&gt;&amp;<span style="color:#ae81ff">1</span> 能够将输出流和错误流都导向同一文件中
+ls &gt; dirlist 2&gt;&amp;<span style="color:#ae81ff">1</span> <span style="color:#75715e"># 结果或错误都会存在 dirlist 中</span>
+ls 2&gt;&amp;<span style="color:#ae81ff">1</span> &gt; dirlist <span style="color:#75715e"># 仅结果存在文件中，错误会显示在屏幕上</span>
+
+
+- 由于管道只接收输出流，所以当想对错误信息做筛选时
+- 就需将错误流转为输出流<span style="color:#f92672">(</span>2&gt;&amp;1<span style="color:#f92672">)</span>交给管道再作处理
+
+rm file1 file2 file3 | grep file2
+rm: cannot remove <span style="color:#e6db74">&#39;file1&#39;</span>: No such file or directory
+rm: cannot remove <span style="color:#e6db74">&#39;file2&#39;</span>: No such file or directory
+rm: cannot remove <span style="color:#e6db74">&#39;file3&#39;</span>: No such file or directory
+
+rm file1 file2 file3 2&gt;&amp;<span style="color:#ae81ff">1</span> | grep file2
+rm: cannot remove <span style="color:#e6db74">&#39;file2&#39;</span>: No such file or directory
+
+<span style="color:#75715e"># (&amp;&gt;) 合并输出流和错误流</span>
+<span style="color:#75715e"># 让错误流和输出流都导向同一个流，与 2&gt;&amp;1 类似</span>
+<span style="color:#75715e"># 只不过后者是将错误流转到输出流中，前者可以是其他的流</span>
+rm file2 &amp;&gt; out_and_err
+echo hello &amp;&gt;&gt; out_and_err
+
+out_and_err:
+rm: cannot remove <span style="color:#e6db74">&#39;file2&#39;</span>: No such file or directory
+hello</code></pre></div>
+<p>输入重定向(input redirection)，将指定的路径作为输入流显示到屏幕上，使用小于号 <code>&lt;</code> (0&lt; 的缩写)来实现</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat &lt; file.txt <span style="color:#75715e"># 查看文件内容</span>
+cat &gt; file.txt <span style="color:#e6db74">&lt;&lt; EOF # 用cat创建文件并以 EOF</span> 结束
+
+<span style="color:#75715e"># 快速清空文件</span>
+&gt;filename
+&gt;|filename <span style="color:#75715e"># 当开启 noclobber</span></code></pre></div>
+<h3 id="3-2-a-name-section3-2-a-过滤器">3.2. <a name='section3-2'></a>过滤器</h3>
+
+<p>由管道拼接成多个命令而成，更高效、优雅地解决问题。管道符(|)的作用是将前一个命令的输入作为后个命令的输入</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">1. cat 将标准输入作为标准输出打印
+tac count.txt | cat | cat | cat 
+<span style="color:#75715e"># tac 将 count 文件的内容反序输出，经管道将其变为 cat 的输入，</span>
+<span style="color:#75715e"># 而 cat 又将输入变为输出，以此下去最后输出到屏幕显示</span>
+
+---
+
+2. tee 分叉，将一个输入传给多个输出，其中有一个是标准输出
+tac count.txt | tee temp.txt | tac 
+<span style="color:#75715e"># tac 将 count 文件的内容反序输出并传给 tee</span>
+<span style="color:#75715e"># tee 将输出传给 temp 文件和下个 tac</span>
+<span style="color:#75715e"># 最后 tac 再将输入反序输出</span>
+
+---
+
+3. ★ grep 从文本中筛选出符合所给字符串的行内容
+cat tennis.txt | grep Williams
+Serena Williams, usa
+Venus Williams, USA
+
+grep Williams tennis.txt <span style="color:#75715e"># 不用 cat 的情形</span>
+
+<span style="color:#75715e"># grep 的一些选项</span>
+grep -i  --&gt; 匹配时忽略大小写
+grep -v  --&gt; 匹配不符合字符串的行
+grep -vi  --&gt; 匹配不符合的行且忽略大小写
+grep -A1  --&gt; 显示符合的行及它们的下一行<span style="color:#f92672">(</span>A: After<span style="color:#f92672">)</span>
+grep -B1  --&gt; 显示符合的行及它们的上一行<span style="color:#f92672">(</span>B:Before<span style="color:#f92672">)</span>
+grep -C1  --&gt; 显示符合的行及它们的上下各一行<span style="color:#f92672">(</span>C:Context<span style="color:#f92672">)</span>
+<span style="color:#75715e"># A1、B1、C1 的 1 可以也改为其他的数字</span>
+
+---
+
+4. cut 切片，根据所给的选项对文件进行筛选
+cut -d: -f1,3 /etc/passwd | tail -4
+<span style="color:#75715e"># -d 为分隔符，这里是以冒号为分隔符对文件划分</span>
+<span style="color:#75715e"># -f 为字段或列，这里选择 1 和 3 列</span>
+<span style="color:#75715e"># tail 显示 cut 的输出的后四行</span>
+cut -d<span style="color:#e6db74">&#34; &#34;</span> -f1 tennis.txt
+<span style="color:#75715e"># 以空格作分隔符时，要加双引号</span>
+cut -c2-7 /etc/passwd | tail -4
+<span style="color:#75715e"># -c 为字符，这里选择 2 到 7 的字符</span>
+<span style="color:#75715e"># 注意：必须要有 -f|-c|-b 选项，以指明类型</span>
+
+---
+
+5. tr 将输入以给定的规则转换字符
+cat tennis.txt | tr <span style="color:#e6db74">&#39;e&#39;</span> <span style="color:#e6db74">&#39;E&#39;</span>
+<span style="color:#75715e"># 将 tennis 文件中的 e 转为 E</span>
+tr <span style="color:#e6db74">&#39;e&#39;</span> <span style="color:#e6db74">&#39;E&#39;</span> &lt; tennis.txt <span style="color:#f92672">(</span>无管道版<span style="color:#f92672">)</span>
+tr <span style="color:#e6db74">&#39;a-z&#39;</span> <span style="color:#e6db74">&#39;A-Z&#39;</span> &lt; tennis.txt  <span style="color:#75715e"># 小写转大写</span>
+tr <span style="color:#e6db74">&#39;\n&#39;</span> <span style="color:#e6db74">&#39; &#39;</span> &lt; tennis.txt  <span style="color:#75715e"># 换行转空格</span>
+tr -s <span style="color:#e6db74">&#39; &#39;</span> &lt; tennis.txt  
+<span style="color:#75715e"># -s 为 squeeze 挤压，将连续出现的字符压缩为一个</span>
+<span style="color:#75715e"># 如 [x][x][x][x] --&gt; [x]</span>
+tr <span style="color:#e6db74">&#39;a-z&#39;</span> <span style="color:#e6db74">&#39;nopqrstuvwxyzabcdefghijklm&#39;</span>
+tr <span style="color:#e6db74">&#39;a-z&#39;</span> <span style="color:#e6db74">&#39;n-za-m&#39;</span>
+<span style="color:#75715e"># 用 tr 完成 rot-13 简单加密，a 对 n 开头，以此下去</span>
+tr -d e &lt; tennis.txt  <span style="color:#75715e"># 删除输入的字母 e</span>
+
+---
+
+6. wc 计算文本中有几行、几个词、几个字符
+wc tennis.txt
+  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">16</span> <span style="color:#ae81ff">106</span> tennis.txt
+<span style="color:#75715e"># 第一列指行数、第二列指单词数、第三列指字符数</span>
+wc -l tennis.txt
+<span style="color:#75715e"># -l 单显示行数；-w 单词数；-c 字符数</span>
+
+---
+
+7. sort 排序，默认以 ASCII 的顺序
+sort tennis.txt
+<span style="color:#75715e"># 以ascii顺序排列</span>
+sort -k1 tennis.txt
+<span style="color:#75715e"># 以第一列或第一个单词的顺序为主</span>
+sort -n tennis.txt
+<span style="color:#75715e"># -n 指以数字的大小排序</span>
+sort -M month.log
+<span style="color:#75715e"># -M 以月份进行排序，可以用其查看一些日志文件内容</span>
+
+---
+
+8. uniq 删除排序后有重复的行
+sort count.txt | uniq
+sort count.txt | uniq -c
+<span style="color:#75715e"># -c 统计重复行的数量</span>
+
+---
+
+9. comm 比较两已排过序文件的内容
+comm list1.txt list2.txt
+<span style="color:#75715e"># 共三列，其中第一列为 list1 独有的</span>
+<span style="color:#75715e"># 第二列为 list2 独有的</span>
+<span style="color:#75715e"># 第三列为 两者共有的</span>
+comm -12 list1.txt list2.txt
+<span style="color:#75715e"># 只显示第三列的结果，即忽略 1、2 列</span>
+
+---
+
+10. sed<span style="color:#f92672">(</span>stream editor<span style="color:#f92672">)</span>使用正则对流的内容进行编辑
+echo level5 | sed <span style="color:#e6db74">&#39;s/5/42/&#39;</span>  --&gt; level42
+echo level5 | sed <span style="color:#e6db74">&#39;s/level/jump/&#39;</span> --&gt; jump5
+<span style="color:#75715e"># 对流的内容作替换</span>
+echo level1 level2 | sed <span style="color:#e6db74">&#39;s/level/jump/g&#39;</span>
+<span style="color:#75715e"># g 为全局替换，否则只替换第一个</span>
+cat tennis.txt | sed <span style="color:#e6db74">&#39;/usa/d&#39;</span>
+<span style="color:#75715e"># 从流中删除 usa</span></code></pre></div>
+<h3 id="3-3-a-name-section3-3-a-基本的-unix-工具">3.3. <a name='section3-3'></a>基本的 Unix 工具</h3>
+
+<p>通过 Unix 的一些工具，能够快速查找文件、定位文件、压缩解压文件等</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">1. ★ find 查找文件，基于目录树从左到右以此遍历查找符合规定的文件
+find /etc &gt; etcfiles.txt
+<span style="color:#75715e"># 在 /etc 路径下，依次遍历所有的文件，并将结果存到 etcfiles 文件中</span>
+find /etc /home /user
+<span style="color:#75715e"># 给出多个查找路径，将查询结果合并输出</span>
+find . -name <span style="color:#e6db74">&#34;*.conf&#34;</span>
+<span style="color:#75715e"># 在当前目录下，查找文件名以 .conf 做后缀的所有类型的文件</span>
+<span style="color:#75715e"># -iname 查找文件名且忽略大小写</span>
+find . -type f -name <span style="color:#e6db74">&#34;*.conf&#34;</span>
+<span style="color:#75715e"># -type 文件类型，f 为一般文件；l 为链接文件；d 目录</span>
+find / -name <span style="color:#e6db74">&#34;*.pdf&#34;</span> 2&gt;./err
+<span style="color:#75715e"># 2&gt;./err 能够将查找时的错误信息存到文件中，从而避免造成显示混乱</span>
+find . -newer etcfile.txt
+<span style="color:#75715e"># 查找比 etcfile 后创建的文件</span>
+find . -name <span style="color:#e6db74">&#34;*.txt&#34;</span> -exec cp <span style="color:#f92672">{}</span> ./copyfile <span style="color:#ae81ff">\;</span>
+<span style="color:#75715e"># 将当前目录下的所有 txt 文件复制到 copyfile 文件夹下</span>
+<span style="color:#75715e"># -exec command {} \; 指对查找后的结果执行命令</span>
+<span style="color:#75715e"># 其中 {} 指查找结果的路径名，\; 为逗号的转义字符</span>
+<span style="color:#75715e"># -ok 与 -exec 类似，只不过它会执行命令前让用户确认</span>
+
+<span style="color:#75715e"># -exec 是对每条结果都执行一次命令，但当数量过多后效率就不高</span>
+<span style="color:#75715e"># 通过管道和 xargs 程序来处理会更加高效</span>
+<span style="color:#75715e"># xargs 能够将标准输入转为命令行参数，下面是它与 find 的搭配</span>
+find . -type f | xargs ls -s
+<span style="color:#75715e"># 将查询结果作为 ls 命令的参数依次执行</span>
+find ~ -type f -mtime +365 | xargs grep <span style="color:#e6db74">&#34;Tom&#34;</span>
+<span style="color:#75715e"># 查找 home 目录下文件修改时间超过一年的且其中包含 Tom 的行</span>
+find . -type f | xargs -i mv <span style="color:#f92672">{}</span> ./backup/<span style="color:#f92672">{}</span>.old
+<span style="color:#75715e"># -i insert 指多次发送参数给命令，{} 为占位符</span>
+<span style="color:#75715e"># 将当前文件移动到 backup 目录下，且每个文件名加上 old 后缀</span>
+<span style="color:#75715e"># 自定义占位符，-iXX 即以 XX 作占位符</span>
+
+<span style="color:#75715e"># xargs 的一些选项：</span>
+<span style="color:#75715e"># -n1 按一列显示结果</span>
+<span style="color:#75715e"># -t 先打印命令再执行</span>
+<span style="color:#75715e"># -d 分隔符，默认为回车</span>
+<span style="color:#75715e"># -p prompt 每次执行命令前给与提示</span>
+<span style="color:#75715e"># -r 当输入为空时，不执行命令</span>
+
+---
+
+2. locate 定位文件的位置
+locate pwd  <span style="color:#75715e"># 显示文件路径中包含 pwd </span>
+locate /etc/sh  <span style="color:#75715e"># 显示 etc 目录下以 sh 开头的文件 | -i 能忽略大小写</span>
+
+---
+
+3. date 显示当前日期
+date  <span style="color:#75715e"># 以默认格式显示当前日期</span>
+date +<span style="color:#e6db74">&#39;%Y-%m-%d %A&#39;</span>  --&gt; 2022-07-18 Monday
+<span style="color:#75715e"># 自定义日期格式，%Y年 %m月 %d日 %A星期 %H小时 %M分钟 %S秒</span>
+
+---
+
+4. cal 日历
+cal <span style="color:#75715e">#显示当前月的日历</span>
+cal -y  <span style="color:#75715e"># 当年的日历</span>
+cal <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">1999</span>  <span style="color:#75715e"># 1999年4月的日历</span>
+
+---
+
+5. sleep 暂停等待，脚本中会用到
+sleep <span style="color:#ae81ff">5</span>  <span style="color:#75715e"># 等待 5 秒</span>
+
+---
+
+6. time 查看某命令执行所需的时间
+time date <span style="color:#75715e"># date 命令执行时间</span>
+
+---
+
+7. gzip 压缩文件，后缀为 .gz
+gzip text.txt  --&gt; text.txt.gz
+<span style="color:#75715e"># 对单个文件进行压缩，以节省空间</span>
+gunzip text.txt.gz  <span style="color:#75715e"># 解压缩</span>
+
+<span style="color:#75715e"># 值得注意的是，我们理解的压缩过程是将某个文件夹压缩，或多个文件压缩</span>
+<span style="color:#75715e"># 它其实包含两个过程：打包和压缩</span>
+<span style="color:#75715e"># 打包是将多个文件或文件夹打包成一个文件</span>
+<span style="color:#75715e"># 压缩是通过压缩程序以缩减文件的大小</span>
+
+即最常用的压缩命令
+tar -zcvf demo.tar.gz ./demo/
+<span style="color:#75715e"># 将 demo 文件夹压缩，-z 使用 gzip 压缩程序</span>
+<span style="color:#75715e"># -c 创建打包文件 -v 显示过程 -f 使用打包文件</span>
+tar -zxvf demo.tar.gz
+<span style="color:#75715e"># 解压缩文件</span>
+
+---
+
+8. rename 批量重命名
+rename <span style="color:#e6db74">&#39;s/.txt/.jpg/&#39;</span> *
+<span style="color:#75715e"># 将所有文件中，以 txt 后缀的文件改为 jpg 文件</span>
+rename <span style="color:#e6db74">&#39;s/.txt//&#39;</span> *.txt
+<span style="color:#75715e"># 将所有的 txt 文件，删除其 txt 后缀</span>
+rename <span style="color:#e6db74">&#39;y/a-z/A-z/&#39;</span> *
+<span style="color:#75715e"># 将所有文件名改为大写</span>
+rename -n <span style="color:#e6db74">&#39;s/$/.bar/&#39;</span> *
+<span style="color:#75715e"># 给所有文件添加 bar 后缀，-n 显示重命名的过程但不执行</span></code></pre></div>
+<hr />
+
+<h2 id="4-a-name-section4-a-shell-script">4. <a name='section4'></a>Shell Script</h2>
+
+<p>shell 脚本就是命令的集合，执行脚本就是去执行它一行行的命令。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">1. hello world 示例
+echo echo hello world &gt; hello_world  <span style="color:#75715e"># 写 hello_world 脚本</span>
+chmod +x hello_world  <span style="color:#75715e"># 将脚本文件改为可执行的，除非该脚本目录被添加到 PATH 中</span>
+./hello_world  <span style="color:#75715e"># 执行脚本</span>
+
+---
+
+2. she-bang 指定脚本的解释器
+<span style="color:#75715e">#！/bin/bash  --&gt; 首行</span>
+cat /etc/shells  <span style="color:#75715e"># 查看可用的 shell</span>
+
+---
+
+3. 变量
+var1<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>  <span style="color:#75715e"># 定义变量，等号两边无空格</span>
+echo var1 <span style="color:#f92672">=</span> $var1
+
+<span style="color:#75715e"># 脚本内的变量默认不能被外部的 shell 使用</span>
+<span style="color:#75715e"># 但通过 source，可将变量导入外部 shell 中</span>
+source hello_world
+. ./hello_world  <span style="color:#75715e"># 上面的简写</span>
+
+<span style="color:#75715e"># 三种运行脚本的方法</span>
+chmod +x filename；./filename  <span style="color:#75715e"># 加权限直接运行</span>
+source filename  <span style="color:#75715e"># 导入变量运行</span>
+bash -x filename  <span style="color:#75715e"># 创建一个子 shell 运行，-x 显示执行命令的过程</span>
+
+---
+
+4. 条件和循环
+条件判断 test or <span style="color:#f92672">[]</span>
+test <span style="color:#ae81ff">10</span> -gt 20; echo $?  --&gt; <span style="color:#ae81ff">1</span>
+<span style="color:#75715e"># 判断 10 是否大于 20，1 指前条命令的错误码，非零表示失败，即 false</span>
+<span style="color:#f92672">[</span> <span style="color:#ae81ff">10</span> -gt <span style="color:#ae81ff">20</span> <span style="color:#f92672">]</span>; echo $?  <span style="color:#75715e"># 使用 [] 做判断，内部两边要有空格</span>
+<span style="color:#f92672">[</span> <span style="color:#ae81ff">10</span> -lt <span style="color:#ae81ff">20</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> echo true <span style="color:#f92672">||</span> echo false
+<span style="color:#75715e"># 将判断结果变为人可读型</span>
+<span style="color:#f92672">[</span> <span style="color:#ae81ff">10</span> -gt <span style="color:#ae81ff">20</span> -a <span style="color:#ae81ff">5</span> -lt <span style="color:#ae81ff">6</span> -o <span style="color:#ae81ff">7</span> -ge <span style="color:#ae81ff">9</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> echo true <span style="color:#f92672">||</span> echo false
+<span style="color:#75715e"># -a: and | -o or</span>
+
+<span style="color:#75715e"># 注意，脚本的数值比较不可用数学符号表示</span>
+<span style="color:#75715e"># -gt(&gt;): great than | -lt(&lt;): less than | -eq(=): equal</span>
+<span style="color:#75715e"># -ge(&gt;=): great equal | -le(&lt;=): less equal | -ne(!=): not equal</span>
+
+<span style="color:#75715e"># 一些选项</span>
+<span style="color:#75715e"># [ -d foo ]: 是否存在 foo 文件夹</span>
+<span style="color:#75715e"># [ -e bar ]: 是否存在 bar 文件</span>
+<span style="color:#75715e"># [ -f foo ]: foo 是否为常规文件</span>
+<span style="color:#75715e"># [ -r bar ]: bar 是否为可读文件</span>
+<span style="color:#75715e"># [ &#39;/etc&#39; = $PWD ]: PWD 的值是否为 /etc</span>
+<span style="color:#75715e"># [ $1 != &#39;secret&#39; ]: 第一个参数值不为 secret？</span>
+<span style="color:#75715e"># [ foo -nt bar ]: foo 文件晚于 bar 文件创建？</span>
+<span style="color:#75715e"># 注意，字符串的比较是使用数学符号表示</span>
+
+<span style="color:#75715e"># if-else 条件判断</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f init.txt <span style="color:#f92672">]</span>
+<span style="color:#66d9ef">then</span>
+  echo init.txt is exists!
+<span style="color:#66d9ef">else</span>
+  echo init.txt not found!
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># if-else-if 条件判断</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> condition1 <span style="color:#f92672">]</span>
+<span style="color:#66d9ef">then</span>
+  <span style="color:#66d9ef">do</span>-something
+<span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> condition2 <span style="color:#f92672">]</span>
+<span style="color:#66d9ef">then</span>
+  <span style="color:#66d9ef">do</span>-something
+<span style="color:#66d9ef">else</span>
+  <span style="color:#66d9ef">do</span>-something
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># case 分支语句</span>
+<span style="color:#66d9ef">case</span> $var in
+  case1<span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">do</span>-something
+  ;;
+  case2<span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">do</span>-something
+  ;;
+  *<span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">do</span>-something
+  ;;
+<span style="color:#66d9ef">esac</span>  
+
+<span style="color:#75715e"># for 循环</span>
+<span style="color:#66d9ef">for</span> counter in <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">8</span> <span style="color:#ae81ff">10</span> 
+<span style="color:#66d9ef">do</span>  <span style="color:#75715e"># counter 依次为 1 3 4 7 8 10 执行命令</span>
+  echo $counter
+<span style="color:#66d9ef">done</span>
+数字依次遍历
+<span style="color:#66d9ef">for</span> counter in <span style="color:#e6db74">`</span>seq <span style="color:#ae81ff">1</span> 20<span style="color:#e6db74">`</span>
+<span style="color:#75715e"># 使用命令嵌套，从 1 取到 20，seq 打印一系列数字</span>
+<span style="color:#66d9ef">for</span> counter in <span style="color:#f92672">{</span>1..20<span style="color:#f92672">}</span>
+<span style="color:#75715e"># 嵌套命令的简写</span>
+
+<span style="color:#75715e"># while 循环</span>
+counter<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">while</span> <span style="color:#f92672">[</span> $counter -le <span style="color:#ae81ff">10</span> <span style="color:#f92672">]</span>
+<span style="color:#66d9ef">do</span>
+  echo now counter is $counter
+  let counter++
+<span style="color:#66d9ef">done</span>
+<span style="color:#75715e"># 死循环：while true 或 while : do ...</span>
+
+<span style="color:#75715e"># 计算当前目录下以 .txt 结尾的文件</span>
+counter<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>find . -type f | grep <span style="color:#e6db74">&#34;.txt</span>$<span style="color:#e6db74">&#34;</span> | wc -l<span style="color:#66d9ef">)</span>
+<span style="color:#66d9ef">for</span> filename in <span style="color:#66d9ef">$(</span>find . -type f | grep <span style="color:#e6db74">&#34;.txt</span>$<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span>
+<span style="color:#66d9ef">do</span>
+  echo $filename
+<span style="color:#66d9ef">done</span>
+<span style="color:#75715e"># 其中，通过命令嵌套可以将命令的结果赋给 shell 变量</span>
+
+---
+
+5. 脚本参数
+脚本中使用一些符号来显示相关的参数信息
+<span style="color:#75715e"># $1, $2, $3.. 获取脚本后跟的参数值</span>
+<span style="color:#75715e"># $0: 获取脚本文件名</span>
+<span style="color:#75715e"># $$: 脚本执行的 PID | $#: 脚本的参数的个数</span>
+<span style="color:#75715e"># $?: 脚本执行后的返回码 | $*: 脚本的所有参数</span>
+
+<span style="color:#75715e">#!/bin/bash                      | ./pars one two three</span>
+echo The first argument is $1  --&gt; The first argument is one   
+echo The second argument is $2 --&gt; The second argument is two
+echo The third argument is $3  --&gt; The third argument is three
+echo <span style="color:#ae81ff">\$</span> $$ PID of the script   --&gt; $ <span style="color:#ae81ff">5610</span> PID of the script
+echo <span style="color:#ae81ff">\#</span> $# count arguments     --&gt; <span style="color:#75715e"># 3 count arguments</span>
+echo <span style="color:#ae81ff">\?</span> $? last <span style="color:#66d9ef">return</span> code    --&gt; ? <span style="color:#ae81ff">0</span> last <span style="color:#66d9ef">return</span> code
+echo <span style="color:#ae81ff">\*</span> $* all the arguments   --&gt; * one two three all the arguments
+
+shift 遍历所有参数
+脚本：
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$#<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">]</span>
+<span style="color:#66d9ef">then</span>
+  echo You have to give at least one parameter.
+  exit <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">while</span> <span style="color:#f92672">((</span> $# <span style="color:#f92672">))</span>
+<span style="color:#66d9ef">do</span>
+  echo You gave me $1
+  shift
+<span style="color:#66d9ef">done</span>
+
+使用：
+./shift.ksh one two three <span style="color:#ae81ff">1201</span> <span style="color:#e6db74">&#34;33 42&#34;</span>
+
+输出：
+You gave me one
+You gave me two
+You gave me three
+You gave me <span style="color:#ae81ff">1201</span>
+You gave me <span style="color:#ae81ff">33</span> <span style="color:#ae81ff">42</span>
+<span style="color:#75715e"># shift 指参数左移，一个一个地被截断</span>
+<span style="color:#75715e"># 如：one two three four five | 参数个数 5</span>
+<span style="color:#75715e">#     two three four five         4</span>
+<span style="color:#75715e">#     three four five             3</span>
+<span style="color:#75715e">#     four five                   2</span>
+<span style="color:#75715e">#     five                        1</span>
+<span style="color:#75715e">#     空                          0</span>
+
+---
+
+6. 获取用户输入
+read varname  <span style="color:#75715e"># 使用read获取用户的输入值</span>
+
+获取某文件的变量值
+- myApp.conf
+number<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>
+
+- myApp.bash
+<span style="color:#75715e">#!/bin/bash</span>
+. ./myApp.conf
+echo The number is $number
+<span style="color:#75715e"># 通过在脚本内 source 某文件，来获取其中的变量值</span>
+
+获取命令选项参数，使用 getopts <span style="color:#e6db74">&#34;optstring&#34;</span> var
+optstring 列出了对应的脚本可以识别的所有选项值。比如：
+如果 Shell Script 可以识别-a，-f以及-s选项，则 optstring 就是 afs；
+如果对应的选项后面还跟随一个值，则在相应的 optstring 后面加冒号。
+比如，a:fs 表示a参数后面会有一个值出现，-a value 的形式。
+另外，getopts 执行匹配到a的时候，会把 value 存放在一个叫 OPTARG 的 Shell Variable 当中。
+如果 optstring 是以冒号开头的，命令行当中出现了optstring 当中没有的参数将不会提示错误信息。
+
+var 表示的是参数的名称，每次执行 getopts，会从命令行当中获取下一个参数，然后存放到 var 当中。
+如果获取到的参数不在 optstring 当中列出，则 var 的值被设置为 ?。
+如果获取到的选项在其中，但后面未跟参数，则将 var 的值设置为 :
+命令行当中的所有参数都有一个index，第一个参数从1开始，依次类推。
+另外有一个名为 OPTIND 的 Shell Variable 存放下一个要处理的参数的 index。
+
+<span style="color:#75715e"># 脚本</span>
+<span style="color:#66d9ef">while</span> getopts <span style="color:#e6db74">&#34;:af:z&#34;</span> option;
+<span style="color:#66d9ef">do</span>
+  <span style="color:#66d9ef">case</span> $option in
+    a<span style="color:#f92672">)</span>
+      echo received -a
+    ;;
+    f<span style="color:#f92672">)</span>
+      echo received -f with $OPTARG
+    ;;
+    z<span style="color:#f92672">)</span>
+      echo received -z
+    ;;
+    :<span style="color:#f92672">)</span>
+      echo <span style="color:#e6db74">&#34;option -</span>$OPTARG<span style="color:#e6db74"> needs an argument&#34;</span>
+    ;;
+    *<span style="color:#f92672">)</span>
+      echo <span style="color:#e6db74">&#34;invalid option -</span>$OPTARG<span style="color:#e6db74">&#34;</span>
+    ;;
+  <span style="color:#66d9ef">esac</span>
+<span style="color:#66d9ef">done</span>
+
+<span style="color:#75715e"># 执行</span>
+&gt; ./argoptions.ksh -a -f hello -z
+received -a
+received -f with hello
+received -z
+&gt; ./argoptions.ksh -zaf <span style="color:#ae81ff">42</span>
+received -z
+received -a
+received -f with <span style="color:#ae81ff">42</span>
+&gt; ./argoptions.ksh -zf
+received -z
+option -f needs an argument
+
+---
+
+7. eval 命令
+格式：eval <span style="color:#f92672">[</span>argument<span style="color:#f92672">]</span>
+作用：先将参数解析，再将其作为输入传给 shell
+
+示例
+cmd<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cat script&#34;</span>
+eval $cmd  <span style="color:#75715e"># 相当于让 shell 执行 cat script</span>
+
+---
+
+8. <span style="color:#f92672">((</span> xxx <span style="color:#f92672">))</span> 允许使用数学符号作判断
+<span style="color:#f92672">((</span> <span style="color:#ae81ff">20</span> &gt; <span style="color:#ae81ff">34</span> <span style="color:#f92672">))</span> <span style="color:#f92672">&amp;&amp;</span> echo true <span style="color:#f92672">||</span> echo false
+<span style="color:#f92672">((</span> 42 <span style="color:#f92672">==</span> $var42 <span style="color:#f92672">))</span> <span style="color:#f92672">&amp;&amp;</span> echo true <span style="color:#f92672">||</span> echo false
+<span style="color:#75715e"># 支持常规 for 循环形式</span>
+<span style="color:#66d9ef">for</span> <span style="color:#f92672">((</span> i<span style="color:#f92672">=</span>0;i&lt;10;i++ <span style="color:#f92672">))</span>
+
+---
+
+9. let 命令
+让 shell 完成算数表达式的计算
+&gt; let x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;10*2+100/10&#34;</span> ; echo $x  ---&gt; <span style="color:#ae81ff">30</span>
+或者作进制转换
+let x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0xfff&#34;</span>; echo $x  --&gt; <span style="color:#ae81ff">4095</span>
+let x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2#1011&#34;</span>; echo $x  --&gt; <span style="color:#ae81ff">11</span>
+let x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;8#011&#34;</span>; echo $x  --&gt; <span style="color:#ae81ff">9</span>
+let x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;16#10&#34;</span>; echo $x  --&gt; <span style="color:#ae81ff">16</span>
+<span style="color:#75715e"># let 会转为十进制再显示；而直接赋值就显示原进制</span>
+
+---
+
+10. 脚本函数，一组逻辑命令
+<span style="color:#66d9ef">function</span> hello <span style="color:#f92672">{</span>  <span style="color:#75715e"># 定义函数</span>
+  echo hello, $USER
+<span style="color:#f92672">}</span>
+
+echo We will call a <span style="color:#66d9ef">function</span>
+hello   <span style="color:#75715e"># 函数调用</span>
+echo The End
+
+output:
+We will call a <span style="color:#66d9ef">function</span>
+hello, tom
+The End
+
+给函数传参数，直接再函数名后跟参数即可，跟命令一样
+hello tom
+函数内部用 $1, $2..来获取参数值</code></pre></div>
+<hr />
+
+<h2 id="5-a-name-section5-a-用户管理">5. <a name='section5'></a>用户管理</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">1. 查看用户信息的命令
+whoami  <span style="color:#75715e"># 显示你的用户名</span>
+who     <span style="color:#75715e"># 查看登录过该系统的用户</span>
+w       <span style="color:#75715e"># 查看登录过的用户以及他们正在干吗</span>
+su username  <span style="color:#75715e"># 切换到 username 的用户</span>
+su or su -   <span style="color:#75715e"># 没有跟用户名则默认为 root</span>
+sudo+cmd     <span style="color:#75715e"># 以系统管理员的身份执行命令</span>
+sudo su -    <span style="color:#75715e"># 切换到 root </span>
+<span style="color:#75715e"># 说明：由于 Ubuntu 的 root 没有 passsword set，所以用户是无法通过 su 切换到 root </span>
+
+---
+
+2. 用户的增删改查，以下命令要以 root 权限执行
+useradd -m new_user   <span style="color:#75715e"># 创建新用户，-m 为其创建家目录，-d 指定家目录，-c 添加描述</span>
+passwd new_user       <span style="color:#75715e"># 给新建的用户设置密码</span>
+
+usermod -l new_user   <span style="color:#75715e"># 更改用户名，-s 能更改shell</span>
+usermod -md /data/new_home username  <span style="color:#75715e"># 更改用户的家目录为 /data/new_home</span>
+
+userdel username     <span style="color:#75715e"># 删除用户，-r 会删除其相关目录及文件（慎用）</span>
+
+users   <span style="color:#75715e"># 查看用户</span>
+
+<span style="color:#75715e"># 在 ubuntu 下，新用户的 shell 默认使用 sh，可在 /etc/passwd 中查看</span>
+<span style="color:#75715e"># 通过 root 权限，将 /etc/passwd 中用户的 shell 改为 /bin/bash 即可</span>
+<span style="color:#75715e"># 或者通过 &#34;chsh -s /bin/bash&#34; 来修改用户 bash </span>
+<span style="color:#75715e"># /etc/passwd 文件七个字段：用户名:x:用户id:组id:用户描述:家目录:使用的 shell</span>
+
+---
+
+3. 用户密码
+/etc/shadow 文件存放用户加密后的密码，只可被 root 读取
+它有 <span style="color:#ae81ff">9</span> 个字段，从左到右分别为 用户名:加密密码:密码最近修改时的天数<span style="color:#f92672">(</span>1970.01.01为第一天<span style="color:#f92672">)</span>
+:密码必须保持不变的天数:密码到期的天数<span style="color:#f92672">(</span>1970开始<span style="color:#f92672">)</span>:密码到期前多少天警告
+:密码到期后多少天后停用该用户:用户被禁用的日期<span style="color:#f92672">(</span>1970开始<span style="color:#f92672">)</span>
+
+---
+
+4. openssl passwd 命令
+openssl passwd hello  <span style="color:#75715e"># 将 hello 字符串加密，即生成对应的 hash 值，并返回加密后的密文</span>
+<span style="color:#75715e"># 该命令每次生成的密文都会不同</span>
+openssl passwd -salt <span style="color:#ae81ff">12</span> hello
+<span style="color:#75715e"># -salt 指定 hash 值，这里密文的前两位是 &#39;12&#39; 随后是 hello 的密文</span>
+<span style="color:#75715e"># 由于指定了 salt，那就不会随机生成密文了，即生成的密文变为固定的</span>
+useradd -m -p <span style="color:#66d9ef">$(</span>openssl passwd hunter2<span style="color:#66d9ef">)</span> mohamed
+<span style="color:#75715e"># 创建 mohamed 用户，并 -p 添加密码和嵌套命令生成密文</span>
+<span style="color:#75715e"># 但此用户的密码会暴露在命令中，也能够在 cmd history 中查到，使用安全性要求不高的场所</span>
+openssl passwd -salt <span style="color:#e6db74">&#39;123456&#39;</span>
+<span style="color:#75715e"># 创建一个加密密码，执行命令后会让用户输入密码，然后显示密文密码。这里的 123456 并非密码而是密码的长度，共长六位</span>
+<span style="color:#75715e"># 可以将生成的密文密码手动添加到 /ect/shadow 中，即可作为用户的登录密码</span>
+
+---
+
+5. 第三种加密的方法 - 通过自定义的 C 文件使用 crypt 函数
+如 MyCrypt.c 的内容如下：
+<span style="color:#75715e">#include &lt;stdio.h&gt;</span>
+<span style="color:#75715e">#define __USE_XOPEN</span>
+<span style="color:#75715e">#include &lt;unistd.h&gt;</span>
+int main<span style="color:#f92672">(</span>int argc, char** argv<span style="color:#f92672">)</span>
+<span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>argc<span style="color:#f92672">==</span>3<span style="color:#f92672">)</span>
+  <span style="color:#f92672">{</span>
+    printf<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%s\n&#34;</span>, crypt<span style="color:#f92672">(</span>argv<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>,argv<span style="color:#f92672">[</span>2<span style="color:#f92672">]))</span>;
+  <span style="color:#f92672">}</span>
+  <span style="color:#66d9ef">else</span>
+  <span style="color:#f92672">{</span>
+    printf<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Usage: MyCrypt </span>$password<span style="color:#e6db74"> </span>$salt<span style="color:#e6db74">\n&#34;</span> <span style="color:#f92672">)</span>;
+  <span style="color:#f92672">}</span>
+  <span style="color:#66d9ef">return</span> 0;
+<span style="color:#f92672">}</span>
+接着用 gcc 编译：gcc MyCrypt.c -o MyCrypt -lcrypt
+使用如下：
+-$ ./MyCrypt hunter2 <span style="color:#ae81ff">44</span> 
+44O9hdkJcm7IA
+-$ ./MyCrypt hunter2 <span style="color:#ae81ff">43</span> 
+433fTQVL/x3cg
+
+---
+
+6. 密码日期 
+grep PASS /etc/login.defs
+<span style="color:#75715e"># 查看 /etc/login.defs 文件中有关 password 的设置</span>
+如：*********************
+<span style="color:#75715e">#       PASS_MAX_DAYS   Maximum number of days a password may be used.</span>
+<span style="color:#75715e">#       PASS_MIN_DAYS   Minimum number of days allowed between password changes.</span>
+<span style="color:#75715e">#       PASS_WARN_AGE   Number of days warning given before a password expires.</span>
+PASS_MAX_DAYS   <span style="color:#ae81ff">99999</span>
+PASS_MIN_DAYS   <span style="color:#ae81ff">0</span>
+PASS_WARN_AGE   <span style="color:#ae81ff">7</span>
+<span style="color:#75715e">#PASS_CHANGE_TRIES</span>
+<span style="color:#75715e">#PASS_ALWAYS_WARN</span>
+<span style="color:#75715e">#PASS_MIN_LEN</span>
+<span style="color:#75715e">#PASS_MAX_LEN</span>
+<span style="color:#75715e"># NO_PASSWORD_CONSOLE</span>
+*********************************
+
+chage 命令 - 设置用户密码的相关日期
+chage -l qiang <span style="color:#75715e"># 显示用户密码日期项</span>
+Last password change                                    : May 19, <span style="color:#ae81ff">2022</span>
+Password expires                                        : never
+Password inactive                                       : never
+Account expires                                         : never
+Minimum number of days between password change          : <span style="color:#ae81ff">0</span>
+Maximum number of days between password change          : <span style="color:#ae81ff">99999</span>
+Number of days of warning before password expires       : <span style="color:#ae81ff">7</span>
+
+chage -d 2022-06-30 qiang   <span style="color:#75715e"># 设置用户最后一次修改密码的日期为 2022 年 6 月 30 日</span>
+chage -m <span style="color:#ae81ff">5</span> qiang  <span style="color:#75715e"># 从最近修改密码的日期开始的 5 天内，用户不能再次修改密码</span>
+chage -M <span style="color:#ae81ff">8</span> qiang  <span style="color:#75715e"># 用户自修改密码的日期开始，修改后的密码将在 8 天后过期</span>
+chage -W <span style="color:#ae81ff">8</span> qiang  <span style="color:#75715e"># 用户密码过期前 8 天内，系统持续发出警告</span>
+
+---
+
+7. 锁死密码
+在 /etc/shadow 文件中，第二个字段为用户的加密密码，若它以 ❗ 开头，
+那么就表明用户的密码被锁死，用户就不能使用该密码进行登录
+sudo grep qiang /etc/shadow | cut -c1-70 <span style="color:#75715e"># 查看用户及加密密码</span>
+usermod -L qiang  <span style="color:#75715e"># 锁死用户密码，再查看时就会在加密密码前出现 ！</span>
+usermod -U qiang  <span style="color:#75715e"># 解锁用户密码</span>
+
+---
+
+8. 群组<span style="color:#f92672">(</span>group<span style="color:#f92672">)</span> - 在 root 权限下执行
+groupadd groupname <span style="color:#75715e"># 创建一个空组</span>
+/etc/group  <span style="color:#75715e"># 存放组信息的文件</span>
+groups  <span style="color:#75715e"># 查看当前用户所在的组</span>
+usermod -a -G groupname username <span style="color:#75715e"># 将用户添加到组中，必须带上 -a 否则该用户之前所添加的组都会被删除</span>
+groupmod -n oldname newname <span style="color:#75715e"># 修改组名</span>
+groupdel groupname  <span style="color:#75715e"># 删除组</span>
+
+gpasswd -A tom sports  <span style="color:#75715e"># 指定 tom 用户为 sports 组的管理员</span>
+gpasswd groupname  <span style="color:#75715e"># 若当前用户不在组中，可用该命令将其暂时加入到组中</span>
+gpasswd jerry sports  <span style="color:#75715e"># tom 管理员将 jerry 用户拉入组中</span></code></pre></div>
+<hr />
+
+<h2 id="6-a-name-section6-a-文件安全-file-security">6. <a name='section6'></a>文件安全(file security)</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">1. 文件所有权
+~/owners$ ls -lh
+total 636K
+-rw-r--r--. <span style="color:#ae81ff">1</span> paul snooker 1.1K Apr <span style="color:#ae81ff">8</span> 18:47 data.odt
+-rw-r--r--. <span style="color:#ae81ff">1</span> paul paul 626K Apr <span style="color:#ae81ff">8</span> 18:46 file1
+-rw-r--r--. <span style="color:#ae81ff">1</span> root tennis <span style="color:#ae81ff">185</span> Apr <span style="color:#ae81ff">8</span> 18:46 file2
+-rw-rw-r--. <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">0</span> Apr <span style="color:#ae81ff">8</span> 18:47 stuff.txt
+<span style="color:#75715e"># 再列出文件时，就会看到每个文件的用户所有权和组所有权</span>
+<span style="color:#75715e"># 如 file2 文件，root 为用户所有权，tennis 为组所有权</span>
+
+cut -d: -f1 /etc/passwd | column
+<span style="color:#75715e"># 显示所有用户</span>
+chgrp username filename  <span style="color:#75715e"># 修改文件的组所有权</span>
+chown username filename  <span style="color:#75715e"># 修改文件的用户所有权</span>
+chown user:group filename <span style="color:#75715e"># 修改用户和组的所有权</span>
+
+ls -l 结果的第一列的第一个字符表示该文件的类型
+-：为普通文件 | d：目录 | l：符号连接 | p：管道 | b：block device | c：字符设备 | s：套字节
+
+---
+
+2. 文件权限 - rwx
+ls -l 输出的第一列后九个字符表示该文件的权限
+r：read 可读 | 对文件能 cat | 对目录能 ls
+w：write 可写 | 文件能 vim | 目录能 touch
+x：execute 可执行 | 文件能运行 | 目录能进入
+其中九个字符三个为一组，分表代指所属用户权限、所属组所有用户的权限、其他的用户权限
+
+修改用户权限 - chmod
+chmod u+x filename  <span style="color:#75715e"># 给该文件的所属用户添加执行权限</span>
+chmod o-r filename  <span style="color:#75715e"># 删除该文件其他用户的可读权限</span>
+chmod a+w filename  <span style="color:#75715e"># 给三类用户都添加可写权限，可省去 a，默认为全部</span>
+chmod u<span style="color:#f92672">=</span>rw,g<span style="color:#f92672">=</span>rw,o<span style="color:#f92672">=</span>r filename  <span style="color:#75715e"># 指定三类用户具体的权限</span>
+另一种用八进制表示权限的方法
+chmod <span style="color:#ae81ff">777</span> filename  <span style="color:#75715e"># 给三类用户 rwx 权限，7 - 111(八进制)</span>
+chmod <span style="color:#ae81ff">654</span> filename  <span style="color:#75715e"># 6(110)5(101)4(100) 即 u=rw, g=rx, o=r</span>
+
+umask <span style="color:#75715e"># 显示八进制形式显示默认创建文件或目录的权限</span>
+umask -S  <span style="color:#75715e"># 以字符显示权限</span>
+mkdir -m <span style="color:#ae81ff">777</span> mydir  <span style="color:#75715e"># 创建目录时给权限</span>
+
+目录的粘滞位<span style="color:#f92672">(</span>sticky bit<span style="color:#f92672">)</span> 即 other 的 x 位，有时也会是 t<span style="color:#f92672">(</span>有x权限<span style="color:#f92672">)</span> 或 T<span style="color:#f92672">(</span>无x权限<span style="color:#f92672">)</span>
+它能够防止目录中的文件被非文件的用户所有者删除或移动，仅 root 用户和文件所属者才能
+ls -ld /tmp  <span style="color:#75715e"># 可以看到 /tmp 文件就有粘滞位</span>
+目录的 setgid，即 group 的 x 位，也能为 s 或 S
+它能够让目录中文件的组所属继承自目录的组所属
+ls -ld /var/local  <span style="color:#75715e"># 可看到 local 目录有 setgid</span>
+文件的 setuid，即 user 的 x 位，也能为 s 或 S
+它能够让普通用户执行 root 用户下的文件，虽然这样很危险
+ls -l <span style="color:#66d9ef">$(</span>which sudo<span style="color:#66d9ef">)</span>  <span style="color:#75715e"># sudo 命令就有 setuid</span>
+
+---
+
+3. inodes
+当文件存到 disk 时，不仅仅存的是文件的内容，还有文件名、创建日期、所属者、所属组、文件权限等信息。
+除了文件名和文件内容外，其他信息均存到 inode 中，inode 是一种数据结构，包含文件的元数据。
+inode table 即存放所有 inode 的表，可以使用 df -i 查看有多少 inode 被使用
+inode number 每个文件都有个单独的 number，类似于 id，可用 ls -li 显示文件的 inode
+当修改文件内容时，文件的 inode 就会更改
+目录是一种特殊的文件，它包含文件名与文件 inode 的映射关系
+
+- 硬链接<span style="color:#f92672">(</span>hard link<span style="color:#f92672">)</span>
+ln test.txt hardlink_to_test  <span style="color:#75715e"># 在当前目录下生成 test 文件的硬链接文件</span>
+<span style="color:#75715e"># 硬链接与原文件具有想用的 inode、权限、内容，即两者是相同的</span>
+<span style="color:#75715e"># 可以理解硬链接是原文件的副本，即使删除原文件硬链接仍存在</span>
+find / -inum <span style="color:#ae81ff">817270</span> 2&gt; /dev/null  <span style="color:#75715e"># 通过 inode 搜索所有对应的文件</span>
+
+- 符号链接/软链接<span style="color:#f92672">(</span>symbolic link<span style="color:#f92672">)</span>
+ln -s test.txt symbolink_to_test  <span style="color:#75715e"># 在当前目录生成 test 的软链接文件</span>
+<span style="color:#75715e"># 软链接与原文件没有相同的 inode，软链接存的是目标文件的路径</span>
+<span style="color:#75715e"># 软链接就像是 windows 中的快捷方式，仅仅是导向原文件的指针</span>
+
+使用 rm 命令删除链接文件</code></pre></div>
+<hr />
+
+<h2 id="7-a-name-section7-a-linux-网络">7. <a name='section7'></a>linux 网络</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">- 监测和检查网络
+1. ping www.baidu.com  <span style="color:#75715e"># 给指定主机发送数据包以检验网络是否正常</span>
+
+2. traceroute 命令<span style="color:#f92672">(</span>需先安装工具<span style="color:#f92672">)</span> - 追踪数据包在网络上的传输时的全部路径
+traceroute www.baidu.com
+
+3. netstat 查看各种网络设置和统计数据，根据不同选项完成不同功能
+netstat -ie  <span style="color:#75715e"># 类似于 ifconfig，查看网络接口信息</span>
+
+4. ifconfig 命令
+ifconfig  <span style="color:#75715e"># 查看与配置网络状态命令, 与 windows 的 ipconfig 类似</span>
+ifconfig eth1  <span style="color:#75715e"># 查看指定网卡的网络状态</span>
+
+5. ip 命令 - ifconfig 的加强版
+ip address show  <span style="color:#75715e"># 显示 ip 地址</span>
+一些简写：ip addr show | ip addr | ip a
+ip -4 addr | ip -6 addr <span style="color:#75715e"># 仅显示 ipv4 或 ipv6 </span>
+ip addr show dev eth1  <span style="color:#75715e"># 显示指定网卡 ip 信息</span>
+ip link show  <span style="color:#75715e"># 显示系统的已安装的网卡</span>
+
+---
+
+- 网络中传输文件
+1. ftp 命令 - 基于 ftp 协议让本地主机与远程主机进行文件传输
+ftp <span style="color:#f92672">[</span>远程主机名或 ip<span style="color:#f92672">]</span>   <span style="color:#75715e"># 连接到远程主机</span>
+<span style="color:#75715e"># 连接后，可输入 help 查看 ftp 所支持的命令，help cmd 查看某个命令的描述</span>
+<span style="color:#75715e"># 如：ls 显示文件；get 下载文件到本地；put 上传文件到主机；quit/bye 退出 ftp</span>
+
+2. lftp - 升级版 ftp，支持多协议如 http，提供一些便捷功能
+
+3. wget 命令 - 从指定网站下载文件
+wget https://wangchujiang.com/linux-command/c/wget.html
+<span style="color:#75715e"># 下载 html 文件到本地</span></code></pre></div>
+<h2 id="8-a-name-section8-a-进程-即一个正在执行的程序">8. <a name='section8'></a>进程 - 即一个正在执行的程序</h2>
+
+<h3 id="8-1-a-name-section8-1-a-内核管理进程">8.1. <a name='section8-1'></a>内核管理进程</h3>
+
+<p>当进程被创建时，内核会分配一个唯一标识号，即<strong>进程 ID(PID)</strong>，为了管理这些进程内核会有个进程表来跟踪所有进程。
+由于进程会共享系统资源(处理器、内存、IO、网络连接等)，所以内核提供了一个<strong>调度器(scheduler)</strong>来管理进程占用资源。调度器每次会选择一个进程，给予短暂的时间片来执行程序，时间一到就会做一次快照保存进程的数据，直到下次该进程运行时再接着执行。</p>
+
+<h3 id="8-2-a-name-section8-2-a-进程的系统调用">8.2. <a name='section8-2'></a>进程的系统调用</h3>
+
+<p>当进程需要内核提供执行的服务时，就会用<strong>系统调用</strong>发送请求。
+创建和使用进程的系统调用：fork、exec、wait和exit
+fork 系统调用：创建当前进程的副本，原进程为父进程，副本为子进程
+wait 系统调用：强制进程暂停一会，直到另一个进程执行完
+exec 系统调用：改变正在运行的程序
+exit 系统调用：终止进程
+kill 系统调用：想另一个进程发信号</p>
+
+<p>控制文件 IO 的系统调用
+open：打开一个用于读/写的文件
+read：从文件中读取数据
+write：向文件中写入数据
+close：关闭文件</p>
+
+<p>之前了解到 shell 中的命令分为内置命令和外部命令，内置命令直接由 shell 解析执行，而外部命令则必须创建新进程执行。下面就是外部命令的执行过程：首先，shell 用 fork 创建新进程；然后子进程用 exec 执行程序变为外部命令的执行程序；接着父进程用 wait 等待子进程执行完外部程序；外部程序结束，子进程用 exit 终止进程。</p>
+
+<p>当进程终止后，其所占用的资源被释放，以便其他进程使用。终止后的进程称僵尸进程(zombie)，进程表中仍会存有僵尸进程的条目</p>
+
+<h3 id="8-3-a-name-section8-3-a-孤儿进程和废弃进程">8.3. <a name='section8-3'></a>孤儿进程和废弃进程</h3>
+
+<p>孤儿进程：当进程 fork 后，父进程意外死亡，那么该子进就为孤儿进程
+废弃进程：fork 后，父进程并未等待子进程死亡，那么子进程就为废弃进程
+对于孤儿进程，Unix 中会有一个 init 进程(孤儿所)收养孤儿进程，来清除僵尸进程</p>
+
+<h3 id="8-4-a-name-section8-4-a-特殊进程">8.4. <a name='section8-4'></a>特殊进程</h3>
+
+<p>PID #0 ：空闲进程，简单的程序不做任何事，在没有其他进程执行时被执行
+PID #1 ：初始化进程(init)，在空闲进程初始化内核所需数据后从空闲进程 fork 出，设置内核、打开系统控制台、挂载根文件系统、运行必要的 shell 脚本。永不终止，直到系统关闭</p>
+
+<h3 id="8-5-a-name-section8-5-a-守护进程">8.5. <a name='section8-5'></a>守护进程</h3>
+
+<p>在后台运行的程序，不与终端连接，只提供服务(类似 Windows 任务管理器上的服务)
+ps 显示中 TTY 列为 ？的就表示该进程为守护进程，如 init 进程</p>
+
+<h3 id="8-6-a-name-section8-6-a-作业-job-即一整条命令">8.6. <a name='section8-6'></a>作业(Job) - 即一整条命令</h3>
+
+<p>与进程类似，它也有 ID 和作业表，但与进程还是有区别的，进程由内核控制；作业由 shell 控制
+如 who | cut -c 1-8 | sort | uniq -c
+该命令生成 4 个不同的进程，但只生成 1 个作业
+再如 date; who; uptime; cal
+该命令生成 4 个进程，也生成 4 个作业</p>
+
+<p>作业有三种状态：前台作业、后台作业、暂停挂起
+暂停前台作业 &ndash; Ctrl+Z 将该作业暂停挂起
+恢复挂起作业 &ndash; fg
+后台作业 &ndash; 在命令后加 &amp;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">suspend  <span style="color:#75715e"># 将当前 shell 挂起，用 fg 恢复。可以用其来作 shell 的切换</span>
+
+jobs <span style="color:#75715e"># 显示所有作业 -l 显示对应作业的 PID</span>
++ 指当前作业；- 指前一个作业
+
+fg 将当前作业移至前台
+fg %n 将 <span style="color:#75715e">#n 作业移至前台</span>
+fg %name 将指定命令名的作业移至前台
+%+ | %n | %name  简写
+
+bg 将当前作业移至后台
+bg %2 %5 %6 将多个作业移至后台
+
+---
+1. 监测进程（任务管理器）
+top
+ps（process status）
+ps axo pid,comm,pcpu <span style="color:#75715e"># 查看进程的PID、名称以及CPU占用率 </span>
+ps -l
+ps -aux | grep named（依据进程名检索）
+pstree  <span style="color:#75715e"># 查看进程数  -np 显示每个进程的 PID</span>
+
+2. 杀死进程
+kill pid
+kill -9 pid <span style="color:#f92672">(</span>-9 指强制杀死<span style="color:#f92672">)</span>
+
+3. 挂载（挂载必须是一个分区）
+sudo fdisk -l  <span style="color:#75715e"># 查看磁盘分区</span>
+sudo fdisk /dev/xx  <span style="color:#75715e"># 使用 fdisk 操作指定分区</span>
+<span style="color:#75715e"># 然后显示：Command (m for help):  (输入对应的字符进行操作)</span>
+sudo mkfs -t ext3 /dev/xx  <span style="color:#75715e"># 给编辑好的分区创建文件系统，-t 指定文件系统类型为 ext3</span>
+
+sudo mount /dev/xx /mnt/
+           分区路径 要挂载的目录
+sudo umount /mnt  <span style="color:#75715e"># 取消挂载</span>
+
+4. df 显示分区及所挂载的目录
+df -h <span style="color:#75715e"># 文件大小人类可读</span>
+
+5. 创建镜像文件
+dd <span style="color:#66d9ef">if</span><span style="color:#f92672">=</span>/dev/xx of<span style="color:#f92672">=</span>ubuntu.iso  <span style="color:#75715e"># 将指定分区的数据拷贝到 iso 文件中，</span>
+<span style="color:#75715e"># if 指输入文件 of 指输出文件</span>
+genisoimage -o file.iso -R -J ~/test
+<span style="color:#75715e"># 将 test 目录下的数据拷贝到 iso 文件中， -R -J 为标准</span></code></pre></div>
+<h2 id="9-a-name-section9-a-包管理系统">9. <a name='section9'></a>包管理系统</h2>
+
+<p>用来安装、更新、卸载软件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">dpkg - Debian 系
+sudo apt install package_name  <span style="color:#75715e"># 安装软件包</span>
+sudo apt update  <span style="color:#75715e"># 查看所安装软件包最新的更新信息</span>
+sudo apt upgrade  <span style="color:#75715e"># 将软件包更新到最新版本</span>
+sudo apt remove package_name  <span style="color:#75715e"># 卸载软件包</span>
+
+yum - CentOS、RedHat 系
+sudo yum install package_name  <span style="color:#75715e"># 安装</span>
+sudo yum update  <span style="color:#75715e"># 查看更新</span>
+sudo yum upgrade <span style="color:#75715e"># 一键更新</span>
+sudo yum remove package_name  <span style="color:#75715e"># 卸载</span></code></pre></div>
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2022/08/linux_cmd/">Linux_cmd</a></li>
+
+<li><a href="/2022/08/git_basic/">Git_basic</a></li>
+
+<li><a href="/2022/08/jpa/">JPA</a></li>
+
+<li><a href="/2022/06/generics/">Generics</a></li>
+
+<li><a href="/2022/05/makefile/">Makefile</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

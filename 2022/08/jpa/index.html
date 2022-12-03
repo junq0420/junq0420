@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="JPA" />
+<meta property="og:description" content="记录 SpringBoot-JPA 的基础操作" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2022/08/jpa/" />
+<meta property="article:published_time" content="2022-08-28T09:49:02+08:00" />
+<meta property="article:modified_time" content="2022-08-28T09:49:02+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JPA"/>
+<meta name="twitter:description" content="记录 SpringBoot-JPA 的基础操作"/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "JPA",
+  "url": "https://junq0420.github.io/2022/08/jpa/",
+  "wordCount": "1425",
+  "datePublished": "2022-08-28T09:49:02+08:00",
+  "dateModified": "2022-08-28T09:49:02+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "Java, Java_SpringBoot"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2022/08/jpa/">
+
+    <title>JPA | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.5661e2c97fcfc5e47dc9df16e3ca8a3598b1d2f4acbec96eec49c72a9d6e7a31.css" rel="stylesheet" integrity="sha256-VmHiyX/PxeR9yd8W48qKNZix0vSsvslu7EnHKp1uejE=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/archives/" title="">Archives</a>
+          
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2022/08/jpa/">JPA</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-08-28T09:49:02+08:00">2022-08-28</time>
+ in 
+<span class="fas fa-folder" aria-hidden="true"></span>&nbsp;<a href="/categories/java/" rel="category tag">Java</a>
+
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/java_springboot/" rel="tag">Java_SpringBoot</a>
+
+</p>
+  </header>
+  <p>记录 SpringBoot-JPA 的基础操作</p>
+
+<blockquote>
+<p><strong>学习笔记，仅供参考</strong></p>
+
+<p><strong>参考</strong>：<a href="https://www.bilibili.com/video/BV1UL411V7f3?p=27&amp;spm_id_from=pageDriver&amp;vd_source=05b0eccbdf933109f51a1700f25459fa">青空の霞光视频讲解-JPA 部分</a> | <a href="https://spring.io/projects/spring-data-jpa">官方文档</a> | <a href="https://blog.csdn.net/qq_25928447/article/details/122690716">青空の霞光文档-JPA 部分</a></p>
+
+<p><strong>目录</strong>：</p>
+</blockquote>
+
+<!-- vscode-markdown-toc -->
+
+<ul>
+<li>1. <a href="#section1">使用前的配置</a></li>
+<li>2. <a href="#section2">操作数据</a></li>
+<li>3. <a href="#section3">自定义 Repository 方法</a></li>
+<li>4. <a href="#section4">关联查询</a>
+
+<ul>
+<li>4.1. <a href="#section4-1">一对一</a></li>
+<li>4.2. <a href="#section4-2">一对多</a></li>
+<li>4.3. <a href="#section4-3">多对一</a></li>
+<li>4.4. <a href="#section4-4">多对多</a></li>
+</ul></li>
+<li>5. <a href="#section5">自定义 SQL 语句</a></li>
+</ul>
+
+<!-- vscode-markdown-toc-config
+    numbering=true
+    autoSave=true
+    /vscode-markdown-toc-config -->
+
+<!-- /vscode-markdown-toc -->
+
+<hr />
+
+<p>JPA 指 Java Persistent API，即类似于 Mybatis 的一种持久化框架，与 mybatis 不同的是它通过操作实体类自动在数据库中建表，通过接口实现类对象的方法自动生成 SQL 语句操作数据并获取结果。</p>
+
+<h2 id="1-a-name-section1-a-使用前的配置">1. <a name='section1'></a>使用前的配置</h2>
+
+<p>本文使用 SpringBoot 框架做练习，所以要先导入 JPA 的依赖</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;dependency&gt;</span>
+    <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.boot<span style="color:#f92672">&lt;/groupId&gt;</span>
+    <span style="color:#f92672">&lt;artifactId&gt;</span>spring-boot-starter-data-jpa<span style="color:#f92672">&lt;/artifactId&gt;</span>
+<span style="color:#f92672">&lt;/dependency&gt;</span></code></pre></div>
+<p>随后可以像往常一样新建一个 Java 类</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Data</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JPAUser</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">int</span> id<span style="color:#f92672">;</span>
+    String username<span style="color:#f92672">;</span>
+    String password<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// 通过注解将 Java 类变为数据库对应的实体类
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">@Data</span>
+<span style="color:#a6e22e">@Entity</span>  <span style="color:#75715e">// 表明该类为实体类
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@Table</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;user_jpa&#34;</span><span style="color:#f92672">)</span>  <span style="color:#75715e">// 自动创建的表名
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JPAUser</span> <span style="color:#f92672">{</span>
+    <span style="color:#a6e22e">@GeneratedValue</span><span style="color:#f92672">(</span>strtegy <span style="color:#f92672">=</span> GenerationType<span style="color:#f92672">.</span><span style="color:#a6e22e">IDENTITY</span><span style="color:#f92672">)</span>  <span style="color:#75715e">// 生成策略，这里为自增
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@Id</span>  <span style="color:#75715e">// 表示该属性为主键
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@Column</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">)</span>  <span style="color:#75715e">// 对应数据库中表的字段
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> id<span style="color:#f92672">;</span>
+
+    <span style="color:#a6e22e">@Column</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;username&#34;</span><span style="color:#f92672">)</span>
+    String username<span style="color:#f92672">;</span>
+
+    <span style="color:#a6e22e">@Column</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;password&#34;</span><span style="color:#f92672">)</span>
+    String password<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// IDEA 中，会在代码的左边栏出现注解成功后一些图标，以作提示
+</span></code></pre></div>
+<p>最后还要在 application.yml 中配置一下 jpa</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">spring</span>: 
+  <span style="color:#f92672">jpa</span>: 
+    <span style="color:#f92672">show-sql</span>: <span style="color:#66d9ef">true</span>  <span style="color:#75715e"># 开启执行自动生成 SQL 的日志</span>
+    <span style="color:#f92672">hibernate</span>: 
+      <span style="color:#f92672">ddl-auto</span>: <span style="color:#ae81ff">create </span> <span style="color:#75715e"># 自动建表时的策略</span></code></pre></div>
+<p>上述文件中 <code>ddl-auto</code> 属性用于设置自动表的策略，它有4种</p>
+
+<ul>
+<li><p>create 启动时删数据库中的表，然后创建，退出时不删除数据表(常用于首次建表)</p></li>
+
+<li><p>create-drop 启动时删数据库中的表，然后创建，退出时删除数据表 如果表不存在报错</p></li>
+
+<li><p>update 如果启动时表格式不一致则更新表，原有数据保留(建完表后的常用策略)</p></li>
+
+<li><p>validate 项目启动表结构进行校验 如果不一致则报错</p></li>
+</ul>
+
+<p>配置完成后，即可启动项目创建表，可在控制台中看到建表的日志，如下所示。同时也能在 mysql 的指定库中看到建成的表</p>
+<pre><code>Hibernate: drop table if exists user_jpa
+Hibernate: create table user_jpa (id integer not null auto_increment, password varchar(255), username varchar(255), primary key (id)) engine=InnoDB
+
+// 另外若实体类上没有 @Table 注解，它会以类名作为表名</code></pre>
+<p>注意，在创完表后应把 ddl-auto 的策略改为 update，不然再次启功项目后又重新建表并清空数据</p>
+
+<hr />
+
+<h2 id="2-a-name-section2-a-操作数据">2. <a name='section2'></a>操作数据</h2>
+
+<p>在建完表之后，就可向表中增删改查数据了。首先要新建个 repository 接口并继承 JpaRepository 接口，然后通过注入 repository 接口就能使用实现类的方法来 CRUD</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Repository</span>  <span style="color:#75715e">// 类似于 @Mapper，将持久化接口的实现类注册为 Bean 并交给 spring 管理
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">UserRepository</span> <span style="color:#66d9ef">extends</span> JpaRepository<span style="color:#f92672">&lt;</span>JPAUser<span style="color:#f92672">,</span> Integer<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 上面父接口有两个泛型，分别对应操作表的实体类、表主键的类型
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span></code></pre></div>
+<p>接着在测试类中使用 repository 对象操作数据</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@SpringBootTest</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JpaTestApplicationTests</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#a6e22e">@Resource</span>
+    UserRepository repository<span style="color:#f92672">;</span>
+
+    <span style="color:#a6e22e">@Test</span>
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addData</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+      	<span style="color:#75715e">// Insert data
+</span><span style="color:#75715e"></span>        JPAUser user <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> JPAUser<span style="color:#f92672">();</span>
+        user<span style="color:#f92672">.</span><span style="color:#a6e22e">setUsername</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">);</span>
+        user<span style="color:#f92672">.</span><span style="color:#a6e22e">setPassword</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;123456&#34;</span><span style="color:#f92672">);</span>
+        user <span style="color:#f92672">=</span> repository<span style="color:#f92672">.</span><span style="color:#a6e22e">save</span><span style="color:#f92672">(</span>user<span style="color:#f92672">);</span>  <span style="color:#75715e">// 将实体类保存到 DB 中，并返回插入后的结果
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Id of inserted data: &#34;</span> <span style="color:#f92672">+</span> user<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">());</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Test</span>
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">queryData</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+      	<span style="color:#75715e">// query data
+</span><span style="color:#75715e"></span>        repository<span style="color:#f92672">.</span><span style="color:#a6e22e">findById</span><span style="color:#f92672">(</span>1<span style="color:#f92672">).</span><span style="color:#a6e22e">ifPresent</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+        <span style="color:#75715e">// 显示查询结果，这里返回的结果是 Optional 类型，是 Java 8 的新特性
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Test</span>
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">updateData</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+      	<span style="color:#75715e">// update data
+</span><span style="color:#75715e"></span>        JPAUser user <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> JPAUser<span style="color:#f92672">();</span>
+        user<span style="color:#f92672">.</span><span style="color:#a6e22e">setId</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>
+        user<span style="color:#f92672">.</span><span style="color:#a6e22e">setUsername</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Jerry&#34;</span><span style="color:#f92672">);</span>
+        user<span style="color:#f92672">.</span><span style="color:#a6e22e">setPassword</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;654321&#34;</span><span style="color:#f92672">);</span>
+        user <span style="color:#f92672">=</span> repository<span style="color:#f92672">.</span><span style="color:#a6e22e">save</span><span style="color:#f92672">(</span>user<span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;updated data: &#34;</span> <span style="color:#f92672">+</span> user<span style="color:#f92672">);</span>
+        <span style="color:#75715e">// 更新数据与插入都是用的 save 方法
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 方法的逻辑是先查询所给的数据是否存在，存在则更新数据，不在则新增数据
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Test</span>
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">deleteData</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+      	<span style="color:#75715e">// delete data
+</span><span style="color:#75715e"></span>        repository<span style="color:#f92672">.</span><span style="color:#a6e22e">deleteById</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>
+        <span style="color:#75715e">// 也是先查询判断数据是否存在，接着再看是否删除
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
+<p>从上面就能够看出，操作数据都是 JpaRepository 接口 API 所提供的，而它的方法又是继承自 CrudRepository 接口，所以下面就具体了解它的方法。<a href="https://docs.spring.io/spring-data/jpa/docs/current/api/">jpa-doc 官方 api 文档</a></p>
+
+<ul>
+<li><p><strong><em><code>long count()</code></em></strong> // 返回当前表中有多少条数据</p></li>
+
+<li><p><strong><em><code>delete(T entity)</code></em></strong> // 从表中删除给定的数据，存在则删除，其中所给实体必须含有主键 id</p></li>
+
+<li><p><strong><em><code>deleteAll()</code></em></strong> // 删除表中所有的数据</p></li>
+
+<li><p><strong><em><code>deleteAll(Iterable&lt;? extends T&gt; entities)</code></em></strong> // 从表中删除所给集合含有的数据，且集合不能为 null 和空集合</p></li>
+
+<li><p><strong><em><code>deleteById(ID id)</code></em></strong> // 根据 id 从表中删除数据</p></li>
+
+<li><p><strong><em><code>deleteAllById(Iterable&lt;? extends ID&gt; ids)</code></em></strong> // 根据 id 集合从表中删除数据</p></li>
+
+<li><p><strong><em><code>boolean existsById(ID id)</code></em></strong> // 判断表中是否存在指定 id 的数据</p></li>
+
+<li><p><strong><em><code>Iterable&lt;T&gt; findAll()</code></em></strong> // 获取表中所有的数据</p></li>
+
+<li><p><strong><em><code>Iterable&lt;T&gt; findAllById(Iterable&lt;ID&gt; ids)</code></em></strong> // 依据所给的 id 集合从表中获取对应的数据</p></li>
+
+<li><p><strong><em><code>Optional&lt;T&gt; findById(ID id)</code></em></strong> // 获取指定 id 数据</p></li>
+
+<li><p><strong><em><code>&lt;S extends T&gt; S save(S entity)</code></em></strong> // 在表中保存所给数据，并且返回保存后的结果</p></li>
+
+<li><p><strong><em><code>&lt;S extends T&gt; Iterable&lt;S&gt; saveAll(Iterable&lt;S&gt; entities)</code></em></strong> // 在表中保存所给的数据集合，并将结果返回</p></li>
+</ul>
+
+<p>另外 PagingAndSortingRepository<T,ID> 接口提供了两个处理查询的方法</p>
+
+<ul>
+<li><p><strong><em><code>Page&lt;T&gt; findAll(Pageable pageable)</code></em></strong> // 以分页的形式查询数据</p></li>
+
+<li><p><strong><em><code>Iterable&lt;T&gt; findAll(Sort sort)</code></em></strong> // 以排序的形式查询数据</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// ****分页方法的使用*****
+</span><span style="color:#75715e"></span>repository<span style="color:#f92672">.</span><span style="color:#a6e22e">findAll</span><span style="color:#f92672">(</span>PageRequest<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> 2<span style="color:#f92672">)).</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+<span style="color:#75715e">// 由继承关系可知，Page 继承 Iterator 接口，即也属于集合类，故返回结果可用 forEach 输出
+</span><span style="color:#75715e">// 而 PageRequest 为 Pageable 的实现类，of(0, 1) 方法参数中 0 指获取第一页的结果，2 指表中数据 2 个作一页
+</span><span style="color:#75715e">// 执行的 sql 是，先由 size 参数做 limit 查询将表中数据按 size 分页，随后再由 page 查出对应页的结果，page 是从 0 开始 
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// ****排序方法的使用*****
+</span><span style="color:#75715e"></span>repository<span style="color:#f92672">.</span><span style="color:#a6e22e">findAll</span><span style="color:#f92672">(</span>Sort<span style="color:#f92672">.</span><span style="color:#a6e22e">by</span><span style="color:#f92672">(</span>Sort<span style="color:#f92672">.</span><span style="color:#a6e22e">Direction</span><span style="color:#f92672">.</span><span style="color:#a6e22e">DESC</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;username&#34;</span><span style="color:#f92672">)).</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+<span style="color:#75715e">// 通过 Sort.by(Drection d, String... property) 获取 Sort 对象，将其交给 findAll()
+</span><span style="color:#75715e">// Drection 指明升降序、property 指对那个字段排序，且两者都不能为 null
+</span><span style="color:#75715e">// 执行的 sql 为 &#34;..order by property desc&#34;
+</span><span style="color:#75715e"></span>repository<span style="color:#f92672">.</span><span style="color:#a6e22e">findAll</span><span style="color:#f92672">(</span>Sort<span style="color:#f92672">.</span><span style="color:#a6e22e">by</span><span style="color:#f92672">(</span>Sort<span style="color:#f92672">.</span><span style="color:#a6e22e">Order</span><span style="color:#f92672">.</span><span style="color:#a6e22e">asc</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;username&#34;</span><span style="color:#f92672">)))</span> <span style="color:#f92672">.</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+<span style="color:#75715e">// 另一种方法重载
+</span><span style="color:#75715e">// 值得注意的是，在 springboot2.2.1（含）以上的版本Sort已经不能再实例化了，构造方法已经是私有的了
+</span></code></pre></div></li>
+</ul>
+
+<hr />
+
+<h2 id="3-a-name-section3-a-自定义-repository-方法">3. <a name='section3'></a>自定义 Repository 方法</h2>
+
+<p>前面使用的都是 JpaRepository 提供的方法来操作数据库，但这些远远不够应付各种操作数据的需求，所以 JPA 框架还支持自定义方法来满足要求。添加方法也很简单，只需在 UserRepository，即自己写的 Repository 接口中规定好行为即可使用。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Repository</span>  
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">UserRepository</span> <span style="color:#66d9ef">extends</span> JpaRepository<span style="color:#f92672">&lt;</span>JPAUser<span style="color:#f92672">,</span> Integer<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 根据用户名查询数据
+</span><span style="color:#75715e"></span>    JPAUser <span style="color:#a6e22e">findByUsername</span><span style="color:#f92672">(</span>String username<span style="color:#f92672">);</span>
+    <span style="color:#75715e">// 根据用户名和 id 查询
+</span><span style="color:#75715e"></span>    JPAUser <span style="color:#a6e22e">findByUsernameAndId</span><span style="color:#f92672">(</span>String username<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> id<span style="color:#f92672">);</span>
+    <span style="color:#75715e">// 对用户名做模糊查询
+</span><span style="color:#75715e"></span>    List<span style="color:#f92672">&lt;</span>JPAUser<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">findByUsernameLike</span><span style="color:#f92672">(</span>String username<span style="color:#f92672">)</span>
+    <span style="color:#75715e">// 判断表中是否存在所给 ID 的数据
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">existsById</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> id<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// =======自定义方法的使用=======
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">@SpringBootTest</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JpaTestApplicationTests</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#a6e22e">@Resource</span>
+    UserRepository repository<span style="color:#f92672">;</span>
+
+    <span style="color:#a6e22e">@Test</span>
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">contextLoads</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        repository<span style="color:#f92672">.</span><span style="color:#a6e22e">findByUsername</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">);</span>
+        repository<span style="color:#f92672">.</span><span style="color:#a6e22e">findByUsernameAndId</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">,</span> 1<span style="color:#f92672">);</span>
+        repository<span style="color:#f92672">.</span><span style="color:#a6e22e">findByUsernameLike</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%T%&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+        repository<span style="color:#f92672">.</span><span style="color:#a6e22e">existsById</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
+<p>下面列举出可支持的各种条件查询组合，且在 IDEA 中会智能地给出提示</p>
+
+<p><img src="https://gcore.jsdelivr.net/gh/junq0420/blog_image/cunstom_sql1.jpg" alt="custom_sql1" /></p>
+
+<p><img src="https://gcore.jsdelivr.net/gh/junq0420/blog_image/custom_sql2.jpg" alt="custom_sql2" /></p>
+
+<hr />
+
+<h2 id="4-a-name-section4-a-关联查询">4. <a name='section4'></a>关联查询</h2>
+
+<p>在学习 mysql 时，表与表之间可以通过外键建立关联，或者在查询时可以做关联查询，下面看看 JPA 中是如何实现这些功能的。</p>
+
+<h3 id="4-1-a-name-section4-1-a-一对一">4.1. <a name='section4-1'></a>一对一</h3>
+
+<p>下面以用户表及用户详细表为例，展现一对一的关系</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// ======用户详细表的实体类=====
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@Data</span>
+<span style="color:#a6e22e">@Entity</span>
+<span style="color:#a6e22e">@Table</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;user_jpa_detail&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JPAUserDetail</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#a6e22e">@GeneratedValue</span><span style="color:#f92672">(</span>strategy <span style="color:#f92672">=</span> GenerationType<span style="color:#f92672">.</span><span style="color:#a6e22e">IDENTITY</span><span style="color:#f92672">)</span>
+    <span style="color:#a6e22e">@Column</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#a6e22e">@Id</span>
+    <span style="color:#66d9ef">int</span> id<span style="color:#f92672">;</span>
+    
+    <span style="color:#a6e22e">@Column</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;address&#34;</span><span style="color:#f92672">)</span>
+    String address<span style="color:#f92672">;</span>
+    
+    <span style="color:#a6e22e">@Column</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;phone&#34;</span><span style="color:#f92672">)</span>
+    String phone<span style="color:#f92672">;</span>
+    
+    <span style="color:#a6e22e">@Column</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;email&#34;</span><span style="color:#f92672">)</span>
+    String email<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// ======用户表的实体类=====
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@Data</span>
+<span style="color:#a6e22e">@Entity</span>
+<span style="color:#a6e22e">@Table</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;user_jpa&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JPAUserDetail</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// ... (原有字段)
+</span><span style="color:#75715e"></span>
+    <span style="color:#a6e22e">@JoinColumn</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;detail_id&#34;</span><span style="color:#f92672">)</span> <span style="color:#75715e">// 指定关联字段名称
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@OneToOne</span>  <span style="color:#75715e">// 声明为一对一关系
+</span><span style="color:#75715e"></span>    JPAUserDetail detail<span style="color:#f92672">;</span>  <span style="color:#75715e">// 将关联表对象作为一个属性
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// ======启动项目后的相关日志信息=====
+</span><span style="color:#75715e"></span>Hibernate: alter table user_jpa add column detail_id integer
+Hibernate: create table <span style="color:#a6e22e">user_jpa_detail</span> <span style="color:#f92672">(</span>id integer not <span style="color:#66d9ef">null</span> auto_increment<span style="color:#f92672">,</span> address <span style="color:#a6e22e">varchar</span><span style="color:#f92672">(</span>255<span style="color:#f92672">),</span> email <span style="color:#a6e22e">varchar</span><span style="color:#f92672">(</span>255<span style="color:#f92672">),</span> phone <span style="color:#a6e22e">varchar</span><span style="color:#f92672">(</span>255<span style="color:#f92672">),</span> primary <span style="color:#a6e22e">key</span> <span style="color:#f92672">(</span>id<span style="color:#f92672">))</span> engine<span style="color:#f92672">=</span>InnoDB
+Hibernate: alter table user_jpa add constraint FK6nuktj5eyuqbyyrag4cdgvrnc foreign <span style="color:#a6e22e">key</span> <span style="color:#f92672">(</span>detail_id<span style="color:#f92672">)</span> references <span style="color:#a6e22e">user_jpa_detail</span> <span style="color:#f92672">(</span>id<span style="color:#f92672">)</span>
+<span style="color:#75715e">// 1. 先在 user_jpa 中加入外键字段；2. 创建关联表；3. 将外键字段与关联表对应字段绑定
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// ======完善两表的信息后的查询结果=====
+</span><span style="color:#75715e"></span>repository<span style="color:#f92672">.</span><span style="color:#a6e22e">findById</span><span style="color:#f92672">(</span>3<span style="color:#f92672">).</span><span style="color:#a6e22e">isPresent</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+<span style="color:#75715e">// result: 
+</span><span style="color:#75715e"></span>JPAUser<span style="color:#f92672">(</span>id<span style="color:#f92672">=</span>3<span style="color:#f92672">,</span> username<span style="color:#f92672">=</span>Frank<span style="color:#f92672">,</span> password<span style="color:#f92672">=</span>74751<span style="color:#f92672">,</span> detail<span style="color:#f92672">=</span>JPAUserDetail<span style="color:#f92672">(</span>id<span style="color:#f92672">=</span>2<span style="color:#f92672">,</span> address<span style="color:#f92672">=</span>ShangHai<span style="color:#f92672">,</span> phone<span style="color:#f92672">=</span>24680<span style="color:#f92672">,</span> email<span style="color:#f92672">=</span>123<span style="color:#a6e22e">@bb</span><span style="color:#f92672">,</span>com<span style="color:#f92672">))</span></code></pre></div>
+<p>从上面的结果中可以看出，在对用户表查询时，对应的详情表信息也会自动地显示出来。当然通过配置可以关闭这种关联表的自动显示，从而让查询更加灵活可变。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// ======修改用户表的实体类=====
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@Data</span>
+<span style="color:#a6e22e">@Entity</span>
+<span style="color:#a6e22e">@Table</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;user_jpa&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JPAUserDetail</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// ... (原有字段)
+</span><span style="color:#75715e"></span>
+    <span style="color:#a6e22e">@JoinColumn</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;detail_id&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#a6e22e">@OneToOne</span><span style="color:#f92672">(</span>fetch <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;FetchType.LAZY&#34;</span><span style="color:#f92672">)</span>  <span style="color:#75715e">// 将一对一关系的获取方式改为懒加载模式
+</span><span style="color:#75715e"></span>    JPAUserDetail detail<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// ======测试懒加载=====
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@Transactional</span>  <span style="color:#75715e">// 懒加载属性需要在事务环境下获取，因为repository 方法调用完后 Session 会立即关闭
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@Test</span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">test</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    repository<span style="color:#f92672">.</span><span style="color:#a6e22e">findById</span><span style="color:#f92672">(</span>1<span style="color:#f92672">).</span><span style="color:#a6e22e">ifPresent</span><span style="color:#f92672">(</span>account <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>account<span style="color:#f92672">.</span><span style="color:#a6e22e">getUsername</span><span style="color:#f92672">());</span>   <span style="color:#75715e">//获取用户名
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>account<span style="color:#f92672">.</span><span style="color:#a6e22e">getDetail</span><span style="color:#f92672">());</span>  <span style="color:#75715e">//获取详细信息（懒加载）
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">});</span>
+<span style="color:#f92672">}</span>
+<span style="color:#75715e">// 这样是否显示详情表结果就可控制
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// ====一些验证====
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">★</span> 上面的 test 方法在 <span style="color:#a6e22e">Eager</span><span style="color:#f92672">(</span>积极加载<span style="color:#f92672">)</span> 下也是可以控制是否显示详情表信息<span style="color:#960050;background-color:#1e0010">，</span>所以得出详情表结果是否输出与懒加载无关
+而查询效率是与懒加载有关的<span style="color:#960050;background-color:#1e0010">，</span>下面是两种加载方式的一些对比
+
+1<span style="color:#960050;background-color:#1e0010">）</span>懒加载
+<span style="color:#960050;background-color:#1e0010">【</span>不使用关联对象<span style="color:#960050;background-color:#1e0010">】</span>
+Hibernate: select jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> as id1_0_0_<span style="color:#f92672">,</span> jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">detail_id</span> as detail_i4_0_0_<span style="color:#f92672">,</span> jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">password</span> as password2_0_0_<span style="color:#f92672">,</span> jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">username</span> as username3_0_0_ from user_jpa jpauser0_ where jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">=?</span>
+<span style="color:#960050;background-color:#1e0010">【</span>使用关联对象<span style="color:#960050;background-color:#1e0010">】</span>
+Hibernate: select jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> as id1_0_0_<span style="color:#f92672">,</span> jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">detail_id</span> as detail_i4_0_0_<span style="color:#f92672">,</span> jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">password</span> as password2_0_0_<span style="color:#f92672">,</span> jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">username</span> as username3_0_0_ from user_jpa jpauser0_ where jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">=?</span>
+Frank
+Hibernate: select jpauserdet0_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> as id1_1_0_<span style="color:#f92672">,</span> jpauserdet0_<span style="color:#f92672">.</span><span style="color:#a6e22e">address</span> as address2_1_0_<span style="color:#f92672">,</span> jpauserdet0_<span style="color:#f92672">.</span><span style="color:#a6e22e">email</span> as email3_1_0_<span style="color:#f92672">,</span> jpauserdet0_<span style="color:#f92672">.</span><span style="color:#a6e22e">phone</span> as phone4_1_0_ from user_jpa_detail jpauserdet0_ where jpauserdet0_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">=?</span>
+JPAUserDetail<span style="color:#f92672">(</span>id<span style="color:#f92672">=</span>2<span style="color:#f92672">,</span> address<span style="color:#f92672">=</span>ShangHai<span style="color:#f92672">,</span> phone<span style="color:#f92672">=</span>24680<span style="color:#f92672">,</span> email<span style="color:#f92672">=</span>123<span style="color:#a6e22e">@bb</span><span style="color:#f92672">,</span>com<span style="color:#f92672">)</span>
+
+2<span style="color:#960050;background-color:#1e0010">）</span>积极
+<span style="color:#960050;background-color:#1e0010">【</span>不使用关联对象<span style="color:#960050;background-color:#1e0010">】</span>
+Hibernate: select jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> as id1_0_0_<span style="color:#f92672">,</span> jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">detail_id</span> as detail_i4_0_0_<span style="color:#f92672">,</span> jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">password</span> as password2_0_0_<span style="color:#f92672">,</span> jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">username</span> as username3_0_0_<span style="color:#f92672">,</span> jpauserdet1_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> as id1_1_1_<span style="color:#f92672">,</span> jpauserdet1_<span style="color:#f92672">.</span><span style="color:#a6e22e">address</span> as address2_1_1_<span style="color:#f92672">,</span> jpauserdet1_<span style="color:#f92672">.</span><span style="color:#a6e22e">email</span> as email3_1_1_<span style="color:#f92672">,</span> jpauserdet1_<span style="color:#f92672">.</span><span style="color:#a6e22e">phone</span> as phone4_1_1_ from user_jpa jpauser0_ left outer join user_jpa_detail jpauserdet1_ on jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">detail_id</span><span style="color:#f92672">=</span>jpauserdet1_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> where jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">=?</span>
+<span style="color:#960050;background-color:#1e0010">【</span>使用关联对象<span style="color:#960050;background-color:#1e0010">】</span>
+Hibernate: select jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> as id1_0_0_<span style="color:#f92672">,</span> jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">detail_id</span> as detail_i4_0_0_<span style="color:#f92672">,</span> jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">password</span> as password2_0_0_<span style="color:#f92672">,</span> jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">username</span> as username3_0_0_<span style="color:#f92672">,</span> jpauserdet1_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> as id1_1_1_<span style="color:#f92672">,</span> jpauserdet1_<span style="color:#f92672">.</span><span style="color:#a6e22e">address</span> as address2_1_1_<span style="color:#f92672">,</span> jpauserdet1_<span style="color:#f92672">.</span><span style="color:#a6e22e">email</span> as email3_1_1_<span style="color:#f92672">,</span> jpauserdet1_<span style="color:#f92672">.</span><span style="color:#a6e22e">phone</span> as phone4_1_1_ from user_jpa jpauser0_ left outer join user_jpa_detail jpauserdet1_ on jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">detail_id</span><span style="color:#f92672">=</span>jpauserdet1_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> where jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">=?</span>
+Frank
+<span style="color:#a6e22e">JPAUserDetail</span><span style="color:#f92672">(</span>id<span style="color:#f92672">=</span>2<span style="color:#f92672">,</span> address<span style="color:#f92672">=</span>ShangHai<span style="color:#f92672">,</span> phone<span style="color:#f92672">=</span>24680<span style="color:#f92672">,</span> email<span style="color:#f92672">=</span>123<span style="color:#a6e22e">@bb</span><span style="color:#f92672">,</span>com<span style="color:#f92672">)</span>
+
+从对比结果可看出<span style="color:#960050;background-color:#1e0010">，</span>积极加载下无论是否使用关联对象都是一样的 SQL 语句<span style="color:#960050;background-color:#1e0010">，</span>即对两表联合查询
+而懒加载下的不使用关联对象仅对主表查询<span style="color:#960050;background-color:#1e0010">，</span>若要用关联对象就再对从表查询</code></pre></div>
+<p>既然可以关联查询，那么也能关联性地一次完成两张表的数据插入</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 还是先对外键字段修改配置
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@JoinColumn</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;detail_id&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#a6e22e">@OneToOne</span><span style="color:#f92672">(</span>fetch <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;FetchType.LAZY&#34;</span><span style="color:#f92672">,</span> cascade <span style="color:#f92672">=</span> CascadeType<span style="color:#f92672">.</span><span style="color:#a6e22e">ALL</span><span style="color:#f92672">)</span>  <span style="color:#75715e">// 设置级联类型为 All
+</span><span style="color:#75715e"></span>    JPAUserDetail detail<span style="color:#f92672">;</span>
+<span style="color:#75715e">// 四种级联类型：All 所有操作均关联 | Persist 插入时才关联 | Remove 删除才关联 | Merge 修改才关联
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// ====具体使用====
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@Test</span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">test</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    JPAUserDetail detail <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> JPAUserDetail<span style="color:#f92672">();</span>
+    detail<span style="color:#f92672">.</span><span style="color:#a6e22e">setAddress</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Beijing&#34;</span><span style="color:#f92672">);</span>
+    detail<span style="color:#f92672">.</span><span style="color:#a6e22e">setEmail</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;123@qq.com&#34;</span><span style="color:#f92672">);</span>
+    detail<span style="color:#f92672">.</span><span style="color:#a6e22e">setPhone</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;55193&#34;</span><span style="color:#f92672">);</span>
+    JPAUser user <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> JPAUser<span style="color:#f92672">();</span>
+    user<span style="color:#f92672">.</span><span style="color:#a6e22e">setUsername</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">);</span>
+    user<span style="color:#f92672">.</span><span style="color:#a6e22e">setPassword</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;202285&#34;</span><span style="color:#f92672">);</span>
+    user<span style="color:#f92672">.</span><span style="color:#a6e22e">setDetail</span><span style="color:#f92672">(</span>detail<span style="color:#f92672">);</span>
+    user <span style="color:#f92672">=</span> repository<span style="color:#f92672">.</span><span style="color:#a6e22e">save</span><span style="color:#f92672">(</span>user<span style="color:#f92672">);</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;主键ID: &#34;</span> <span style="color:#f92672">+</span> user<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; | 外键ID: &#34;</span> <span style="color:#f92672">+</span> user<span style="color:#f92672">.</span><span style="color:#a6e22e">getDetail</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">());</span>
+    <span style="color:#75715e">// 级联操作时，先对从表操作，再对主表操作
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span></code></pre></div>
+<h3 id="4-2-a-name-section4-2-a-一对多">4.2. <a name='section4-2'></a>一对多</h3>
+
+<p>下面以用户成绩表为例，来展现一对多的关系。注意：<strong>在一对多的关联中，多端应该含有一个存放一端的主键</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// =====用户成绩表======
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@Data</span>
+<span style="color:#a6e22e">@Entity</span>
+<span style="color:#a6e22e">@Table</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;user_jpa_score&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JPAUserScore</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#a6e22e">@GeneratedValue</span><span style="color:#f92672">(</span>strategy <span style="color:#f92672">=</span> GenerationType<span style="color:#f92672">.</span><span style="color:#a6e22e">IDENTITY</span><span style="color:#f92672">)</span>
+    <span style="color:#a6e22e">@Column</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#a6e22e">@Id</span>
+    <span style="color:#66d9ef">int</span> id<span style="color:#f92672">;</span>  <span style="color:#75715e">// 成绩表的主键
+</span><span style="color:#75715e"></span>
+    <span style="color:#a6e22e">@Column</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;score&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">double</span> score<span style="color:#f92672">;</span>  <span style="color:#75715e">// 成绩字段
+</span><span style="color:#75715e"></span>
+    <span style="color:#a6e22e">@OneToOne</span>
+    <span style="color:#a6e22e">@JoinColumn</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;subject_sid&#34;</span><span style="color:#f92672">)</span>
+    JPAUserSubject subject<span style="color:#f92672">;</span>  <span style="color:#75715e">// 关联学科表的外键
+</span><span style="color:#75715e"></span>
+    <span style="color:#a6e22e">@Column</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;uid&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">int</span> uid<span style="color:#f92672">;</span>  <span style="color:#75715e">// 存放主表的主键
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// =====用户学科表======
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@Data</span>
+<span style="color:#a6e22e">@Entity</span>
+<span style="color:#a6e22e">@Table</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;user_jpa_subject&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JPAUserSubject</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#a6e22e">@GeneratedValue</span><span style="color:#f92672">(</span>strategy <span style="color:#f92672">=</span> GenerationType<span style="color:#f92672">.</span><span style="color:#a6e22e">IDENTITY</span><span style="color:#f92672">)</span>
+    <span style="color:#a6e22e">@Column</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sid&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#a6e22e">@Id</span>
+    <span style="color:#66d9ef">int</span> sid<span style="color:#f92672">;</span>  <span style="color:#75715e">// 学科表主键，与成绩表一对一关联
+</span><span style="color:#75715e"></span>
+    <span style="color:#a6e22e">@Column</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">)</span>
+    String name<span style="color:#f92672">;</span>  <span style="color:#75715e">// 学科名称
+</span><span style="color:#75715e"></span>
+    <span style="color:#a6e22e">@Column</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;teacher&#34;</span><span style="color:#f92672">)</span>
+    String teacher<span style="color:#f92672">;</span>  <span style="color:#75715e">// 任教老师
+</span><span style="color:#75715e"></span>
+    <span style="color:#a6e22e">@Column</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;time&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">int</span> time<span style="color:#f92672">;</span>  <span style="color:#75715e">// 学科学时
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// =====用户表添加成绩字段======
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@JoinColumn</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;uid&#34;</span><span style="color:#f92672">)</span>  <span style="color:#75715e">// 关联成绩表中的 uid 字段
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@OneToMany</span><span style="color:#f92672">(</span>fetch <span style="color:#f92672">=</span> FetchType<span style="color:#f92672">.</span><span style="color:#a6e22e">LAZY</span><span style="color:#f92672">,</span> cascade <span style="color:#f92672">=</span> CascadeType<span style="color:#f92672">.</span><span style="color:#a6e22e">REMOVE</span><span style="color:#f92672">)</span>  <span style="color:#75715e">// 采用懒加载，且删除时进行关联操作
+</span><span style="color:#75715e"></span>    List<span style="color:#f92672">&lt;</span>JPAUserScore<span style="color:#f92672">&gt;</span> score<span style="color:#f92672">;</span>  <span style="color:#75715e">// 一对多关系的字段必须是集合容器
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// ====使用====
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@Transactional</span>
+<span style="color:#a6e22e">@Test</span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">test</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    repository<span style="color:#f92672">.</span><span style="color:#a6e22e">findById</span><span style="color:#f92672">(</span>3<span style="color:#f92672">).</span><span style="color:#a6e22e">ifPresent</span><span style="color:#f92672">(</span>jpaUser <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;name: &#34;</span> <span style="color:#f92672">+</span> jpaUser<span style="color:#f92672">.</span><span style="color:#a6e22e">getUsername</span><span style="color:#f92672">());</span>
+        jpaUser<span style="color:#f92672">.</span><span style="color:#a6e22e">getScore</span><span style="color:#f92672">().</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>jpaUserScore <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;subject: &#34;</span> <span style="color:#f92672">+</span> jpaUserScore<span style="color:#f92672">.</span><span style="color:#a6e22e">getSubject</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; | teacher: &#34;</span> <span style="color:#f92672">+</span> jpaUserScore<span style="color:#f92672">.</span><span style="color:#a6e22e">getSubject</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getTeacher</span><span style="color:#f92672">());</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;score: &#34;</span> <span style="color:#f92672">+</span> jpaUserScore<span style="color:#f92672">.</span><span style="color:#a6e22e">getScore</span><span style="color:#f92672">());</span>
+        <span style="color:#f92672">});</span>
+    <span style="color:#f92672">});</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// ====控制对应日志====
+</span><span style="color:#75715e"></span>Hibernate: select jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> as id1_0_0_<span style="color:#f92672">,</span> jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">password</span> as password2_0_0_<span style="color:#f92672">,</span> jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">username</span> as username3_0_0_ from user_jpa jpauser0_ where jpauser0_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">=?</span>
+name: Frank
+Hibernate: select score0_<span style="color:#f92672">.</span><span style="color:#a6e22e">uid</span> as uid3_2_0_<span style="color:#f92672">,</span> score0_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> as id1_2_0_<span style="color:#f92672">,</span> score0_<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> as id1_2_1_<span style="color:#f92672">,</span> score0_<span style="color:#f92672">.</span><span style="color:#a6e22e">score</span> as score2_2_1_<span style="color:#f92672">,</span> score0_<span style="color:#f92672">.</span><span style="color:#a6e22e">subject_sid</span> as subject_4_2_1_<span style="color:#f92672">,</span> score0_<span style="color:#f92672">.</span><span style="color:#a6e22e">uid</span> as uid3_2_1_<span style="color:#f92672">,</span> jpausersub1_<span style="color:#f92672">.</span><span style="color:#a6e22e">sid</span> as sid1_3_2_<span style="color:#f92672">,</span> jpausersub1_<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> as name2_3_2_<span style="color:#f92672">,</span> jpausersub1_<span style="color:#f92672">.</span><span style="color:#a6e22e">teacher</span> as teacher3_3_2_<span style="color:#f92672">,</span> jpausersub1_<span style="color:#f92672">.</span><span style="color:#a6e22e">time</span> as time4_3_2_ from user_jpa_score score0_ left outer join user_jpa_subject jpausersub1_ on score0_<span style="color:#f92672">.</span><span style="color:#a6e22e">subject_sid</span><span style="color:#f92672">=</span>jpausersub1_<span style="color:#f92672">.</span><span style="color:#a6e22e">sid</span> where score0_<span style="color:#f92672">.</span><span style="color:#a6e22e">uid</span><span style="color:#f92672">=?</span>
+subject: Chinese <span style="color:#f92672">|</span> teacher<span style="color:#f92672">:</span> 张三
+score: 89<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span>
+subject: Math <span style="color:#f92672">|</span> teacher<span style="color:#f92672">:</span> 李四
+score: 92<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span>
+subject: English <span style="color:#f92672">|</span> teacher<span style="color:#f92672">:</span> 王五
+score: 77<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span></code></pre></div>
+<h3 id="4-3-a-name-section4-3-a-多对一">4.3. <a name='section4-3'></a>多对一</h3>
+
+<p>在一对多的基础上，将学科表的教师字段关联一张教师表，以此展示多对一关系。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// ====教师表====
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@Data</span>
+<span style="color:#a6e22e">@Entity</span>
+<span style="color:#a6e22e">@Table</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;user_jpa_teacher&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JPAUserTeacher</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#a6e22e">@GeneratedValue</span><span style="color:#f92672">(</span>strategy <span style="color:#f92672">=</span> GenerationType<span style="color:#f92672">.</span><span style="color:#a6e22e">IDENTITY</span><span style="color:#f92672">)</span>
+    <span style="color:#a6e22e">@Column</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tid&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#a6e22e">@Id</span>
+    <span style="color:#66d9ef">int</span> id<span style="color:#f92672">;</span>  <span style="color:#75715e">// 主键 Id
+</span><span style="color:#75715e"></span>
+    <span style="color:#a6e22e">@Column</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">)</span>
+    String name<span style="color:#f92672">;</span>  <span style="color:#75715e">// 教师名
+</span><span style="color:#75715e"></span>
+    <span style="color:#a6e22e">@Column</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sex&#34;</span><span style="color:#f92672">)</span>
+    String sex<span style="color:#f92672">;</span>  <span style="color:#75715e">// 性别
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// ====学科表的教师字段修改====
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@ManyToOne</span><span style="color:#f92672">(</span>fetch <span style="color:#f92672">=</span> FetchType<span style="color:#f92672">.</span><span style="color:#a6e22e">LAZY</span><span style="color:#f92672">)</span>
+    <span style="color:#a6e22e">@JoinColumn</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tid&#34;</span><span style="color:#f92672">)</span>  <span style="color:#75715e">// 与一对一的一样，作为外键且不用在从表中加主表主键属性
+</span><span style="color:#75715e"></span>    JPAUserTeacher teacher<span style="color:#f92672">;</span>
+
+<span style="color:#75715e">// ====使用====
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@Test</span>
+    <span style="color:#a6e22e">@Transactional</span>
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">test</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        repository<span style="color:#f92672">.</span><span style="color:#a6e22e">findById</span><span style="color:#f92672">(</span>3<span style="color:#f92672">).</span><span style="color:#a6e22e">ifPresent</span><span style="color:#f92672">(</span>jpaUser <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Username: &#34;</span> <span style="color:#f92672">+</span> jpaUser<span style="color:#f92672">.</span><span style="color:#a6e22e">getUsername</span><span style="color:#f92672">());</span>
+            jpaUser<span style="color:#f92672">.</span><span style="color:#a6e22e">getScore</span><span style="color:#f92672">().</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>jpaUserScore <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Subject: &#34;</span> <span style="color:#f92672">+</span> jpaUserScore<span style="color:#f92672">.</span><span style="color:#a6e22e">getSubject</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">());</span>
+                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Teacher: &#34;</span> <span style="color:#f92672">+</span> jpaUserScore<span style="color:#f92672">.</span><span style="color:#a6e22e">getSubject</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getTeacher</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span>
+                        <span style="color:#e6db74">&#34; | Sex: &#34;</span> <span style="color:#f92672">+</span> jpaUserScore<span style="color:#f92672">.</span><span style="color:#a6e22e">getSubject</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getTeacher</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getSex</span><span style="color:#f92672">());</span>
+                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Score: &#34;</span> <span style="color:#f92672">+</span> jpaUserScore<span style="color:#f92672">.</span><span style="color:#a6e22e">getScore</span><span style="color:#f92672">());</span>
+            <span style="color:#f92672">});</span>
+        <span style="color:#f92672">});</span>
+    <span style="color:#f92672">}</span></code></pre></div>
+<h3 id="4-4-a-name-section4-4-a-多对多">4.4. <a name='section4-4'></a>多对多</h3>
+
+<p>多对多关系虽然复杂，但操作上只需引出一张关系表即可。JPA 会自动创建一张中间表，并自动设置外键，就可以将多对多关联信息编写在其中了</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// ====学科表中教师字段的修改====
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@ManyToMany</span><span style="color:#f92672">(</span>fetch <span style="color:#f92672">=</span> FetchType<span style="color:#f92672">.</span><span style="color:#a6e22e">LAZY</span><span style="color:#f92672">)</span>   <span style="color:#75715e">//多对多场景
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@JoinTable</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;teach_relation&#34;</span><span style="color:#f92672">,</span>     <span style="color:#75715e">//多对多中间关联表
+</span><span style="color:#75715e"></span>    joinColumns <span style="color:#f92672">=</span> <span style="color:#a6e22e">@JoinColumn</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cid&#34;</span><span style="color:#f92672">),</span>    <span style="color:#75715e">//当前实体主键在关联表中的字段名称
+</span><span style="color:#75715e"></span>    inverseJoinColumns <span style="color:#f92672">=</span> <span style="color:#a6e22e">@JoinColumn</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tid&#34;</span><span style="color:#f92672">)</span>   <span style="color:#75715e">//教师实体主键在关联表中的字段名称
+</span><span style="color:#75715e"></span><span style="color:#f92672">)</span>
+List<span style="color:#f92672">&lt;</span>JPAUserTeacher<span style="color:#f92672">&gt;</span> teacher<span style="color:#f92672">;</span></code></pre></div>
+<p>小总结：关联指两张表数据相关联，一对一指主从表数据一一关联；一对多指主表数据关联从表的多个数据；多对一指主表多个数据关联从表一个数据；多对多可理解为前三种关系的各种组合</p>
+
+<hr />
+
+<h2 id="5-a-name-section5-a-自定义-sql-语句">5. <a name='section5'></a>自定义 SQL 语句</h2>
+
+<p>虽然 JPA 能够自动化地生成 sql 语句，但有时候并不一定就效率高，所以需要手动编写 sql。JPA 能够编写 JPQL 语言和原生的 SQL 语言，只不过 JPQL 是面向对象的。</p>
+
+<p>下面以更新给定用户 ID 的数据为例，说明两种语言的差异</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// ====JPQL 语言=====
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@Repository</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">UserRepository</span> <span style="color:#66d9ef">extends</span> JpaRepository<span style="color:#f92672">&lt;</span>JPAUser<span style="color:#f92672">,</span> Integer<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#a6e22e">@Transactional</span>    <span style="color:#75715e">// DML 操作需要事务环境，可以不在这里声明，但是调用时一定要处于事务环境下
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@Modifying</span>     <span style="color:#75715e">// 表示这是一个DML操作
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@Query</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;update JPAUser set password = ?2 where id = ?1&#34;</span><span style="color:#f92672">)</span> <span style="color:#75715e">// 这里操作的是一个实体类对应的表，参数使用?代表，后面接第n个参数
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">updatePasswordById</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> id<span style="color:#f92672">,</span> String newPassword<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#a6e22e">@Test</span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">test</span><span style="color:#f92672">(){</span>  <span style="color:#75715e">// 使用
+</span><span style="color:#75715e"></span>    repository<span style="color:#f92672">.</span><span style="color:#a6e22e">updatePasswordById</span><span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;654321&#34;</span><span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// ====原生 SQL====
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@Repository</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">UserRepository</span> <span style="color:#66d9ef">extends</span> JpaRepository<span style="color:#f92672">&lt;</span>JPAUser<span style="color:#f92672">,</span> Integer<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#a6e22e">@Transactional</span>    <span style="color:#75715e">// DML 操作需要事务环境，可以不在这里声明，但是调用时一定要处于事务环境下
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@Modifying</span>     <span style="color:#75715e">// 表示这是一个DML操作
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@Query</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;update user_jpa set password = :pwd where username = :name&#34;</span><span style="color:#f92672">,</span> nativeQuery <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">)</span> <span style="color:#75715e">// 使用原生SQL，和Mybatis一样，这里使用 :名称 表示参数，当然也可以继续用上面那种方式。
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">updatePasswordByUsername</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@Param</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">)</span> String username<span style="color:#f92672">,</span>   <span style="color:#75715e">//我们可以使用@Param指定名称
+</span><span style="color:#75715e"></span>                                <span style="color:#a6e22e">@Param</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;pwd&#34;</span><span style="color:#f92672">)</span> String newPassword<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span></code></pre></div>
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2022/08/linux_cmd/">Linux_cmd</a></li>
+
+<li><a href="/2022/08/git_basic/">Git_basic</a></li>
+
+<li><a href="/2022/08/jpa/">JPA</a></li>
+
+<li><a href="/2022/06/generics/">Generics</a></li>
+
+<li><a href="/2022/05/makefile/">Makefile</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

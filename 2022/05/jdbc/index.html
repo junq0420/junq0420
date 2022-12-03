@@ -28,7 +28,7 @@
   "@type": "BlogPosting",
   "headline": "JDBC",
   "url": "https://junq0420.github.io/2022/05/jdbc/",
-  "wordCount": "161",
+  "wordCount": "977",
   "datePublished": "2022-05-17T15:56:12+08:00",
   "dateModified": "2022-05-17T15:56:12+08:00",
   "author": {
@@ -130,7 +130,7 @@
 
 <p>JDBC 指 Java database connectivity，它是一个 Java api 即允许用户通过 java 来访问操作多种关系型数据库的一套 <strong>规范</strong>。</p>
 
-<h2 id="上手体验">上手体验</h2>
+<h2 id="上手体验">✋ 上手体验</h2>
 
 <p>Java 中对应的 api 为 <code>java.sql</code> 相当于布料，而各大数据库就相当于服装厂，生产各种服装。为了能让布料运到各大服装厂，中间又有了 <code>mysql-connector-java</code> (本文数据库以 MySQL 为例)，相当于物流运输。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test1</span> <span style="color:#f92672">{</span>
@@ -153,12 +153,12 @@
             <span style="color:#75715e">// 打印结果集
 </span><span style="color:#75715e"></span>            <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>res<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>  <span style="color:#75715e">// 分别获取每行结果的第一、第二、第三列数据
 </span><span style="color:#75715e"></span>                <span style="color:#66d9ef">int</span> id <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span><span style="color:#a6e22e">getInt</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>
-                String username <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span>2<span style="color:#f92672">);</span>
-                String password <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span>3<span style="color:#f92672">);</span>
+                String name <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span>2<span style="color:#f92672">);</span>
+                <span style="color:#66d9ef">int</span> age <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span><span style="color:#a6e22e">getInt</span><span style="color:#f92672">(</span>3<span style="color:#f92672">);</span>
 
                 System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Id: &#34;</span> <span style="color:#f92672">+</span> id <span style="color:#f92672">+</span>
-                    <span style="color:#e6db74">&#34;Username: &#34;</span> <span style="color:#f92672">+</span> username <span style="color:#f92672">+</span> 
-                    <span style="color:#e6db74">&#34;Password: &#34;</span> <span style="color:#f92672">+</span> password<span style="color:#f92672">);</span>
+                    <span style="color:#e6db74">&#34;Name: &#34;</span> <span style="color:#f92672">+</span> name <span style="color:#f92672">+</span> 
+                    <span style="color:#e6db74">&#34;Age: &#34;</span> <span style="color:#f92672">+</span> age<span style="color:#f92672">);</span>
                 <span style="color:#f92672">}</span>
             <span style="color:#75715e">// close stream
 </span><span style="color:#75715e"></span>            statement<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
@@ -183,9 +183,311 @@
 <li><p>最后再调用 statement 的 <code>statementExecuteQuery(&quot;sql&quot;)</code> 完成查询、<code>statementExecuteUpdate(&quot;sql&quot;)</code> 完成增删改</p></li>
 </ol>
 
-<h2 id="整理优化">整理优化</h2>
+<h2 id="整理优化">🎨 整理优化</h2>
 
-<h2 id="规范操作">规范操作</h2>
+<p>为了让 JDBC 的程序更加合理，还需对上述代码进行整理修改。如：</p>
+
+<ol>
+<li><p>将常量（URL、USER、PASSWORD、DRIVER）和接收变量（connection、statement、res）提前声明定义好</p></li>
+
+<li><p>将整个过程都用 try-catch-finally 包裹起来</p></li>
+
+<li><p>在 finally 中再次用 try-catch 将变量的关流包起来</p></li>
+</ol>
+
+<p>下面为整理后的程序</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.sql.DriverManager<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.sql.Connection<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.sql.Statement<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.sql.ResultSet<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test2</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 定义常量
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String DRIVER <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;com.mysql.jdbc.Driver&#34;</span><span style="color:#f92672">;</span> 
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String URL <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;jdbc:mysql://localhost:3306/frank_school&#34;</span><span style="color:#f92672">;</span> 
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String USER <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;root&#34;</span><span style="color:#f92672">;</span> 
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String PASSWORD <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;123456&#34;</span><span style="color:#f92672">;</span> 
+
+    <span style="color:#75715e">// 定义变量
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> Connection connection<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> Statement statement<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> ResultSet res<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+            <span style="color:#75715e">// 1. 加载驱动程序
+</span><span style="color:#75715e"></span>            Class<span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;DRIVER&#34;</span><span style="color:#f92672">);</span>
+
+            <span style="color:#75715e">// 2. 获取数据库连接
+</span><span style="color:#75715e"></span>            connection <span style="color:#f92672">=</span> DriverManager<span style="color:#f92672">.</span><span style="color:#a6e22e">getConnection</span><span style="color:#f92672">(</span>URL<span style="color:#f92672">,</span> USER<span style="color:#f92672">,</span> PASSWORD<span style="color:#f92672">);</span>
+
+            <span style="color:#75715e">// 3. 获取数据库操作对象
+</span><span style="color:#75715e"></span>            statement <span style="color:#f92672">=</span> connection<span style="color:#f92672">.</span><span style="color:#a6e22e">createStatement</span><span style="color:#f92672">();</span>
+
+            <span style="color:#75715e">// 4. 执行 sql 语句，获取结果
+</span><span style="color:#75715e"></span>            res <span style="color:#f92672">=</span> statement<span style="color:#f92672">.</span><span style="color:#a6e22e">executeQuery</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;select * from user&#34;</span><span style="color:#f92672">);</span>
+
+            <span style="color:#75715e">// 打印结果集
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>res<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">int</span> id <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span><span style="color:#a6e22e">getInt</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>
+                String name <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span>2<span style="color:#f92672">);</span>
+                <span style="color:#66d9ef">int</span> age <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span><span style="color:#a6e22e">getInt</span><span style="color:#f92672">(</span>3<span style="color:#f92672">);</span>
+
+                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Id: &#34;</span> <span style="color:#f92672">+</span> id <span style="color:#f92672">+</span>
+                    <span style="color:#e6db74">&#34;Name: &#34;</span> <span style="color:#f92672">+</span> name <span style="color:#f92672">+</span> 
+                    <span style="color:#e6db74">&#34;Age: &#34;</span> <span style="color:#f92672">+</span> age<span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+                res<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+                statement<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+                connection<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+            <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
+<h2 id="规范操作">🚩 规范操作</h2>
+
+<p>为了让程序编写的更加规范，还可以将 JDBC 的前置工作，如定义 jdbc 所用到的常量、获取驱动程序等封装为一个 JDBCUtils 工具类，这样能够减少代码量。而且为了让数据读取更加方便、安全，还需要将常量放在 <code>db.properties</code> 的配置文件中，其中数据是以键值对的形式存储（如：user=root）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">★ db.properties 文件内容
+
+driver=com.mysql.jdbc.Driver
+url=jdbc:mysql://localhost:3306/frank_school?characterEncoding=utf-8
+user=root
+password=123456</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// JDBCUtil 工具类的内容
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">import</span> java.sql.DriverManager<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.sql.Connection<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.sql.Statement<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.sql.ResultSet<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.sql.SQLException<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> java.io.InputStream<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.IOException<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> java.util.Properties<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JDBCUtil</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 定义接收配置项的变量
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> String driver<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> String url<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> String user<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> String password<span style="color:#f92672">;</span>
+
+    <span style="color:#75715e">// 通过静态代码块预先读取配置文件中的配置项
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">static</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 导入要读取的文件流
+</span><span style="color:#75715e"></span>        InputStream inputStream <span style="color:#f92672">=</span> ClassLoader<span style="color:#f92672">.</span><span style="color:#a6e22e">getSystemResourceAsStream</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;db.properties&#34;</span><span style="color:#f92672">);</span>
+        Properties properties <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Properties<span style="color:#f92672">();</span>
+        <span style="color:#75715e">// 加载文件流
+</span><span style="color:#75715e"></span>        properties<span style="color:#f92672">.</span><span style="color:#a6e22e">load</span><span style="color:#f92672">(</span>inputStream<span style="color:#f92672">);</span>
+        <span style="color:#75715e">// 获取配置项
+</span><span style="color:#75715e"></span>        driver <span style="color:#f92672">=</span> properties<span style="color:#f92672">.</span><span style="color:#a6e22e">getProperty</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;driver&#34;</span><span style="color:#f92672">);</span>
+        url <span style="color:#f92672">=</span> properties<span style="color:#f92672">.</span><span style="color:#a6e22e">getProperty</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;url&#34;</span><span style="color:#f92672">);</span>
+        user <span style="color:#f92672">=</span> properties<span style="color:#f92672">.</span><span style="color:#a6e22e">getProperty</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;user&#34;</span><span style="color:#f92672">);</span>
+        password <span style="color:#f92672">=</span> properties<span style="color:#f92672">.</span><span style="color:#a6e22e">getProperty</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;password&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     *  单例获取数据库连接
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Connection <span style="color:#a6e22e">getConnection</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throw</span> SQLException <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> DriverManager<span style="color:#f92672">.</span><span style="color:#a6e22e">getConnection</span><span style="color:#f92672">(</span>url<span style="color:#f92672">,</span> user<span style="color:#f92672">,</span> password<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     *  给出 close() 的方法，关闭连接，并且重载来对应不同的数据库操作
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">close</span><span style="color:#f92672">(</span>Connection connection<span style="color:#f92672">,</span> Statement statement<span style="color:#f92672">,</span> ResultSet resultSet<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+            resultSet<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+            statement<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+            connection<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span> 
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">close</span><span style="color:#f92672">(</span>Connection connection<span style="color:#f92672">,</span> Statement statement<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+            statement<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+            connection<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span> 
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// JDBC 操作数据库
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">import</span> java.sql.Connection<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.sql.Statement<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.sql.ResultSet<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JDBCTest</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> Connection connection<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> Statement statement<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> ResultSet res<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+            <span style="color:#75715e">// 获取数据库连接
+</span><span style="color:#75715e"></span>            connection <span style="color:#f92672">=</span> JDBCUtil<span style="color:#f92672">.</span><span style="color:#a6e22e">getConnection</span><span style="color:#f92672">();</span>
+            <span style="color:#75715e">// 获取数据库操作对象
+</span><span style="color:#75715e"></span>            statement <span style="color:#f92672">=</span> connection<span style="color:#f92672">.</span><span style="color:#a6e22e">createStatement</span><span style="color:#f92672">();</span>
+            <span style="color:#75715e">// 执行 sql 语句
+</span><span style="color:#75715e"></span>            res <span style="color:#f92672">=</span> statement<span style="color:#f92672">.</span><span style="color:#a6e22e">ExecuteQuery</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;select * from user&#34;</span><span style="color:#f92672">);</span>
+
+            <span style="color:#75715e">// 打印结果集
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>res<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">int</span> id <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span><span style="color:#a6e22e">getInt</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>
+                String name <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span>2<span style="color:#f92672">);</span>
+                <span style="color:#66d9ef">int</span> age <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span><span style="color:#a6e22e">getInt</span><span style="color:#f92672">(</span>3<span style="color:#f92672">);</span>
+
+                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Id: &#34;</span> <span style="color:#f92672">+</span> id <span style="color:#f92672">+</span>
+                    <span style="color:#e6db74">&#34;Name: &#34;</span> <span style="color:#f92672">+</span> name <span style="color:#f92672">+</span> 
+                    <span style="color:#e6db74">&#34;Age: &#34;</span> <span style="color:#f92672">+</span> age<span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+                JDBCUtil<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">(</span>connection<span style="color:#f92672">,</span> statement<span style="color:#f92672">,</span> res<span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span> 
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+        
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
+<p>下面对 .properties 文件及 Java 中的相关方法做简要说明，它主要用于 Java 相关的技术中，为了能存储应用的配置参数。其中每个参数都以字符串对的形式存储，一端是参数名(Key)，另一端是参数值(Value)。参数的书写最好一行一个，且文件的编码在 Java 9 之后采用 UTF-8 的编码格式。</p>
+
+<p>另外，像 XML、JSON、YAML 等配置文件更受欢迎，它们能够完成更复杂的配置</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">格式
+key=value
+key = value
+key:value
+key value
+
+# 井号开头表注释
+! 或叹号开头</code></pre></div>
+<p>从上面代码中可了解到，Properties 位于 <code>java.util.Properties</code> 包下，它能够将配置项加载到流中或者从流中读取配置项。因为它继承自 HashTable，所以能够调用 put 和 putAll 方法来添加数据，但并不鼓励这样做，而是用 setProperty 方法来代替，这能保证当配置项为非字符串时添加失败。</p>
+
+<p>当然它还能像 HashMap 那样，通过 <code>entrySet(), keySet(), values()</code> 来返回一个迭代器，从而遍历配置项。</p>
+
+<h2 id="sql-注入">💉 SQL 注入</h2>
+
+<p>一般用户在前端页面提交表单时，程序总要获取表单的信息，然后通过 JDBC 执行对应的 sql 语句来操作数据库。比如说，通过用户名来查看用户信息</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 前端表单
+</span><span style="color:#75715e"></span>Username: Tom
+
+<span style="color:#75715e">// 获取表单信息
+</span><span style="color:#75715e"></span>username <span style="color:#f92672">=</span> getRequestString<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;username&#34;</span><span style="color:#f92672">);</span>
+
+<span style="color:#75715e">// 编写 sql 语句
+</span><span style="color:#75715e"></span>sql <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;select * from user where username =\&#34;&#34;</span> <span style="color:#f92672">+</span> 
+        username <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;\&#34;&#34;</span><span style="color:#f92672">;</span>
+
+<span style="color:#75715e">// 对应的 sql 语句
+</span><span style="color:#75715e">// SELECT * FROM user WHERE username=&#34;Tom&#34;; 
+</span></code></pre></div>
+<p>这样处理看似很正常，但却有着潜在的危险。在这种情况下，黑客会钻 sql 语句的空子，从而绕过检查获取用户信息。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 1. 利用 &#34;1=1&#34; 保证恒为真
+</span><span style="color:#75715e">// 前端表单
+</span><span style="color:#75715e"></span>UserId: 1 OR 1<span style="color:#f92672">=</span>1
+
+<span style="color:#75715e">// 获取表单信息
+</span><span style="color:#75715e"></span>id <span style="color:#f92672">=</span> getRequestString<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;UserId&#34;</span><span style="color:#f92672">);</span>
+
+<span style="color:#75715e">// 编写 sql 语句
+</span><span style="color:#75715e"></span>sql <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;select * from user where id =&#34;</span> <span style="color:#f92672">+</span> 
+        id <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">;</span>
+
+<span style="color:#75715e">// 对应的 sql 语句
+</span><span style="color:#75715e">// SELECT * FROM user WHERE id=1 OR 1=1;
+</span><span style="color:#75715e">// 该 sql 相当于直接执行了 SELECT * FROM　user;
+</span><span style="color:#75715e">// 直接获取到所有用户的信息
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/**********************分割线************************/</span>
+
+<span style="color:#75715e">// 2. 利用 &#34;=&#34;
+</span><span style="color:#75715e">// 前端表单
+</span><span style="color:#75715e"></span>Username: <span style="color:#e6db74">&#34;or&#34;&#34;=&#34;</span>
+Password: <span style="color:#e6db74">&#34;or&#34;&#34;=&#34;</span>
+
+<span style="color:#75715e">// 获取表单信息
+</span><span style="color:#75715e"></span>username <span style="color:#f92672">=</span> getRequestString<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Username&#34;</span><span style="color:#f92672">);</span>
+password <span style="color:#f92672">=</span> getRequestString<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Password&#34;</span><span style="color:#f92672">);</span>
+
+<span style="color:#75715e">// 编写 sql 语句
+</span><span style="color:#75715e"></span>sql <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;select * from user where username =\&#34;&#34;</span> <span style="color:#f92672">+</span> 
+        username <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;\&#34; and password=\&#34;&#34;</span> <span style="color:#f92672">+</span> 
+        password <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;\&#34;&#34;</span><span style="color:#f92672">;</span>
+
+<span style="color:#75715e">// 对应的 sql 语句
+</span><span style="color:#75715e">// SELECT * FROM user WHERE username=&#34;&#34;or&#34;&#34;
+</span><span style="color:#75715e">// and password=&#34;&#34;=&#34;&#34;;
+</span><span style="color:#75715e">// 也相当执行 SELECT * FROM　user;
+</span></code></pre></div>
+<p>对于这种直接将用户的输入作为 sql 语句的参数，将会引起 SQL 注入从而数据库数据泄露或毁坏。于是 JDBC 中就有了 <code>PreparedStatement</code> 类，以此来防止 SQL 注入。</p>
+
+<h2 id="preparedstatement">🌂 PreparedStatement</h2>
+
+<p>PreparedStatement 属于 <code>java.sql.PreparedStatement</code>包，它的对象表示一个预先编译的 SQL 语句，SQL 语句会预先编译好然后再存放在该对象中，该对象能够被用来多次高效地执行 SQL 语句。PreparedStatement 的用法与 Statement 会有些许不同，具体看下面的例子</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.sql.Connection<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.sql.PreparedStatement<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.sql.ResultSet<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> java.util.Scanner<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JDBCTest</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> Connection con<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> PreparedStatement preparedStatement<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> ResultSet res<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> Scanner scanner <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scanner<span style="color:#f92672">();</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+            <span style="color:#75715e">// 与用户交互，获取参数
+</span><span style="color:#75715e"></span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;请输入用户 ID 来查询用户信息：&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#66d9ef">int</span> userId <span style="color:#f92672">=</span> scanner<span style="color:#f92672">.</span><span style="color:#a6e22e">nextInt</span><span style="color:#f92672">();</span>
+
+            <span style="color:#75715e">// 编写 SQL 语句, 使用问号占位符暂时代替具体参数
+</span><span style="color:#75715e"></span>            String sql <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;select * from user where id=?&#34;</span><span style="color:#f92672">;</span>
+
+            <span style="color:#75715e">// 获取数据库连接，并获取preparedStatement对象
+</span><span style="color:#75715e"></span>            con <span style="color:#f92672">=</span> JDBCUtil<span style="color:#f92672">.</span><span style="color:#a6e22e">getConnection</span><span style="color:#f92672">();</span>
+            preparedStatement <span style="color:#f92672">=</span> con<span style="color:#f92672">.</span><span style="color:#a6e22e">prepareStatement</span><span style="color:#f92672">(</span>sql<span style="color:#f92672">);</span>
+
+            <span style="color:#75715e">// 设置参数, 其中 1 指第一个占位符，不同的参数类型要使用
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// 不同的方法。如整数用 setInt，字符串用 setString 等
+</span><span style="color:#75715e"></span>            preparedStatement<span style="color:#f92672">.</span><span style="color:#a6e22e">setInt</span><span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> userId<span style="color:#f92672">);</span>
+
+            <span style="color:#75715e">// 执行 sql 语句, 并获取结果集
+</span><span style="color:#75715e"></span>            res <span style="color:#f92672">=</span> preparedStatement<span style="color:#f92672">.</span><span style="color:#a6e22e">executeQuery</span><span style="color:#f92672">();</span>
+
+            <span style="color:#75715e">// 打印结果集
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>res<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">int</span> id <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span><span style="color:#a6e22e">getInt</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>
+                String name <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span>2<span style="color:#f92672">);</span>
+                <span style="color:#66d9ef">int</span> age <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span><span style="color:#a6e22e">getInt</span><span style="color:#f92672">(</span>3<span style="color:#f92672">);</span>
+
+                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Id: &#34;</span> <span style="color:#f92672">+</span> id <span style="color:#f92672">+</span>
+                    <span style="color:#e6db74">&#34;Name: &#34;</span> <span style="color:#f92672">+</span> name <span style="color:#f92672">+</span> 
+                    <span style="color:#e6db74">&#34;Age: &#34;</span> <span style="color:#f92672">+</span> age<span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
+            scanner<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+            JDBCUtil<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">(</span>con<span style="color:#f92672">,</span> preparedStatement<span style="color:#f92672">,</span> res<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
+<p>从上面代码可看出，在获取 preparedStatement 时就要传入 sql 语句，且使用的是 <code>prepareStatement(sql)</code> 方法，然后再通过 setter 来设置对应占位符的参数，最后再执行 sql 语句。与 Statement 相同的是，执行 sql 语句所用的方法名是一样的。</p>
 
   
 
@@ -211,15 +513,15 @@
     <ol class="list-unstyled">
 
 
+<li><a href="/2022/08/linux_cmd/">Linux_cmd</a></li>
+
+<li><a href="/2022/08/git_basic/">Git_basic</a></li>
+
+<li><a href="/2022/08/jpa/">JPA</a></li>
+
+<li><a href="/2022/06/generics/">Generics</a></li>
+
 <li><a href="/2022/05/makefile/">Makefile</a></li>
-
-<li><a href="/2022/05/jdbc/">JDBC</a></li>
-
-<li><a href="/2022/04/collection2/">Collection2</a></li>
-
-<li><a href="/2022/03/develop_standard/">Develop_Standard</a></li>
-
-<li><a href="/2022/03/advance/">Advance</a></li>
 
     </ol>
   </section>

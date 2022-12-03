@@ -186,7 +186,7 @@
 <li><p><strong>多线程</strong> ： 一个进程的多个线程同时对该进程的某个共享变量进行操作</p></li>
 </ul>
 
-<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/Multithreading_relation.jpg" alt="进程线程关系图" /></p>
+<p><img src="https://gcore.jsdelivr.net/gh/junq0420/blog_image/Multithreading_relation.jpg" alt="进程线程关系图" /></p>
 
 <hr />
 
@@ -230,7 +230,7 @@
 <span style="color:#f92672">}</span></code></pre></div>
 <p>结果图如下：</p>
 
-<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/ExtendThread.jpg" alt="继承Thread类" /></p>
+<p><img src="https://gcore.jsdelivr.net/gh/junq0420/blog_image/ExtendThread.jpg" alt="继承Thread类" /></p>
 
 <h3 id="a-name-实现runnable接口-a-实现-runnable-接口"><a name="实现Runnable接口"></a>实现 Runnable 接口</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
@@ -285,7 +285,7 @@
 
 <p><strong style="color: orange">不同点</strong> : 继承类的实例对象直接调用 start()，而实现类的实例对象要交给 Thread 对象才能调用 start()</p>
 
-<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/running_map.jpg" alt="执行图" /></p>
+<p><img src="https://gcore.jsdelivr.net/gh/junq0420/blog_image/running_map.jpg" alt="执行图" /></p>
 
 <blockquote style="background-color: #689; font-style: italic; color: black; border-left: 2px solid red">【问题】线程为什么不直接调用 run() 方法，而是调用的 start() 方法？
 
@@ -336,7 +336,7 @@
 <span style="color:#f92672">}</span></code></pre></div>
 <p>运行结果图如下：</p>
 
-<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/LootShoes.jpg" alt="抢鞋" width="70%"></p>
+<p><img src="https://gcore.jsdelivr.net/gh/junq0420/blog_image/LootShoes.jpg" alt="抢鞋" width="70%"></p>
 
 <p>当然，用继承 Thread 类也能实现这种抢夺公共资源的情形，只需将 <code>implements Runnable</code> 改为 <code>extends Thread</code> 即可</p>
 
@@ -369,7 +369,7 @@
 
 <span style="color:#75715e">// ！注意：守护线程要写在其他线程的前面
 </span></code></pre></div>
-<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/daemonThread.jpg" alt="daemon-thread" /></p>
+<p><img src="https://gcore.jsdelivr.net/gh/junq0420/blog_image/daemonThread.jpg" alt="daemon-thread" /></p>
 
 <hr />
 
@@ -400,7 +400,7 @@
 <span style="color:#f92672">}</span></code></pre></div>
 <p>但是，加上延时后程序的运行就出现问题</p>
 
-<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/no_safe.jpg" alt="线程不安全" /></p>
+<p><img src="https://gcore.jsdelivr.net/gh/junq0420/blog_image/no_safe.jpg" alt="线程不安全" /></p>
 
 <p>这就表明线程是 <strong>非安全、不同步</strong> 的，下面就介绍三种方法使得线程同步</p>
 
@@ -433,7 +433,7 @@ Object lock <span style="color:#f92672">=</span> <span style="color:#66d9ef">new
 <span style="color:#f92672">}</span></code></pre></div>
 <p>经过几次运行，得到了三个线程同步共享变量的情况</p>
 
-<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/synchronized.jpg" alt="线程同步" /></p>
+<p><img src="https://gcore.jsdelivr.net/gh/junq0420/blog_image/synchronized.jpg" alt="线程同步" /></p>
 
 <h3 id="a-name-同步方法-a-同步方法"><a name="同步方法"></a>同步方法</h3>
 
@@ -588,7 +588,7 @@ Lock reentrantLock <span style="color:#f92672">=</span> <span style="color:#66d9
 <li><p><strong><em><code>Terminated</code></em></strong> &emsp; // 终止状态，线程正常完成所给任务或以意外事件而终止，如 segmentation fault or unhandle exception</p></li>
 </ul>
 
-<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/ThreadState.jpg" alt="ThreadState" /></p>
+<p><img src="https://gcore.jsdelivr.net/gh/junq0420/blog_image/ThreadState.jpg" alt="ThreadState" /></p>
 
 <p>可以通过联想斗地主的场景来大致理解这些线程状态，三人进入房间准备就绪（创建了三个线程），都准备好了开始游戏（三个线程开启），抢地主谁抢到谁先出牌（三个线程阻塞，抢同步锁，谁抢到谁执行），地主出牌时👲农民👨‍🌾都在等着不能打牌（抢到锁的开始执行，其他线程等待），要是在规定的出牌时间未出牌就会轮到下家（另外两个线程计时等待，等地主出完牌或时间到），于是三人开始了愉快的打牌（三个线程一直在阻塞抢锁、执行、等待），等某人打完牌结束游戏（三个线程终止）</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MultithreadingTest</span> <span style="color:#f92672">{</span>
@@ -653,7 +653,7 @@ Lock reentrantLock <span style="color:#f92672">=</span> <span style="color:#66d9
 <span style="color:#f92672">}</span></code></pre></div>
 <p>程序可能还不完善，但好在有时能较好地显示出线程1的六个状态，如下图所示</p>
 
-<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/ThreadStates.jpg" alt="ThreadStates" /></p>
+<p><img src="https://gcore.jsdelivr.net/gh/junq0420/blog_image/ThreadStates.jpg" alt="ThreadStates" /></p>
 
 <h2 id="a-name-wait和notify-a-wait-和-notify"><a name="wait和notify">🚧</a> wait 和 notify</h2>
 
@@ -736,7 +736,7 @@ Lock reentrantLock <span style="color:#f92672">=</span> <span style="color:#66d9
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">new</span> Thread<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Producer<span style="color:#f92672">(</span>condom<span style="color:#f92672">),</span> <span style="color:#e6db74">&#34;厂家&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">start</span><span style="color:#f92672">();</span>
     <span style="color:#66d9ef">new</span> Thread<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Customer<span style="color:#f92672">(</span>condom<span style="color:#f92672">),</span> <span style="color:#e6db74">&#34;买家&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">start</span><span style="color:#f92672">();</span>
 <span style="color:#f92672">}</span></code></pre></div>
-<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/producer_customer.jpg" alt="Producer_Customer" /></p>
+<p><img src="https://gcore.jsdelivr.net/gh/junq0420/blog_image/producer_customer.jpg" alt="Producer_Customer" /></p>
 
   
 
@@ -762,15 +762,15 @@ Lock reentrantLock <span style="color:#f92672">=</span> <span style="color:#66d9
     <ol class="list-unstyled">
 
 
+<li><a href="/2022/08/linux_cmd/">Linux_cmd</a></li>
+
+<li><a href="/2022/08/git_basic/">Git_basic</a></li>
+
+<li><a href="/2022/08/jpa/">JPA</a></li>
+
+<li><a href="/2022/06/generics/">Generics</a></li>
+
 <li><a href="/2022/05/makefile/">Makefile</a></li>
-
-<li><a href="/2022/05/jdbc/">JDBC</a></li>
-
-<li><a href="/2022/04/collection2/">Collection2</a></li>
-
-<li><a href="/2022/03/develop_standard/">Develop_Standard</a></li>
-
-<li><a href="/2022/03/advance/">Advance</a></li>
 
     </ol>
   </section>

@@ -150,7 +150,7 @@
 
 <p>当一个目标程序可能需要用到多个文件，那么该如何编写呢？思路是先将所需的文件先编译，然后再将编译的结果与主程序译一起编译为最终的目标程序</p>
 
-<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/makefile1.jpg" alt="多文件思路" /></p>
+<p><img src="https://gcore.jsdelivr.net/gh/junq0420/blog_image/makefile1.jpg" alt="多文件思路" /></p>
 
 <p>通过上图，就知道了编写 makefile 的顺序，一般 makefile 的写法是从后往前写，即由果索因</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile"><span style="color:#a6e22e">main</span><span style="color:#f92672">:</span> main.c foo.o bar.o tool.o
@@ -183,7 +183,7 @@ CFLAGS <span style="color:#f92672">=</span> -lm -Wall -g  <span style="color:#75
 
 <p>下面将描述多个源文件编译为多个目标文件的过程</p>
 
-<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/makefile2.jpg" alt="生成多个执行程序" /></p>
+<p><img src="https://gcore.jsdelivr.net/gh/junq0420/blog_image/makefile2.jpg" alt="生成多个执行程序" /></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile">CC <span style="color:#f92672">=</span> gcc
 CFLAGS <span style="color:#f92672">=</span> -lm -Wall -g
 
@@ -230,15 +230,15 @@ CFLAGS <span style="color:#f92672">=</span> -lm -Wall -g
     <ol class="list-unstyled">
 
 
+<li><a href="/2022/08/linux_cmd/">Linux_cmd</a></li>
+
+<li><a href="/2022/08/git_basic/">Git_basic</a></li>
+
+<li><a href="/2022/08/jpa/">JPA</a></li>
+
+<li><a href="/2022/06/generics/">Generics</a></li>
+
 <li><a href="/2022/05/makefile/">Makefile</a></li>
-
-<li><a href="/2022/05/jdbc/">JDBC</a></li>
-
-<li><a href="/2022/04/collection2/">Collection2</a></li>
-
-<li><a href="/2022/03/develop_standard/">Develop_Standard</a></li>
-
-<li><a href="/2022/03/advance/">Advance</a></li>
 
     </ol>
   </section>
