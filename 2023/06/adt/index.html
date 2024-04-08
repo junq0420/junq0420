@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="ADT" />
+<meta property="og:description" content="记录 C Prime Plus 关于数据结构的知识" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2023/06/adt/" />
+<meta property="article:published_time" content="2023-06-08T15:37:11+08:00" />
+<meta property="article:modified_time" content="2023-06-08T15:37:11+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ADT"/>
+<meta name="twitter:description" content="记录 C Prime Plus 关于数据结构的知识"/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ADT",
+  "url": "https://junq0420.github.io/2023/06/adt/",
+  "wordCount": "2342",
+  "datePublished": "2023-06-08T15:37:11+08:00",
+  "dateModified": "2023-06-08T15:37:11+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "C"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2023/06/adt/">
+
+    <title>ADT | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.160a3bda53be859332fff3fc376b5fd76a285126483463aa2e24a17ae1bcae4c.css" rel="stylesheet" integrity="sha256-Fgo72lO&#43;hZMy//P8N2tf12ooUSZINGOqLiSheuG8rkw=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/archives/" title="">Archives</a>
+          
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2023/06/adt/">ADT</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2023-06-08T15:37:11+08:00">2023-06-08</time>
+ in 
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/c/" rel="tag">C</a>
+
+</p>
+  </header>
+  <p>记录 C Prime Plus 关于数据结构的知识</p>
+
+<blockquote>
+<p><strong>学习笔记，仅供参考</strong></p>
+
+<p><strong>参考</strong>：<a href="https://book.douban.com/subject/26792521/">C Prime Plus - 十七章</a></p>
+</blockquote>
+
+<hr />
+
+<h2 id="adt-抽象数据类型">ADT 抽象数据类型</h2>
+
+<p>学习计算机语言首先要学会如何使用工具（创建变量、结构、函数等），然而工具是次要的，真正的挑战是设计和创建一个项目。</p>
+
+<p>程序开发最重要的部分是找到程序中表示数据的好方法。目前 C 语言内置类型有基本类型、数组、指针、结构和联合。然而找出正确的数据不仅仅是选择一种数据类型，还要考虑必须进行哪些操作，即确定如何存储数据，并为数据类型定义有效的操作。</p>
+
+<p><strong>简而言之，设计一种数据类型包含设计如何储存该数据类型（数据结构）和设计一系列管理该数据的方法（算法）</strong></p>
+
+<p>类型特指两类信息：属性和操作。如 int 类型的属性是它表示一个整数值，享有整数的属性。int 类型的操作，改变 int 值的符号，能让两个 int 值加减乘除等算数运算。</p>
+
+<p>数据类型的抽象与具体实现，还以整数为例，数学家通过如下定义给出整数的抽象概念：假设 M 和 N 为整数，那么 M+N=N+M；假设 S 和 Q 也为整数，若 N+M=S，且 N+Q=S，则 M=Q。C 语言也实现了整数的这种算数运算。再如数学中的整数可以是无穷大，但 C 中会受到硬件的影响只能表示一定的范围内的整数。所以要清除抽象概念与实际实现。</p>
+
+<p>下面用 3 个步骤完成从抽象到具体的过程：</p>
+
+<ol>
+<li><p>提供类型属性和相关操作的抽象描述。这些描述既不依赖特定实现，也不依赖特定的编程语言。这种抽象描述被称为抽象数据类型（ADT）</p></li>
+
+<li><p>开发一个实现 ADT 的编程接口，即指明如何储存数据和执行所需操作的函数。如 C 中，可提供结构定义和操控该结构的函数原型。这些作用于用户定义类型的函数相当于 C 基本类型的内置运算符，需使用该新类型的程序员可使用此接口进行编程</p></li>
+
+<li><p>编写代码实现接口。使用者无需了解此新类型的具体实现细节</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* 以电影项目为例，采用简化链表作为 ADT */</span>
+<span style="color:#75715e">// 1. 类型属性及操作
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">类型名：简单链表</span>
+<span style="color:#960050;background-color:#1e0010">类型属性：可存储一系列项</span>
+<span style="color:#960050;background-color:#1e0010">类型操作：初始化链表为空</span>
+    <span style="color:#960050;background-color:#1e0010">确定链表为空</span>
+    <span style="color:#960050;background-color:#1e0010">确定链表已满</span>
+    <span style="color:#960050;background-color:#1e0010">确定链表中的项数</span>
+    <span style="color:#960050;background-color:#1e0010">在链表末尾添加项</span>
+    <span style="color:#960050;background-color:#1e0010">遍历链表，处理链表中的项</span>
+    <span style="color:#960050;background-color:#1e0010">清空链表</span>
+
+<span style="color:#75715e">// 2. 建立接口 - 表示数据及实现操作
+</span><span style="color:#75715e"></span><span style="color:#75715e">/* list.h */</span>
+<span style="color:#75715e">#ifndef __LIST_H_
+</span><span style="color:#75715e">#define __LIST_H_
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdbool.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#define TSIZE       45
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* 定义电影数据类型 */</span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> film {
+<span style="color:#66d9ef">char</span> title[TSIZE];      <span style="color:#75715e">// 影片名
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> rating;             <span style="color:#75715e">// 排名
+</span><span style="color:#75715e"></span>} Item;
+
+<span style="color:#75715e">/* 以链表储存数据类型 */</span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> node {
+Item item;              <span style="color:#75715e">// 数据项
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> node <span style="color:#f92672">*</span>next;      <span style="color:#75715e">// 后驱指针
+</span><span style="color:#75715e"></span>} Node;
+
+<span style="color:#66d9ef">typedef</span> Node <span style="color:#f92672">*</span>List;
+
+<span style="color:#75715e">/* 函数原型声明 */</span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">InitializeList</span>(List <span style="color:#f92672">*</span>plist);
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">ListIsEmpty</span>(<span style="color:#66d9ef">const</span> List <span style="color:#f92672">*</span>plist);
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">ListIsFull</span>(<span style="color:#66d9ef">const</span> List <span style="color:#f92672">*</span>plist);
+<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">ListItemCount</span>(<span style="color:#66d9ef">const</span> List <span style="color:#f92672">*</span>plist);
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">AddItem</span>(Item item, List <span style="color:#f92672">*</span>plist);
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Traverse</span>(<span style="color:#66d9ef">const</span> List <span style="color:#f92672">*</span>plist, <span style="color:#66d9ef">void</span>(<span style="color:#f92672">*</span>pfun)(Item item));
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">EmptyTheList</span>(List <span style="color:#f92672">*</span>plist);
+
+<span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span><span style="color:#75715e">/*********************************/</span>
+
+<span style="color:#75715e">/* list.c */</span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;list.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">CopyToNode</span>(Item item, Node <span style="color:#f92672">*</span>pnode);
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">InitializeList</span>(List <span style="color:#f92672">*</span>plist)
+{
+<span style="color:#f92672">*</span>plist <span style="color:#f92672">=</span> NULL;
+}
+
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">ListIsEmpty</span>(<span style="color:#66d9ef">const</span> List <span style="color:#f92672">*</span>plist)
+{
+<span style="color:#66d9ef">if</span> (<span style="color:#f92672">*</span>plist <span style="color:#f92672">==</span> NULL)
+    <span style="color:#66d9ef">return</span> true;
+<span style="color:#66d9ef">else</span>
+    <span style="color:#66d9ef">return</span> false;
+}
+
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">ListIsFull</span>(<span style="color:#66d9ef">const</span> List <span style="color:#f92672">*</span>plist)
+{
+Node <span style="color:#f92672">*</span>pt;
+<span style="color:#66d9ef">bool</span> full;
+
+pt <span style="color:#f92672">=</span> (Node <span style="color:#f92672">*</span>)malloc(<span style="color:#66d9ef">sizeof</span>(Node));
+<span style="color:#66d9ef">if</span> (pt <span style="color:#f92672">==</span> NULL)
+    full <span style="color:#f92672">=</span> true;
+<span style="color:#66d9ef">else</span>
+    full <span style="color:#f92672">=</span> false;
+
+free(pt);
+<span style="color:#66d9ef">return</span> full;
+}
+
+<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">ListItemCount</span>(<span style="color:#66d9ef">const</span> List <span style="color:#f92672">*</span>plist)
+{
+<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+Node <span style="color:#f92672">*</span>pnode <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>plist;   <span style="color:#75715e">/* 设置链表的开始 */</span>
+
+<span style="color:#66d9ef">while</span> (pnode <span style="color:#f92672">!=</span> NULL) {
+    <span style="color:#f92672">++</span>count;
+    pnode <span style="color:#f92672">=</span> pnode<span style="color:#f92672">-&gt;</span>next;    <span style="color:#75715e">/* 设置下一节点 */</span>
+}
+
+<span style="color:#66d9ef">return</span> count;
+}
+
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">AddItem</span>(Item item, List <span style="color:#f92672">*</span>plist)
+{
+Node <span style="color:#f92672">*</span>pnew;
+Node <span style="color:#f92672">*</span>scan <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>plist;
+pnew <span style="color:#f92672">=</span> (Node <span style="color:#f92672">*</span>)malloc(<span style="color:#66d9ef">sizeof</span>(Node));
+<span style="color:#66d9ef">if</span> (pnew <span style="color:#f92672">==</span> NULL)
+    <span style="color:#66d9ef">return</span> false;       <span style="color:#75715e">/* 失败时退出函数 */</span>
+    
+CopyToNode(item, pnew);
+pnew<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> NULL;
+
+<span style="color:#66d9ef">if</span> (scan <span style="color:#f92672">==</span> NULL) {       <span style="color:#75715e">/* 空链表，指向新节点 */</span>
+    <span style="color:#f92672">*</span>plist <span style="color:#f92672">=</span> pnew;
+} <span style="color:#66d9ef">else</span> {
+    <span style="color:#66d9ef">while</span> (scan<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">!=</span> NULL)  <span style="color:#75715e">/* 遍历链表 */</span>
+        scan <span style="color:#f92672">=</span> scan<span style="color:#f92672">-&gt;</span>next;
+    scan<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> pnew;          <span style="color:#75715e">/* 将新节点加到链表末尾 */</span>
+}
+
+<span style="color:#66d9ef">return</span> true;
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Traverse</span>(<span style="color:#66d9ef">const</span> List <span style="color:#f92672">*</span>plist, <span style="color:#66d9ef">void</span>(<span style="color:#f92672">*</span>pfun)(Item item))
+{
+Node <span style="color:#f92672">*</span>pnode <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>plist;
+
+<span style="color:#66d9ef">while</span> (pnode <span style="color:#f92672">!=</span> NULL) {
+    (<span style="color:#f92672">*</span>pfun)(pnode<span style="color:#f92672">-&gt;</span>item);
+    pnode <span style="color:#f92672">=</span> pnode<span style="color:#f92672">-&gt;</span>next;
+}
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">EmptyTheList</span>(List <span style="color:#f92672">*</span>plist)
+{
+Node <span style="color:#f92672">*</span>psave;
+
+<span style="color:#66d9ef">while</span> (<span style="color:#f92672">*</span>plist <span style="color:#f92672">!=</span> NULL) {
+    psave <span style="color:#f92672">=</span> (<span style="color:#f92672">*</span>plist)<span style="color:#f92672">-&gt;</span>next;
+    free(<span style="color:#f92672">*</span>plist);
+    <span style="color:#f92672">*</span>plist <span style="color:#f92672">=</span> psave;
+}
+}
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">CopyToNode</span>(Item item, Node <span style="color:#f92672">*</span>pnode)
+{
+pnode<span style="color:#f92672">-&gt;</span>item <span style="color:#f92672">=</span> item;
+}
+<span style="color:#75715e">/*******************************/</span>
+
+<span style="color:#75715e">/* main.c */</span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;list.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">showmovies</span>(Item item);
+<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">s_gets</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>st, <span style="color:#66d9ef">int</span> n);
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+{
+List movies;
+Item temp;
+
+InitializeList(<span style="color:#f92672">&amp;</span>movies);
+<span style="color:#66d9ef">if</span> (ListIsFull(<span style="color:#f92672">&amp;</span>movies)) {
+    fprintf(stderr, <span style="color:#e6db74">&#34;No memory available! Bye</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    exit(<span style="color:#ae81ff">1</span>);
+}
+
+puts(<span style="color:#e6db74">&#34;Enter first movie title:&#34;</span>);
+<span style="color:#66d9ef">while</span> (s_gets(temp.title, TSIZE) <span style="color:#f92672">!=</span> NULL <span style="color:#f92672">&amp;&amp;</span> temp.title[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;\0&#39;</span>) {
+    puts(<span style="color:#e6db74">&#34;Enter your rating &lt;0-10&gt;:&#34;</span>);
+    scanf(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>temp.rating);
+    <span style="color:#66d9ef">while</span> (getchar() <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;\n&#39;</span>)
+        <span style="color:#66d9ef">continue</span>;
+    printf(<span style="color:#e6db74">&#34;get Item OK</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    <span style="color:#66d9ef">if</span> (AddItem(temp, <span style="color:#f92672">&amp;</span>movies) <span style="color:#f92672">==</span> false) {
+        fprintf(stderr, <span style="color:#e6db74">&#34;Problem allocating memory</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+        <span style="color:#66d9ef">break</span>;
+    }
+    printf(<span style="color:#e6db74">&#34;add Item OK</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    <span style="color:#66d9ef">if</span> (ListIsFull(<span style="color:#f92672">&amp;</span>movies)) {
+        puts(<span style="color:#e6db74">&#34;The list is now full.&#34;</span>);
+        <span style="color:#66d9ef">break</span>;
+    }
+    puts(<span style="color:#e6db74">&#34;Enter next movies title (empty line to stop):&#34;</span>);
+}
+
+<span style="color:#75715e">/* 显示 */</span>
+<span style="color:#66d9ef">if</span> (ListIsEmpty(<span style="color:#f92672">&amp;</span>movies))
+    printf(<span style="color:#e6db74">&#34;No data entered.  &#34;</span>);
+<span style="color:#66d9ef">else</span> {
+    printf(<span style="color:#e6db74">&#34;Here is the movies list:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    Traverse(<span style="color:#f92672">&amp;</span>movies, showmovies);
+}
+printf(<span style="color:#e6db74">&#34;You entered %d movies.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, ListItemCount(<span style="color:#f92672">&amp;</span>movies));
+
+<span style="color:#75715e">/* 清理 */</span>
+EmptyTheList(<span style="color:#f92672">&amp;</span>movies);
+printf(<span style="color:#e6db74">&#34;Bye!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+
+<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">showmovies</span>(Item item)
+{
+printf(<span style="color:#e6db74">&#34;Movies: %s  Rating: %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, item.title, item.rating);
+}
+
+<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">s_gets</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>st, <span style="color:#66d9ef">int</span> n)
+{
+<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>ret_val;
+<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>find;
+
+ret_val <span style="color:#f92672">=</span> fgets(st, n, stdin);
+<span style="color:#66d9ef">if</span> (ret_val) {
+    find <span style="color:#f92672">=</span> strchr(st, <span style="color:#e6db74">&#39;\n&#39;</span>);    <span style="color:#75715e">// 查找换行符
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (find)
+        <span style="color:#f92672">*</span>find <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
+    <span style="color:#66d9ef">else</span>
+        <span style="color:#66d9ef">while</span> (getchar() <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;\n&#39;</span>)
+            <span style="color:#66d9ef">continue</span>;
+}
+
+<span style="color:#66d9ef">return</span> ret_val;
+}</code></pre></div></li>
+</ol>
+
+<p>接着再看看队列，它是具有两个特殊属性的链表。第一，新项只能从链表末尾添加；第二，只能从链表开头移出项。队列是一种“先进先出”的数据形式，像排队买票的队伍一样</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* 建立非正式的抽象定义 */</span>
+<span style="color:#960050;background-color:#1e0010">类型名：队列</span>
+<span style="color:#960050;background-color:#1e0010">类型属性：可储存一系列项</span>
+<span style="color:#960050;background-color:#1e0010">类型操作：初始化队列为空</span>
+         <span style="color:#960050;background-color:#1e0010">确定队列为空</span>
+         <span style="color:#960050;background-color:#1e0010">确定队列已满</span>
+         <span style="color:#960050;background-color:#1e0010">确定队列中的项数</span>
+         <span style="color:#960050;background-color:#1e0010">在队列末尾添加项</span>
+         <span style="color:#960050;background-color:#1e0010">在队列开头删除或恢复项</span>
+         <span style="color:#960050;background-color:#1e0010">清空队列</span>
+
+<span style="color:#75715e">/* 简单队列的数据定义及接口实现 */</span>
+<span style="color:#75715e">/* queue.h */</span>
+<span style="color:#75715e">#ifndef __DATATYPE_H_
+</span><span style="color:#75715e">#define __DATATYPE_H_
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdbool.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#define MAXQUEUE    10
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> Item;
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> node {
+    Item item;          <span style="color:#75715e">/* 数据项 */</span>
+    <span style="color:#66d9ef">struct</span> node <span style="color:#f92672">*</span>next;  <span style="color:#75715e">/* 后驱指针 */</span>
+} Node;
+
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> queue {
+    Node <span style="color:#f92672">*</span>front;        <span style="color:#75715e">/* 队列首指针 */</span>
+    Node <span style="color:#f92672">*</span>rear;         <span style="color:#75715e">/* 队列尾指针 */</span>
+    <span style="color:#66d9ef">int</span> items;          <span style="color:#75715e">/* 队列项数 */</span>
+} Queue;
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">InitializeQueue</span>(Queue <span style="color:#f92672">*</span>pq);
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">QueueIsFull</span>(<span style="color:#66d9ef">const</span> Queue <span style="color:#f92672">*</span>pq);
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">QueueIsEmpty</span>(<span style="color:#66d9ef">const</span> Queue <span style="color:#f92672">*</span>pq);
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">QueueItemCount</span>(<span style="color:#66d9ef">const</span> Queue <span style="color:#f92672">*</span>pq);
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">EnQueue</span>(Item item, Queue <span style="color:#f92672">*</span>pq);
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">DeQueue</span>(Item <span style="color:#f92672">*</span>pitem, Queue <span style="color:#f92672">*</span>pq);
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">EmptyTheQueue</span>(Queue <span style="color:#f92672">*</span>pq);
+
+<span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span><span style="color:#75715e">/****************************************************/</span>
+
+<span style="color:#75715e">/* queue.c */</span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;datatype.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">CopyToNode</span>(Item item, Node <span style="color:#f92672">*</span>pn);
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">CopyToItem</span>(Node <span style="color:#f92672">*</span>pn, Item <span style="color:#f92672">*</span>pi);
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * @brief 初始化队列
+</span><span style="color:#75715e"> * @param pq 要初始化的队列
+</span><span style="color:#75715e"> * @retval null
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">InitializeQueue</span>(Queue <span style="color:#f92672">*</span>pq)
+{
+    pq<span style="color:#f92672">-&gt;</span>front <span style="color:#f92672">=</span> pq<span style="color:#f92672">-&gt;</span>rear <span style="color:#f92672">=</span> NULL;
+    pq<span style="color:#f92672">-&gt;</span>items <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * @brief 队列是否已满
+</span><span style="color:#75715e"> * @param pq 所检查的队列
+</span><span style="color:#75715e"> * @retval true or false
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">QueueIsFull</span>(<span style="color:#66d9ef">const</span> Queue <span style="color:#f92672">*</span>pq)
+{
+    <span style="color:#66d9ef">return</span> pq<span style="color:#f92672">-&gt;</span>items <span style="color:#f92672">==</span> MAXQUEUE;
+}
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * @brief 队列是否为空
+</span><span style="color:#75715e"> * @param pq 所检查的队列
+</span><span style="color:#75715e"> * @retval true or false
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">QueueIsEmpty</span>(<span style="color:#66d9ef">const</span> Queue <span style="color:#f92672">*</span>pq)
+{
+    <span style="color:#66d9ef">return</span> pq<span style="color:#f92672">-&gt;</span>items <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * @brief 获取队列项数
+</span><span style="color:#75715e"> * @param pq 目标队列
+</span><span style="color:#75715e"> * @retval 该队列项数
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">QueueItemCount</span>(<span style="color:#66d9ef">const</span> Queue <span style="color:#f92672">*</span>pq)
+{
+    <span style="color:#66d9ef">return</span> pq<span style="color:#f92672">-&gt;</span>items;
+}
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * @brief 在队列尾端添加项
+</span><span style="color:#75715e"> * @param item 要添加的项
+</span><span style="color:#75715e"> * @param pq 队列
+</span><span style="color:#75715e"> * @retval true or false
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">EnQueue</span>(Item item, Queue <span style="color:#f92672">*</span>pq)
+{
+    Node <span style="color:#f92672">*</span>pnew;
+
+    <span style="color:#66d9ef">if</span> (QueueIsFull(pq))    <span style="color:#75715e">/* 队列已满，添加失败 */</span>
+        <span style="color:#66d9ef">return</span> false;
+
+    pnew <span style="color:#f92672">=</span> (Node <span style="color:#f92672">*</span>)malloc(<span style="color:#66d9ef">sizeof</span>(Node));
+    <span style="color:#66d9ef">if</span> (pnew <span style="color:#f92672">==</span> NULL) {
+        fprintf(stderr, <span style="color:#e6db74">&#34;Unable to allocate memory!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+        exit(<span style="color:#ae81ff">1</span>);
+    }
+
+    CopyToNode(item, pnew);
+    pnew<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> NULL;
+
+    <span style="color:#66d9ef">if</span> (QueueIsEmpty(pq))
+        pq<span style="color:#f92672">-&gt;</span>front <span style="color:#f92672">=</span> pnew;       <span style="color:#75715e">/* 队列为空，项位与队列首端 */</span>
+    <span style="color:#66d9ef">else</span>
+        pq<span style="color:#f92672">-&gt;</span>rear<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> pnew;  <span style="color:#75715e">/* 链接到队列尾端 */</span>
+    
+    pq<span style="color:#f92672">-&gt;</span>rear <span style="color:#f92672">=</span> pnew;        <span style="color:#75715e">/* 队列尾指针更新 */</span>
+    pq<span style="color:#f92672">-&gt;</span>items<span style="color:#f92672">++</span>;            <span style="color:#75715e">/* 队列项数加 1 */</span>
+    
+    <span style="color:#66d9ef">return</span> true;
+}
+
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * @brief 在队列首端删除项
+</span><span style="color:#75715e"> * @param item 删除的项
+</span><span style="color:#75715e"> * @param pq 队列
+</span><span style="color:#75715e"> * @retval true or false
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">DeQueue</span>(Item <span style="color:#f92672">*</span>pitem, Queue <span style="color:#f92672">*</span>pq)
+{
+    Node <span style="color:#f92672">*</span>pt;
+
+    <span style="color:#66d9ef">if</span> (QueueIsEmpty(pq))
+        <span style="color:#66d9ef">return</span> false;
+
+    CopyToItem(pq<span style="color:#f92672">-&gt;</span>front, pitem);
+    pt <span style="color:#f92672">=</span> pq<span style="color:#f92672">-&gt;</span>front;
+    pq<span style="color:#f92672">-&gt;</span>front <span style="color:#f92672">=</span> pq<span style="color:#f92672">-&gt;</span>front<span style="color:#f92672">-&gt;</span>next;
+    free(pt);
+    pq<span style="color:#f92672">-&gt;</span>items<span style="color:#f92672">--</span>;
+
+    <span style="color:#66d9ef">if</span> (pq<span style="color:#f92672">-&gt;</span>items <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+        pq<span style="color:#f92672">-&gt;</span>rear <span style="color:#f92672">=</span> NULL;
+
+    <span style="color:#66d9ef">return</span> true;
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">EmptyTheQueue</span>(Queue <span style="color:#f92672">*</span>pq)
+{
+    Item dummy;
+
+    <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>QueueIsEmpty(pq))
+        DeQueue(<span style="color:#f92672">&amp;</span>dummy, pq);
+}
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">CopyToNode</span>(Item item, Node <span style="color:#f92672">*</span>pn)
+{
+    pn<span style="color:#f92672">-&gt;</span>item <span style="color:#f92672">=</span> item;
+}
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">CopyToItem</span>(Node <span style="color:#f92672">*</span>pn, Item <span style="color:#f92672">*</span>pi)
+{
+    <span style="color:#f92672">*</span>pi <span style="color:#f92672">=</span> pn<span style="color:#f92672">-&gt;</span>item;
+}
+<span style="color:#75715e">/****************************************************/</span>
+
+<span style="color:#75715e">/* main.c */</span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;datatype.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+{
+    Queue line;
+    Item temp;
+    <span style="color:#66d9ef">char</span> ch;
+    InitializeQueue(<span style="color:#f92672">&amp;</span>line);
+    
+    puts(<span style="color:#e6db74">&#34;Testing the Queue interface. Type a to add a value,&#34;</span>);
+    puts(<span style="color:#e6db74">&#34;type d to delete a value, and type q to quit.&#34;</span>);
+    <span style="color:#66d9ef">while</span> ((ch <span style="color:#f92672">=</span> getchar()) <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;q&#39;</span>) {
+        <span style="color:#66d9ef">if</span> (ch <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">&amp;&amp;</span> ch <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;d&#39;</span>)
+            <span style="color:#66d9ef">continue</span>;
+
+        <span style="color:#66d9ef">if</span> (ch <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;a&#39;</span>) {
+            printf(<span style="color:#e6db74">&#34;Interger to add: &#34;</span>);
+            scanf(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>temp);
+            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>QueueIsFull(<span style="color:#f92672">&amp;</span>line)) {
+                printf(<span style="color:#e6db74">&#34;Putting %d into queue</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, temp);
+                EnQueue(temp, <span style="color:#f92672">&amp;</span>line);
+            } <span style="color:#66d9ef">else</span> {
+                puts(<span style="color:#e6db74">&#34;Queue is full!&#34;</span>);
+            }
+        } <span style="color:#66d9ef">else</span> {
+            <span style="color:#66d9ef">if</span> (QueueIsEmpty(<span style="color:#f92672">&amp;</span>line)) {
+                puts(<span style="color:#e6db74">&#34;Nothing to delete!&#34;</span>);
+            } <span style="color:#66d9ef">else</span> {
+                DeQueue(<span style="color:#f92672">&amp;</span>temp, <span style="color:#f92672">&amp;</span>line);
+                printf(<span style="color:#e6db74">&#34;Removing %d from queue</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, temp);
+            }
+        }
+
+        printf(<span style="color:#e6db74">&#34;%d items in queue</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, QueueItemCount(<span style="color:#f92672">&amp;</span>line));
+        puts(<span style="color:#e6db74">&#34;Type a to add, d to delete, q to quit:&#34;</span>);
+    }
+
+    EmptyTheQueue(<span style="color:#f92672">&amp;</span>line);
+    puts(<span style="color:#e6db74">&#34;Bye!&#34;</span>);
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+<span style="color:#75715e">/****************************************************/</span></code></pre></div>
+<h3 id="链表与数组">链表与数组</h3>
+
+<p>许多编程问题，如创建简单链表或队列，都可用链表（动态分配的序列链）或数组来处理。下面是两者的优缺点：</p>
+
+<p>数组：优点-C 直接支持；提供随机访问 | 缺点-在编译时确定大小；插入删除元素很费时</p>
+
+<p>链表：优点-运行时确定大小；快速插入删除元素 | 缺点-不能随机访问；用户必须提供编程支持</p>
+
+<p>当需向数组或链表中插入数据时，数组就需将附近的元素搬移以便腾出空间存储要插入的项；而链表只需修改插入位置前后节点的指针即可，删除亦如此。当要在数组或队列中查找某一元素是否存在时，数组可以使用顺序查找或二分查找（数组已排序），而链表只能用顺序查找。所以选择何种数据类型取决于具体问题，若需频繁增删数据而不怎么查找数据的情况下，应选择链表；若只偶尔增删数据，但要经常进行查找，应选用数组。要是需要既能支持频繁增删数据也能支持频繁查找的数据类型时，则要选择下面介绍的二叉查找树</p>
+
+<h3 id="二叉查找树">二叉查找树</h3>
+
+<p>二叉查找树是一种结合了二分查找策略的链接结构。二叉树的每个节点都含有一个项和两个节点指针，分别指向左节点和右节点。并且节点有顺序规则：左节点的项在父节点项的前面，右节点的项在父节点项的后面。这种数据结构类似于自然界中的树形结构，因此以‘树’来代指这一结构。树顶被称为 <strong>根</strong>，树具有分层组织或等级，每级都有上一级和下一级。若二叉树是满的，那么每一级的节点数是上一级节点数的两倍。</p>
+
+<p>二叉查找树的每个节点是其后代节点的根，该节点与其后代节点构成的树称为一个子树。二叉树查找目标项：若目标项在根节点项的前面，则只需查找左子树；若在根节点项的后面，则只需查找右子树。二叉查找树在链式结构中结合了二分查找的效率，但所带来的代价是编程时要构建一个二叉树比创建一个链表跟复杂</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* 二叉树的 ADT */</span>
+<span style="color:#960050;background-color:#1e0010">类型名：二叉查找树</span>
+<span style="color:#960050;background-color:#1e0010">类型属性：二叉树要么是空节点的集合（空树），要么是有一个根节点的节点集合</span>
+         <span style="color:#960050;background-color:#1e0010">每个节点都有两个子树，称左子树和右子树</span>
+         <span style="color:#960050;background-color:#1e0010">每个子树本身也是一个二叉树，抑或是空树</span>
+         <span style="color:#960050;background-color:#1e0010">二叉查找树是一个有序的二叉树，每个节点包含一个项</span>
+         <span style="color:#960050;background-color:#1e0010">左子树的所有项都在根节点项的前面，右子树的所有项都在根节点项的后面</span>
+<span style="color:#960050;background-color:#1e0010">类型操作：初始化树为空</span>
+         <span style="color:#960050;background-color:#1e0010">确定树是否为空</span>
+         <span style="color:#960050;background-color:#1e0010">确定树是否已满</span>
+         <span style="color:#960050;background-color:#1e0010">在树中添加一个项</span>
+         <span style="color:#960050;background-color:#1e0010">在树中删除一个项</span>
+         <span style="color:#960050;background-color:#1e0010">在树中查找一个项</span>
+         <span style="color:#960050;background-color:#1e0010">在树中访问一个项</span>
+         <span style="color:#960050;background-color:#1e0010">清空树</span>
+
+<span style="color:#75715e">/* 二叉查找树的定义及接口实现 */</span>
+<span style="color:#75715e">/* tree.h */</span>
+<span style="color:#75715e">#ifndef __DATATYPE_H_
+</span><span style="color:#75715e">#define __DATATYPE_H_
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdbool.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#define SLEN        20
+</span><span style="color:#75715e">#define MAXITEMS    10
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> item {       <span style="color:#75715e">/* 定义数据项 */</span>
+    <span style="color:#66d9ef">char</span> petname[SLEN];
+    <span style="color:#66d9ef">char</span> petkind[SLEN];
+} Item;
+
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> trnode {     <span style="color:#75715e">/* 定义树形节点 */</span>
+    Item item;
+    <span style="color:#66d9ef">struct</span> trnode <span style="color:#f92672">*</span>left;    <span style="color:#75715e">/* 左节点指针 */</span>
+    <span style="color:#66d9ef">struct</span> trnode <span style="color:#f92672">*</span>right;   <span style="color:#75715e">/* 右节点指针 */</span>
+} Trnode;
+
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> tree {
+    Trnode <span style="color:#f92672">*</span>root;           <span style="color:#75715e">/* 根节点指针 */</span>
+    <span style="color:#66d9ef">int</span> size;               <span style="color:#75715e">/* 树的项数 */</span>
+} Tree;
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">InitializeTree</span>(Tree <span style="color:#f92672">*</span>ptree);
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">TreeIsEmpty</span>(<span style="color:#66d9ef">const</span> Tree <span style="color:#f92672">*</span>ptree);
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">TreeIsFull</span>(<span style="color:#66d9ef">const</span> Tree <span style="color:#f92672">*</span>ptree);
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">TreeItemCount</span>(<span style="color:#66d9ef">const</span> Tree <span style="color:#f92672">*</span>ptree);
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">AddItem</span>(<span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>pi, Tree <span style="color:#f92672">*</span>ptree);
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">InTree</span>(<span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>pi, <span style="color:#66d9ef">const</span> Tree <span style="color:#f92672">*</span>ptree);
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">DeleteItem</span>(<span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>pi, Tree <span style="color:#f92672">*</span>ptree);
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Traverse</span>(<span style="color:#66d9ef">const</span> Tree <span style="color:#f92672">*</span>ptree, <span style="color:#66d9ef">void</span>(<span style="color:#f92672">*</span>pfun)(Item item));
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">DeleteAll</span>(Tree <span style="color:#f92672">*</span>ptree);
+
+<span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span><span style="color:#75715e">/*****************************************************/</span>
+
+<span style="color:#75715e">/* tree.c */</span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;datatype.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* 局部数据类型 */</span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> pair {
+    Trnode <span style="color:#f92672">*</span>parent;
+    Trnode <span style="color:#f92672">*</span>child;
+} Pair;
+
+<span style="color:#75715e">/* 局部函数原型 */</span>
+<span style="color:#66d9ef">static</span> Trnode <span style="color:#f92672">*</span><span style="color:#a6e22e">MakeNode</span>(<span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>pi);
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">ToLeft</span>(<span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>i1, <span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>i2);
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">ToRight</span>(<span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>i1, <span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>i2);
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">AddNode</span>(Trnode <span style="color:#f92672">*</span>new_node, Trnode <span style="color:#f92672">*</span>root);
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">InOrder</span>(<span style="color:#66d9ef">const</span> Trnode <span style="color:#f92672">*</span>root, <span style="color:#66d9ef">void</span>(<span style="color:#f92672">*</span>pfun)(Item item));
+<span style="color:#66d9ef">static</span> Pair <span style="color:#a6e22e">SeekItem</span>(<span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>pi, <span style="color:#66d9ef">const</span> Tree <span style="color:#f92672">*</span>ptree);
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">DeleteNode</span>(Trnode <span style="color:#f92672">**</span>ptr);
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">DeleteAllNodes</span>(Trnode <span style="color:#f92672">*</span>ptr);
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">InitializeTree</span>(Tree <span style="color:#f92672">*</span>ptree)
+{
+    ptree<span style="color:#f92672">-&gt;</span>root <span style="color:#f92672">=</span> NULL;
+    ptree<span style="color:#f92672">-&gt;</span>size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">TreeIsEmpty</span>(<span style="color:#66d9ef">const</span> Tree <span style="color:#f92672">*</span>ptree)
+{
+    <span style="color:#66d9ef">if</span> (ptree<span style="color:#f92672">-&gt;</span>root <span style="color:#f92672">==</span> NULL)
+        <span style="color:#66d9ef">return</span> true;
+    <span style="color:#66d9ef">else</span>
+        <span style="color:#66d9ef">return</span> false;
+}
+
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">TreeIsFull</span>(<span style="color:#66d9ef">const</span> Tree <span style="color:#f92672">*</span>ptree)
+{
+    <span style="color:#66d9ef">if</span> (ptree<span style="color:#f92672">-&gt;</span>size <span style="color:#f92672">==</span> MAXITEMS)
+        <span style="color:#66d9ef">return</span> true;
+    <span style="color:#66d9ef">else</span>
+        <span style="color:#66d9ef">return</span> false;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">TreeItemCount</span>(<span style="color:#66d9ef">const</span> Tree <span style="color:#f92672">*</span>ptree)
+{
+    <span style="color:#66d9ef">return</span> ptree<span style="color:#f92672">-&gt;</span>size;
+}
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * @brief 向树中添加新项
+</span><span style="color:#75715e"> * @param pi 要添加的新项
+</span><span style="color:#75715e"> * @param ptree 树形结构指针
+</span><span style="color:#75715e"> * @retval true or false
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">AddItem</span>(<span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>pi, Tree <span style="color:#f92672">*</span>ptree)
+{
+    Trnode <span style="color:#f92672">*</span>new_node;
+
+    <span style="color:#66d9ef">if</span> (TreeIsFull(ptree)) {                    <span style="color:#75715e">/* 检查树是否已满 */</span>
+        fprintf(stderr, <span style="color:#e6db74">&#34;Tree is full</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+        <span style="color:#66d9ef">return</span> false;
+    }
+
+    <span style="color:#66d9ef">if</span> (SeekItem(pi, ptree).child <span style="color:#f92672">!=</span> NULL) {    <span style="color:#75715e">/* 检查树中是否已存在新项 */</span>
+        fprintf(stderr, <span style="color:#e6db74">&#34;Attempted to add duplicate item</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+        <span style="color:#66d9ef">return</span> false;
+    }
+
+    new_node <span style="color:#f92672">=</span> MakeNode(pi);    <span style="color:#75715e">/* 指向新节点 */</span>
+    <span style="color:#66d9ef">if</span> (new_node <span style="color:#f92672">==</span> NULL) {
+        fprintf(stderr, <span style="color:#e6db74">&#34;Couldn&#39;t create node</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+        <span style="color:#66d9ef">return</span> false;
+    }
+
+    <span style="color:#75715e">/* 成功创建一个新节点 */</span>
+    ptree<span style="color:#f92672">-&gt;</span>size<span style="color:#f92672">++</span>;
+    <span style="color:#66d9ef">if</span> (ptree<span style="color:#f92672">-&gt;</span>root <span style="color:#f92672">==</span> NULL)        <span style="color:#75715e">/* 情况1：树为空 */</span>
+        ptree<span style="color:#f92672">-&gt;</span>root <span style="color:#f92672">=</span> new_node;     <span style="color:#75715e">/* 新节点为树根节点 */</span>
+    <span style="color:#66d9ef">else</span>                            <span style="color:#75715e">/* 情况2：树非空 */</span>
+        AddNode(new_node, ptree<span style="color:#f92672">-&gt;</span>root); <span style="color:#75715e">/* 在树中添加一个节点 */</span>
+
+    <span style="color:#66d9ef">return</span> true;
+}
+
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">InTree</span>(<span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>pi, <span style="color:#66d9ef">const</span> Tree <span style="color:#f92672">*</span>ptree)
+{
+    <span style="color:#66d9ef">return</span> (SeekItem(pi, ptree).child <span style="color:#f92672">==</span> NULL) <span style="color:#f92672">?</span> false <span style="color:#f92672">:</span> true;
+}
+
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">DeleteItem</span>(<span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>pi, Tree <span style="color:#f92672">*</span>ptree)
+{
+    Pair look;
+
+    look <span style="color:#f92672">=</span> SeekItem(pi, ptree);
+    <span style="color:#66d9ef">if</span> (look.child <span style="color:#f92672">==</span> NULL)
+        <span style="color:#66d9ef">return</span> false;
+
+    <span style="color:#66d9ef">if</span> (look.parent <span style="color:#f92672">==</span> NULL)        <span style="color:#75715e">/* 删除根节点项 */</span>
+        DeleteNode(<span style="color:#f92672">&amp;</span>ptree<span style="color:#f92672">-&gt;</span>root);
+    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (look.parent<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">==</span> look.child)   <span style="color:#75715e">/* 删除左节点 */</span>
+        DeleteNode(<span style="color:#f92672">&amp;</span>look.parent<span style="color:#f92672">-&gt;</span>left);
+    <span style="color:#66d9ef">else</span>                                        <span style="color:#75715e">/* 删除右节点 */</span>
+        DeleteNode(<span style="color:#f92672">&amp;</span>look.parent<span style="color:#f92672">-&gt;</span>right);
+    
+    ptree<span style="color:#f92672">-&gt;</span>size<span style="color:#f92672">--</span>;
+
+    <span style="color:#66d9ef">return</span> true;
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Traverse</span>(<span style="color:#66d9ef">const</span> Tree <span style="color:#f92672">*</span>ptree, <span style="color:#66d9ef">void</span>(<span style="color:#f92672">*</span>pfun)(Item item))
+{
+    <span style="color:#66d9ef">if</span> (ptree <span style="color:#f92672">!=</span> NULL)
+        InOrder(ptree<span style="color:#f92672">-&gt;</span>root, pfun);
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">DeleteAll</span>(Tree <span style="color:#f92672">*</span>ptree)
+{
+    <span style="color:#66d9ef">if</span> (ptree <span style="color:#f92672">!=</span> NULL)
+        DeleteAllNodes(ptree<span style="color:#f92672">-&gt;</span>root);
+
+    ptree<span style="color:#f92672">-&gt;</span>root <span style="color:#f92672">=</span> NULL;
+    ptree<span style="color:#f92672">-&gt;</span>size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * @brief 动态分配树形节点，并初始化项及左右指针
+</span><span style="color:#75715e"> * @param pi 所要初始化的项
+</span><span style="color:#75715e"> * @retval 成功创建后的树节点指针
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">static</span> Trnode <span style="color:#f92672">*</span><span style="color:#a6e22e">MakeNode</span>(<span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>pi)
+{
+    Trnode <span style="color:#f92672">*</span>new_node;
+
+    new_node <span style="color:#f92672">=</span> (Trnode <span style="color:#f92672">*</span>)malloc(<span style="color:#66d9ef">sizeof</span>(Trnode));
+    <span style="color:#66d9ef">if</span> (new_node <span style="color:#f92672">!=</span> NULL) {
+        new_node<span style="color:#f92672">-&gt;</span>item <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>pi;
+        new_node<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> NULL;
+        new_node<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> NULL;
+    }
+
+    <span style="color:#66d9ef">return</span> new_node;
+}
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">ToLeft</span>(<span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>i1, <span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>i2)
+{
+    <span style="color:#66d9ef">int</span> comp1;
+
+    <span style="color:#66d9ef">if</span> ((comp1 <span style="color:#f92672">=</span> strcmp(i1<span style="color:#f92672">-&gt;</span>petname, i2<span style="color:#f92672">-&gt;</span>petname)) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) <span style="color:#75715e">/* 目标名称在前 */</span>
+        <span style="color:#66d9ef">return</span> true;
+    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (comp1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> 
+             strcmp(i1<span style="color:#f92672">-&gt;</span>petkind, i2<span style="color:#f92672">-&gt;</span>petkind) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>)      <span style="color:#75715e">/* 名称相同，目标种类在前 */</span>
+        <span style="color:#66d9ef">return</span> true;
+    
+    <span style="color:#66d9ef">return</span> false;
+}
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">ToRight</span>(<span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>i1, <span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>i2)
+{
+    <span style="color:#66d9ef">int</span> comp1;
+
+    <span style="color:#66d9ef">if</span> ((comp1 <span style="color:#f92672">=</span> strcmp(i1<span style="color:#f92672">-&gt;</span>petname, i2<span style="color:#f92672">-&gt;</span>petname)) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) <span style="color:#75715e">/* 目标名称在后 */</span>
+        <span style="color:#66d9ef">return</span> true;
+    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (comp1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> 
+             strcmp(i1<span style="color:#f92672">-&gt;</span>petkind, i2<span style="color:#f92672">-&gt;</span>petkind) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>)      <span style="color:#75715e">/* 名称相同，目标种类在后 */</span>
+        <span style="color:#66d9ef">return</span> true;
+    
+    <span style="color:#66d9ef">return</span> false;
+}
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">AddNode</span>(Trnode <span style="color:#f92672">*</span>new_node, Trnode <span style="color:#f92672">*</span>root)
+{
+    <span style="color:#66d9ef">if</span> (ToLeft(<span style="color:#f92672">&amp;</span>new_node<span style="color:#f92672">-&gt;</span>item, <span style="color:#f92672">&amp;</span>root<span style="color:#f92672">-&gt;</span>item)) { <span style="color:#75715e">/* 判断在根节点左边 */</span>
+        <span style="color:#66d9ef">if</span> (root<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">==</span> NULL)         <span style="color:#75715e">/* 空子树，此处添加节点 */</span>
+            root<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> new_node;
+        <span style="color:#66d9ef">else</span>                            <span style="color:#75715e">/* 否则，递归处理左子树 */</span>
+            AddNode(new_node, root<span style="color:#f92672">-&gt;</span>left);
+    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (ToRight(<span style="color:#f92672">&amp;</span>new_node<span style="color:#f92672">-&gt;</span>item, <span style="color:#f92672">&amp;</span>root<span style="color:#f92672">-&gt;</span>item)) { <span style="color:#75715e">/* 判断在根节点右边 */</span>
+        <span style="color:#66d9ef">if</span> (root<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">==</span> NULL)
+            root<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> new_node;
+        <span style="color:#66d9ef">else</span>
+            AddNode(new_node, root<span style="color:#f92672">-&gt;</span>right);
+    } <span style="color:#66d9ef">else</span> {     <span style="color:#75715e">/* 与根节点项相同，不允许重复 */</span>
+        fprintf(stderr, <span style="color:#e6db74">&#34;location error in AddNode()</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+        exit(<span style="color:#ae81ff">1</span>);
+    }
+}
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">InOrder</span>(<span style="color:#66d9ef">const</span> Trnode <span style="color:#f92672">*</span>root, <span style="color:#66d9ef">void</span>(<span style="color:#f92672">*</span>pfun)(Item item))
+{
+    <span style="color:#66d9ef">if</span> (root <span style="color:#f92672">!=</span> NULL) {
+        InOrder(root<span style="color:#f92672">-&gt;</span>left, pfun);
+        (<span style="color:#f92672">*</span>pfun)(root<span style="color:#f92672">-&gt;</span>item);
+        InOrder(root<span style="color:#f92672">-&gt;</span>right, pfun);
+    }
+}
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * @brief 检查目标项 pi 是否已存在于树中
+</span><span style="color:#75715e"> * @param pi 目标项
+</span><span style="color:#75715e"> * @param ptree 树形指针
+</span><span style="color:#75715e"> * @retval look.child 为 NULL 则目标项不在树中，否则在树中
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">static</span> Pair <span style="color:#a6e22e">SeekItem</span>(<span style="color:#66d9ef">const</span> Item <span style="color:#f92672">*</span>pi, <span style="color:#66d9ef">const</span> Tree <span style="color:#f92672">*</span>ptree)
+{
+    Pair look;
+
+    look.parent <span style="color:#f92672">=</span> NULL;
+    look.child <span style="color:#f92672">=</span> ptree<span style="color:#f92672">-&gt;</span>root;
+    <span style="color:#66d9ef">if</span> (look.child <span style="color:#f92672">==</span> NULL)     <span style="color:#75715e">/* 空树 */</span>
+        <span style="color:#66d9ef">return</span> look;
+    
+    <span style="color:#66d9ef">while</span> (look.child <span style="color:#f92672">!=</span> NULL) {
+        <span style="color:#66d9ef">if</span> (ToLeft(pi, <span style="color:#f92672">&amp;</span>look.child<span style="color:#f92672">-&gt;</span>item)) {    <span style="color:#75715e">/* 从左子树查 */</span>
+            look.parent <span style="color:#f92672">=</span> look.child;
+            look.child <span style="color:#f92672">=</span> look.child<span style="color:#f92672">-&gt;</span>left;
+        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (ToRight(pi, <span style="color:#f92672">&amp;</span>look.child<span style="color:#f92672">-&gt;</span>item)) {    <span style="color:#75715e">/* 从右子树查 */</span>
+            look.parent <span style="color:#f92672">=</span> look.child;
+            look.child <span style="color:#f92672">=</span> look.child<span style="color:#f92672">-&gt;</span>right;
+        } <span style="color:#66d9ef">else</span>                          <span style="color:#75715e">/* 相等情况 */</span>
+            <span style="color:#66d9ef">break</span>;      <span style="color:#75715e">/* look.child 为目标项节点 */</span>
+    }
+
+    <span style="color:#66d9ef">return</span> look;
+}
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">DeleteNode</span>(Trnode <span style="color:#f92672">**</span>ptr)
+{
+    <span style="color:#75715e">/* ptr 是指向目标节点的父节点指针成员的地址 */</span>
+    Trnode <span style="color:#f92672">*</span>temp;
+
+    <span style="color:#66d9ef">if</span> ((<span style="color:#f92672">*</span>ptr)<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">==</span> NULL) {     <span style="color:#75715e">/* 左节点为 NULL，释放根节点并将右节点作为根节点 */</span>
+        temp <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>ptr;
+        <span style="color:#f92672">*</span>ptr <span style="color:#f92672">=</span> (<span style="color:#f92672">*</span>ptr)<span style="color:#f92672">-&gt;</span>right;
+        free(temp);
+    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ((<span style="color:#f92672">*</span>ptr)<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">==</span> NULL) { <span style="color:#75715e">/* 左非 NULL，右为 NULL，释放根并将左节点作为根节点 */</span>
+        temp <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>ptr;
+        <span style="color:#f92672">*</span>ptr <span style="color:#f92672">=</span> (<span style="color:#f92672">*</span>ptr)<span style="color:#f92672">-&gt;</span>left;
+        free(temp);
+    } <span style="color:#66d9ef">else</span> {    <span style="color:#75715e">/* 左右非 NULL，先找出左子树的最大（即最右叶节点 X），再将右子树节点链接到 X 的右节点，根节点指针偏移到左节点，删除根节点*/</span>
+        <span style="color:#66d9ef">for</span> (temp <span style="color:#f92672">=</span> (<span style="color:#f92672">*</span>ptr)<span style="color:#f92672">-&gt;</span>left; temp<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">!=</span> NULL; temp <span style="color:#f92672">=</span> temp<span style="color:#f92672">-&gt;</span>right)
+            <span style="color:#66d9ef">continue</span>;
+        temp<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> (<span style="color:#f92672">*</span>ptr)<span style="color:#f92672">-&gt;</span>right;
+        temp <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>ptr;
+        <span style="color:#f92672">*</span>ptr <span style="color:#f92672">=</span> (<span style="color:#f92672">*</span>ptr)<span style="color:#f92672">-&gt;</span>left;
+        free(temp);
+    }
+}
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">DeleteAllNodes</span>(Trnode <span style="color:#f92672">*</span>root)
+{
+    Trnode <span style="color:#f92672">*</span>pright;
+
+    <span style="color:#66d9ef">if</span> (root <span style="color:#f92672">!=</span> NULL) {
+        pright <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>right;
+        DeleteAllNodes(root<span style="color:#f92672">-&gt;</span>left); <span style="color:#75715e">/* 删除根节点左子树 */</span>
+        free(root);                 <span style="color:#75715e">/* 删除根节点 */</span>
+        DeleteAllNodes(pright);     <span style="color:#75715e">/* 删除根节点右子树 */</span>
+    }
+}
+<span style="color:#75715e">/*****************************************************/</span>
+
+<span style="color:#75715e">/* main.c */</span>
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * @file 该程序以菜单的形式提供选择：向俱乐部成员花名册添加宠物、显示成员列表、
+</span><span style="color:#75715e"> *       报告成员数量、核实成员及退出。
+</span><span style="color:#75715e">*/</span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ctype.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;datatype.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">char</span> <span style="color:#a6e22e">menu</span>(<span style="color:#66d9ef">void</span>);
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addpet</span>(Tree <span style="color:#f92672">*</span>pt);
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">droppet</span>(Tree <span style="color:#f92672">*</span>pt);
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">showpets</span>(<span style="color:#66d9ef">const</span> Tree <span style="color:#f92672">*</span>pt);
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">findpet</span>(<span style="color:#66d9ef">const</span> Tree <span style="color:#f92672">*</span>pt);
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printitem</span>(Item item);
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">uppercase</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>str);
+<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">s_gets</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>st, <span style="color:#66d9ef">int</span> n);
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+{
+    Tree pets;
+    <span style="color:#66d9ef">char</span> choice;
+
+    InitializeTree(<span style="color:#f92672">&amp;</span>pets);
+    <span style="color:#66d9ef">while</span> ((choice <span style="color:#f92672">=</span> menu()) <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;q&#39;</span>) {
+        <span style="color:#66d9ef">switch</span> (choice) {
+            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">:</span>
+                addpet(<span style="color:#f92672">&amp;</span>pets);
+                <span style="color:#66d9ef">break</span>;
+            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;l&#39;</span><span style="color:#f92672">:</span>
+                showpets(<span style="color:#f92672">&amp;</span>pets);
+                <span style="color:#66d9ef">break</span>;
+            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;f&#39;</span><span style="color:#f92672">:</span>
+                findpet(<span style="color:#f92672">&amp;</span>pets);
+                <span style="color:#66d9ef">break</span>;
+            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;n&#39;</span><span style="color:#f92672">:</span>
+                printf(<span style="color:#e6db74">&#34;%d pets in club</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, TreeItemCount(<span style="color:#f92672">&amp;</span>pets));
+                <span style="color:#66d9ef">break</span>;
+            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;d&#39;</span><span style="color:#f92672">:</span>
+                droppet(<span style="color:#f92672">&amp;</span>pets);
+                <span style="color:#66d9ef">break</span>;
+            <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+                puts(<span style="color:#e6db74">&#34;Switching error&#34;</span>);
+                <span style="color:#66d9ef">break</span>;
+        }
+    }
+    DeleteAll(<span style="color:#f92672">&amp;</span>pets);
+    puts(<span style="color:#e6db74">&#34;Bye.&#34;</span>);
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#66d9ef">char</span> <span style="color:#a6e22e">menu</span>(<span style="color:#66d9ef">void</span>)
+{
+    <span style="color:#66d9ef">int</span> ch;
+
+    puts(<span style="color:#e6db74">&#34;Nerfville Pet Club Membership Program&#34;</span>);
+    puts(<span style="color:#e6db74">&#34;Enter the letter corresponding to your choice:&#34;</span>);
+    puts(<span style="color:#e6db74">&#34;a) add a pet          l) show list of pets&#34;</span>);
+    puts(<span style="color:#e6db74">&#34;n) number of pets     f) find pets&#34;</span>);
+    puts(<span style="color:#e6db74">&#34;d)delete a pet        q) quit&#34;</span>);
+
+    <span style="color:#66d9ef">while</span> ((ch <span style="color:#f92672">=</span> getchar()) <span style="color:#f92672">!=</span> EOF) {
+        <span style="color:#66d9ef">while</span> (getchar() <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;\n&#39;</span>)
+            <span style="color:#66d9ef">continue</span>;
+        <span style="color:#66d9ef">if</span> (strchr(<span style="color:#e6db74">&#34;alrfndq&#34;</span>, ch) <span style="color:#f92672">==</span> NULL)
+            puts(<span style="color:#e6db74">&#34;Please enter an a, l, n, f, d or q:&#34;</span>);
+        <span style="color:#66d9ef">else</span>
+            <span style="color:#66d9ef">break</span>;
+    }
+
+    <span style="color:#66d9ef">if</span> (ch <span style="color:#f92672">==</span> EOF)  <span style="color:#75715e">/* 使程序退出 */</span>
+        ch <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;q&#39;</span>;
+        
+    <span style="color:#66d9ef">return</span> ch;
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addpet</span>(Tree <span style="color:#f92672">*</span>pt)
+{
+    Item temp;
+
+    <span style="color:#66d9ef">if</span> (TreeIsFull(pt))
+        puts(<span style="color:#e6db74">&#34;No room in the club!&#34;</span>);
+    <span style="color:#66d9ef">else</span> {
+        puts(<span style="color:#e6db74">&#34;Please enter name of pet:&#34;</span>);
+        s_gets(temp.petname, SLEN);
+        puts(<span style="color:#e6db74">&#34;Please enter pet kind:&#34;</span>);
+        s_gets(temp.petkind, SLEN);
+        uppercase(temp.petname);
+        uppercase(temp.petkind);
+        AddItem(<span style="color:#f92672">&amp;</span>temp, pt);
+    } 
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">droppet</span>(Tree <span style="color:#f92672">*</span>pt)
+{
+    Item temp;
+
+    <span style="color:#66d9ef">if</span> (TreeIsEmpty(pt)) {
+        puts(<span style="color:#e6db74">&#34;No entries!&#34;</span>);
+        <span style="color:#66d9ef">return</span>;
+    }
+
+    puts(<span style="color:#e6db74">&#34;Please enter name of pet you wish to delete:&#34;</span>);
+    s_gets(temp.petname, SLEN);
+    puts(<span style="color:#e6db74">&#34;Please enter pet kind:&#34;</span>);
+    s_gets(temp.petkind, SLEN);
+    uppercase(temp.petname);
+    uppercase(temp.petkind);
+    printf(<span style="color:#e6db74">&#34;%s the %s &#34;</span>, temp.petname, temp.petkind);
+
+    <span style="color:#66d9ef">if</span> (DeleteItem(<span style="color:#f92672">&amp;</span>temp, pt))
+        printf(<span style="color:#e6db74">&#34;is dropped from the club.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    <span style="color:#66d9ef">else</span> 
+        printf(<span style="color:#e6db74">&#34;is not a member.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">findpet</span>(<span style="color:#66d9ef">const</span> Tree <span style="color:#f92672">*</span>pt)
+{
+    Item temp;
+
+    <span style="color:#66d9ef">if</span> (TreeIsEmpty(pt)) {
+        puts(<span style="color:#e6db74">&#34;No entries!&#34;</span>);
+        <span style="color:#66d9ef">return</span>;
+    }
+
+    puts(<span style="color:#e6db74">&#34;Please enter name of pet you wish to find:&#34;</span>);
+    s_gets(temp.petname, SLEN);
+    puts(<span style="color:#e6db74">&#34;Please enter pet kind:&#34;</span>);
+    s_gets(temp.petkind, SLEN);
+    uppercase(temp.petname);
+    uppercase(temp.petkind);
+    printf(<span style="color:#e6db74">&#34;%s the %s &#34;</span>, temp.petname, temp.petkind);
+
+    <span style="color:#66d9ef">if</span> (InTree(<span style="color:#f92672">&amp;</span>temp, pt))
+        printf(<span style="color:#e6db74">&#34;is a member.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    <span style="color:#66d9ef">else</span>   
+        printf(<span style="color:#e6db74">&#34;is not a member.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">showpets</span>(<span style="color:#66d9ef">const</span> Tree <span style="color:#f92672">*</span>pt)
+{
+    <span style="color:#66d9ef">if</span> (TreeIsEmpty(pt))
+        puts(<span style="color:#e6db74">&#34;No entries!&#34;</span>);
+    <span style="color:#66d9ef">else</span>
+        Traverse(pt, printitem);
+}
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printitem</span>(Item item)
+{
+    printf(<span style="color:#e6db74">&#34;Pet: %-19s Kind: %-19s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, item.petname, item.petkind);
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">uppercase</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>str)
+{
+    <span style="color:#66d9ef">while</span> (<span style="color:#f92672">*</span>str) {
+        <span style="color:#f92672">*</span>str <span style="color:#f92672">=</span> toupper(<span style="color:#f92672">*</span>str);
+        str<span style="color:#f92672">++</span>;
+    }
+}
+
+
+<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">s_gets</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>st, <span style="color:#66d9ef">int</span> n)
+{
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>ret_val;
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>find;
+
+    ret_val <span style="color:#f92672">=</span> fgets(st, n, stdin);
+    <span style="color:#66d9ef">if</span> (ret_val) {
+        find <span style="color:#f92672">=</span> strchr(st, <span style="color:#e6db74">&#39;\n&#39;</span>);    <span style="color:#75715e">// 查找换行符
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (find)
+            <span style="color:#f92672">*</span>find <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
+        <span style="color:#66d9ef">else</span>
+            <span style="color:#66d9ef">while</span> (getchar() <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;\n&#39;</span>)
+                <span style="color:#66d9ef">continue</span>;
+    }
+
+    <span style="color:#66d9ef">return</span> ret_val;
+}
+<span style="color:#75715e">/*****************************************************/</span></code></pre></div>
+<p>二叉查找树在编程实现重要部分是节点的添加与删除，添加要判断是在根节点的左边还是右边，如此递归直到满足条件；删除要看是删除叶节点、带有单个子树的节点或是具有左右子树的节点，特别是最后一种要考虑删除之后左右节点如何拼接，另外删除节点时要以左节点-根节点-右节点的顺序删除。同时 tree.c 中局部函数也至关重要，它们是对增删细节操作的封装。在查找时根据根节点作为判断标准，将查找范围缩小到左边或是右边，其中实现涉及到递归以简化这种重复操作。</p>
+
+<h3 id="树的思想">树的思想</h3>
+
+<p>二叉查找树的缺点，只有在满员（或平衡）时效率最高。当后续节点都挂到父节点的右节点上，这就构成不平衡的树。对于这种不平衡的串形树，需重新排列节点使之恢复平衡。俄国数学家 Adel&rsquo;son-Vel&rsquo;skii 和 Landis 发明一种算法解决不平衡的问题，根据这种算法所创建的树称为 <code>AVL 树</code>。</p>
+
+<p>要徒手实现一个链表或数这种 ADT 比较困难，很容易犯错，而插件库则提供了一种可选方法。通过本章的学习，能更好地认识这样的数据类型的实现。</p>
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2024/04/python_basic/">Python_basic</a></li>
+
+<li><a href="/2023/06/adt/">ADT</a></li>
+
+<li><a href="/2023/05/c_code_style/">C_Code_Style</a></li>
+
+<li><a href="/2023/05/c_grammar_jjz/">C_Grammar_JJZ</a></li>
+
+<li><a href="/2023/05/lvgl_port/">LVGL_Port</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="C_Grammar_JJZ" />
+<meta property="og:description" content="记录 C 语言指针、结构体等较高阶的知识" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2023/05/c_grammar_jjz/" />
+<meta property="article:published_time" content="2023-05-21T17:41:05+08:00" />
+<meta property="article:modified_time" content="2023-05-21T17:41:05+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C_Grammar_JJZ"/>
+<meta name="twitter:description" content="记录 C 语言指针、结构体等较高阶的知识"/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "C_Grammar_JJZ",
+  "url": "https://junq0420.github.io/2023/05/c_grammar_jjz/",
+  "wordCount": "1492",
+  "datePublished": "2023-05-21T17:41:05+08:00",
+  "dateModified": "2023-05-21T17:41:05+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "C"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2023/05/c_grammar_jjz/">
+
+    <title>C_Grammar_JJZ | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.160a3bda53be859332fff3fc376b5fd76a285126483463aa2e24a17ae1bcae4c.css" rel="stylesheet" integrity="sha256-Fgo72lO&#43;hZMy//P8N2tf12ooUSZINGOqLiSheuG8rkw=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/archives/" title="">Archives</a>
+          
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2023/05/c_grammar_jjz/">C_Grammar_JJZ</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2023-05-21T17:41:05+08:00">2023-05-21</time>
+ in 
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/c/" rel="tag">C</a>
+
+</p>
+  </header>
+  <p>记录 C 语言指针、结构体等较高阶的知识</p>
+
+<blockquote>
+<p><strong>学习笔记，仅供参考</strong></p>
+
+<p><strong>参考</strong>：<a href="https://www.bilibili.com/video/BV1wv411L7nS/?spm_id_from=333.1007.top_right_bar_window_default_collection.content.click&amp;vd_source=05b0eccbdf933109f51a1700f25459fa">程序员的 C - B站氿酱紫</a> | <a href="https://mp.weixin.qq.com/mp/appmsgalbum?action=getalbum&amp;album_id=1358802123831705601&amp;__biz=MzU3Nzc1MTkzNA==&amp;scene=21&amp;devicetype=android-28&amp;version=28001737&amp;lang=en&amp;nettype=WIFI&amp;ascene=78&amp;pass_ticket=3jQ1dNaJgLRTvfE%2F76kx6cr3BSsWCvD7AiZ%2F4TlOUeLGhchR4OmpO6iPccfp3lw8ADWk6d85FpGKJo%2FORpSEsg%3D%3D&amp;wx_header=3">视频对应博客</a></p>
+</blockquote>
+
+<hr />
+
+<p>C 语言指针之前的部分：变量、函数、条件、循环等属于程序逻辑部分，在任何语言中都能见到；而像指针、结构体等知识则并非如此，并且这些特性在开发中也很实用，故记录基础的定义和使用</p>
+
+<h2 id="指针和数组">指针和数组</h2>
+
+<p><strong>指针</strong>：指向某个变量，即指针变量保存的是所指向变量的地址。且指针变量的大小总是 8 字节(32位)，而其所指向变量的类型只影响它在内存寻址时步距的大小。如 char *p 步距为 1 字节；int *p 步距为 4 字节</p>
+
+<p><strong>数组</strong>：一组同类型的变量的集合，在内存中 back-to-back 连续存储。数组名并非指针，它只是数组首地址的一种别称。</p>
+
+<p><strong>字符数组与字符指针</strong>：下面代码分别用数组和指针来创建字符串，看看它们的区别</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>str <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello world&#34;</span>;
+<span style="color:#66d9ef">char</span> arr[<span style="color:#ae81ff">20</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello world&#34;</span>;
+<span style="color:#66d9ef">int</span> num <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;</code></pre></div>
+<p>字符数组是在内存中开辟 20 字节的空间存放字符，即 arr[0] = &lsquo;x&rsquo; 可更换元素；而字符指针指向常量区所开辟的空间，因为常量区为使字面量复用，即 str[0] = &lsquo;x&rsquo; 会出错</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/str_arr_diff.png" alt="str_arr_diff" /></p>
+
+<hr />
+
+<h2 id="结构体">结构体</h2>
+
+<p><strong>结构体</strong>：一种自定义能包含多种类型的数据结构，并且支持结构嵌套（一个结构含有另一结构的指针变量-模拟父类继承）。结构在函数中可有两种方式传递数据：结构传递、结构地址传递，多数会选用结构地址传递，只需传递地址执行快但无法保护数据，不过 ANSI C 提供了 const 修饰符可解决此问题。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* 结构体声明、定义、初始化 */</span>
+<span style="color:#66d9ef">struct</span> student {
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>id;
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>name;
+    <span style="color:#66d9ef">int</span> age;
+};
+
+<span style="color:#66d9ef">struct</span> student s1 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};    <span style="color:#75715e">// 零值初始化
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> student s2 <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;A001&#34;</span>, <span style="color:#e6db74">&#34;Tom&#34;</span>, <span style="color:#ae81ff">18</span>};    <span style="color:#75715e">// 顺序初始化
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> student s3 <span style="color:#f92672">=</span> {.name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Jerry&#34;</span>, .id<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;A002&#34;</span>};    <span style="color:#75715e">// 使用初始化器（C99）
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 由于声明定义时都要带上标记符，麻烦可用 typedef 简化
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>id;
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>name;
+    <span style="color:#66d9ef">int</span> age;
+} Student;
+
+Student s1 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};</code></pre></div>
+<p>结构体中存放字符串时仍有字符数组和字符指针两种方式，字符数组简单理解，而字符指针在获取 scanf 输入时会有隐患，因为字符指针在未初始化时值是不确定的</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">struct</span> pnames attorney;
+puts(<span style="color:#e6db74">&#34;Enter the last name of your attorney:&#34;</span>);
+scanf(<span style="color:#e6db74">&#34;%s&#34;</span>, attorney.last);</code></pre></div>
+<p><strong>伸缩型数组成员(flexible array member)</strong>：C99 新增特性，声明一个伸缩数组成员有以下规则：伸缩型数组成员必须是结构的最后一个成员；结构中必须至少有一个成员；声明类似普通数组只是方括号中为空。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* 伸缩型数组成员声明、定义、分配空间 */</span>
+<span style="color:#66d9ef">struct</span> flex {
+    size_t count;
+    <span style="color:#66d9ef">double</span> average;
+    <span style="color:#66d9ef">double</span> scores[];    <span style="color:#75715e">// 伸缩型数组成员
+</span><span style="color:#75715e"></span>};
+
+<span style="color:#66d9ef">struct</span> flex <span style="color:#f92672">*</span>pf;
+
+pf <span style="color:#f92672">=</span> malloc(<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">struct</span> flex) <span style="color:#f92672">+</span> n<span style="color:#f92672">*</span><span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">double</span>));</code></pre></div>
+<h3 id="内存对齐">内存对齐</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// 1. 第一种排列方式
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> A { <span style="color:#66d9ef">int</span> a; <span style="color:#66d9ef">char</span> b; <span style="color:#66d9ef">short</span> c; }
+<span style="color:#66d9ef">struct</span> A struA <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+<span style="color:#66d9ef">sizeof</span>(struA);
+<span style="color:#75715e">/*  8 byte
+</span><span style="color:#75715e">    |x|x|x|x|
+</span><span style="color:#75715e">    |x|x|x| |           */</span>
+
+<span style="color:#75715e">// 2. 第二种排列方式
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> A { <span style="color:#66d9ef">char</span> b; <span style="color:#66d9ef">int</span> a; <span style="color:#66d9ef">short</span> c; }
+<span style="color:#66d9ef">sizeof</span>(struA);
+<span style="color:#75715e">/*  12 byte
+</span><span style="color:#75715e">    |x| | | |
+</span><span style="color:#75715e">    |x|x|x|x|
+</span><span style="color:#75715e">    |x|x| | |           */</span></code></pre></div>
+<p>为节省时间计算机往往不会以 1 字节取放数据，而是以字长（4字节-32位机；8字节-64位机）存放数据，下面是两中排列方式对应计算机的存取过程</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/memory_align.png" alt="memory_align" /></p>
+
+<p>为何不将上图②中 a 变量紧接着 b 存储呢？这是出于时间与空间的取舍，当要从内存中取 a、b 变量的值时，第一次取 4 字节得到 b 变量值；第二次依旧取第一次的 4 字节得到 a 变量的部分值；第三次取下一个 4 字节得到 a 变量另外的部分值；所以要花三步取值命令才能得到 a、b 变量。而照着 ② 图只需两次就能得到 a、b 变量值</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// 取消编译器的内存对齐
+</span><span style="color:#75715e"></span><span style="color:#75715e">#progma pack(1)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> A { <span style="color:#66d9ef">int</span> a; <span style="color:#66d9ef">char</span> b; <span style="color:#66d9ef">short</span> c; };
+<span style="color:#66d9ef">sizeof</span>(struA);      <span style="color:#75715e">// 7 bytes(变量紧密相连无空间浪费)
+</span><span style="color:#75715e"></span><span style="color:#75715e">#progma pack()</span></code></pre></div>
+<h3 id="枚举">枚举</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// 定义
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">enum</span> Week { MON, TUE, WED, THU, FRI, SAT, SUN };
+<span style="color:#75715e">// 默认首元素值为 0，后续依次加 1
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">enum</span> Week { MON<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, TUE, ... }
+<span style="color:#75715e">// 指定首元素值为 1，后续仍依次加 1
+</span></code></pre></div>
+<hr />
+
+<h2 id="头文件与预处理">头文件与预处理</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;utils.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 常常会用 &lt;&gt;, &#34;&#34; 来引用头文件，它们的区别如下：
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">1.</span> <span style="color:#960050;background-color:#1e0010">当</span> .c <span style="color:#960050;background-color:#1e0010">和</span> .h <span style="color:#960050;background-color:#1e0010">放在同一目录下时，是以</span> .c <span style="color:#960050;background-color:#1e0010">源文件路径为参照进行文件查找，故用</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#960050;background-color:#1e0010">包含</span>
+<span style="color:#ae81ff">2.</span> <span style="color:#960050;background-color:#1e0010">当</span> .c <span style="color:#960050;background-color:#1e0010">和</span> .h <span style="color:#960050;background-color:#1e0010">不在同一目录下时，且已指定</span> .h <span style="color:#960050;background-color:#1e0010">的路径可用</span> <span style="color:#f92672">&lt;&gt;</span> <span style="color:#960050;background-color:#1e0010">或</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#960050;background-color:#1e0010">包含</span>
+
+<span style="color:#75715e">// 两种指定 .h 路径的方法
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">1.</span> <span style="color:#960050;background-color:#1e0010">使用</span> gcc <span style="color:#f92672">-</span>I[<span style="color:#960050;background-color:#1e0010">绝对路径</span>]
+gcc t1.c t2.c main.c <span style="color:#f92672">-</span>o main <span style="color:#f92672">-</span>ID:<span style="color:#960050;background-color:#1e0010">\</span>workspace<span style="color:#960050;background-color:#1e0010">\</span>head  
+<span style="color:#ae81ff">2.</span> <span style="color:#960050;background-color:#1e0010">设置环境变量</span>(<span style="color:#960050;background-color:#1e0010">以</span> linux <span style="color:#960050;background-color:#1e0010">为例</span>)
+set C_INCLUDE_PATH<span style="color:#f92672">=</span>D:<span style="color:#960050;background-color:#1e0010">\</span>workspace<span style="color:#960050;background-color:#1e0010">\</span>head</code></pre></div>
+<p>拓展：<a href="https://blog.csdn.net/wang10532/article/details/89681552">头文件规则</a></p>
+
+<p><strong>预处理</strong> 可分为如下三类：</p>
+
+<ul>
+<li><p>文件包含：#include 将所包含的头文件复制黏贴到该文件中</p></li>
+
+<li><p>宏定义：#define 在预编译阶段进行字符串替换</p></li>
+
+<li><p>条件编译：#if, #ifdef, #ifndef 跨平台处理，多环境</p></li>
+</ul>
+
+<p>另外，#include、#define 并非 C 的语法，属于编译器做的仅是 CV 操作</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// C 语言编译成可执行文件的四个阶段：预编译--&gt;编译--&gt;汇编--&gt;链接
+</span><span style="color:#75715e"></span>gcc <span style="color:#f92672">-</span>E main.c <span style="color:#f92672">-</span>o main.i     <span style="color:#75715e">// gcc 预编译，复制头文件替换宏定义
+</span><span style="color:#75715e"></span>gcc <span style="color:#f92672">-</span>S main.i <span style="color:#f92672">-</span>o main.s     <span style="color:#75715e">// gcc 编译，将预编译后的 c 转为汇编文件
+</span><span style="color:#75715e"></span>gcc <span style="color:#f92672">-</span>c mian.s <span style="color:#f92672">-</span>o main.o     <span style="color:#75715e">// gcc 汇编，将汇编文件转为二进制 object 文件
+</span><span style="color:#75715e"></span>gcc main.o <span style="color:#f92672">-</span>o main          <span style="color:#75715e">// 由于 gcc 将 ld 打包，此处直接用 gcc 将引用的 io 文件链接到一起
+</span></code></pre></div>
+<hr />
+
+<h2 id="宏定义">宏定义</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#ae81ff">1.</span> <span style="color:#960050;background-color:#1e0010">普通宏</span>
+<span style="color:#75715e">#define PI  3.1415926
+</span><span style="color:#75715e"></span>
+<span style="color:#ae81ff">2.</span> <span style="color:#960050;background-color:#1e0010">带参宏（并非函数）</span>
+<span style="color:#75715e">#define MAX(a, b)   ((a)&gt;(b)?(a):(b))
+</span><span style="color:#75715e"></span><span style="color:#75715e">// 给形参 a、b 加上括号防止出错
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">宏定义的两个专用运算符</span> <span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">和</span> <span style="color:#960050;background-color:#1e0010">##</span>
+<span style="color:#f92672">-</span> <span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">用来字符串化宏函数里的参数</span>
+<span style="color:#75715e">#define PRINT_INT(n)    printf(#n &#34;=%d\n&#34;, n)
+</span><span style="color:#75715e"></span>PRINT_INT(i<span style="color:#f92672">/</span>j); <span style="color:#f92672">--&gt;</span> <span style="color:#960050;background-color:#1e0010">替换后：</span>printf(<span style="color:#e6db74">&#34;i/j&#34;&#34;=%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, i<span style="color:#f92672">/</span>j);
+                <span style="color:#f92672">--&gt;</span> <span style="color:#960050;background-color:#1e0010">等价于：</span>printf(<span style="color:#e6db74">&#34;i/j=%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, i<span style="color:#f92672">/</span>j);
+<span style="color:#f92672">-</span> <span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#960050;background-color:#1e0010">可将两个记号粘合在一起</span>
+<span style="color:#75715e">#define GENERIC_MAX(type)   \   </span><span style="color:#75715e">// 使用 \ 做连接符
+</span><span style="color:#75715e"></span>        type type<span style="color:#960050;background-color:#1e0010">##</span>_max(type x, type y) {\
+             <span style="color:#66d9ef">return</span> x <span style="color:#f92672">&gt;</span> y <span style="color:#f92672">?</span> x : y;}
+GENERIC_MAX(<span style="color:#66d9ef">int</span>) <span style="color:#f92672">--&gt;</span> <span style="color:#960050;background-color:#1e0010">替换后：</span>
+<span style="color:#66d9ef">int</span> int_max(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y) { <span style="color:#66d9ef">return</span> x<span style="color:#f92672">&gt;</span>y<span style="color:#f92672">?</span>x:y; }
+<span style="color:#75715e">// 类似于泛型，根据 type 的不同能生成不同的 MAX 函数
+</span><span style="color:#75715e"></span>
+<span style="color:#ae81ff">3.</span> <span style="color:#960050;background-color:#1e0010">创建包含多条语句的宏</span> <span style="color:#f92672">-</span> <span style="color:#960050;background-color:#1e0010">使用</span> <span style="color:#66d9ef">do</span><span style="color:#f92672">-</span><span style="color:#66d9ef">while</span> <span style="color:#960050;background-color:#1e0010">来规避各种语法错误</span>
+<span style="color:#960050;background-color:#1e0010">【定义】</span>
+<span style="color:#75715e">#define ECHO(s)     \
+</span><span style="color:#75715e">        do {
+</span><span style="color:#75715e"></span>            gets(s);\
+            puts(s);\
+        } <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">0</span>)
+<span style="color:#960050;background-color:#1e0010">【使用】</span>
+ECHO(str); <span style="color:#f92672">--&gt;</span> <span style="color:#960050;background-color:#1e0010">替换后：</span>
+<span style="color:#66d9ef">do</span> { gets(str); puts(str);
+} <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">0</span>);
+
+<span style="color:#ae81ff">4.</span> <span style="color:#960050;background-color:#1e0010">预定义宏</span> <span style="color:#f92672">-</span> <span style="color:#960050;background-color:#1e0010">编译器预先定义好的宏</span>
+_LINE_<span style="color:#960050;background-color:#1e0010">：当前行号</span> <span style="color:#f92672">|</span> _FILE_<span style="color:#960050;background-color:#1e0010">：当前源文件名</span>
+_DATE_<span style="color:#960050;background-color:#1e0010">：编译日期</span>(MM<span style="color:#f92672">-</span>dd<span style="color:#f92672">-</span>yyyy) <span style="color:#f92672">|</span> _TIME_<span style="color:#960050;background-color:#1e0010">：编译时间</span>(hh:mm:ss)
+<span style="color:#75715e">// 这些预定义宏可用于 log 日志，给出一些信息
+</span></code></pre></div>
+<p>总结：</p>
+
+<ol>
+<li><p>宏函数减少函数栈的调用，提升点性能，缺点是展开后增加体积</p></li>
+
+<li><p>参数无类型检查，缺少安全机制</p></li>
+
+<li><p>宏可进行多层嵌套替换</p></li>
+
+<li><p>宏作用域存在至包含其 .c 文件的末尾</p></li>
+
+<li><p>宏不可定义两次，需用 #undef 取消宏</p></li>
+</ol>
+
+<hr />
+
+<h2 id="内存管理-内存分配">内存管理&amp;内存分配</h2>
+
+<p>内存四区：<strong>栈</strong>(自动申请&amp;释放，局部作用域)，<strong>堆</strong>(手动申请&amp;释放，作用域受接收指针限制)，<strong>静态/全局区</strong>(自动申请&amp;释放，文件作用域)，<strong>代码区</strong></p>
+
+<p>为何要在堆上分配动态内存？</p>
+
+<ul>
+<li><p>栈区内存通常比较小，具体视编译器而定，通常可能会在 2M 大小左右，当需处理大文件、图片、视频等数据时，2M 显然不够这就需更大的内存空间。而堆内存是没有限制的，只要内存条足够大就能申请到足够大的堆内存使用</p></li>
+
+<li><p>栈内存的使用有一定的特殊性，通常当函数调用结束后就会出栈，此时那些函数中的局部变量就不存在了，所以若想要一个变量有更长的生命周期，堆内存是更好的选择</p></li>
+
+<li><p>全局变量虽与程序有着相同的生命周期，但无法动态地确定大小</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// 三种动态分配的函数
+</span><span style="color:#75715e">// 1. malloc 分配，返回无类型指针，接收时要强转类型，且申请内存后要手动释放
+</span><span style="color:#75715e">// 当 malloc 分配失败时会返回 NULL，可用 memset() 初始化所分配的内存
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">malloc</span>(size_t size);
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)malloc(n<span style="color:#f92672">*</span><span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>));  <span style="color:#75715e">// 开辟 n 个 int 型内存空间
+</span><span style="color:#75715e"></span>free(p);  p <span style="color:#f92672">=</span> NULL;     <span style="color:#75715e">// 手动释放内存，并将 p 指向 NULL，防止出错
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 2. 使用 calloc 分配，在分配后会进行零值初始化
+</span><span style="color:#75715e">// 分配空间的大小 = num * sizeofElem
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">calloc</span>(size_t num, size_t sizeofElem);
+
+<span style="color:#75715e">// 3. 使用 realloc 重新分配内存，可对已分配的内存扩充缩减
+</span><span style="color:#75715e">// p 指所要重新分配内存的地址，size 为重新分配内存的大小
+</span><span style="color:#75715e">// 当 size 大于原空间时，为扩充内存；小于原空间时，为缩减空间
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">realloc</span>(<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>p, size_t size);
+<span style="color:#75715e">// 注意 realloc 返回的指针不一定与接收的指针指向同一地址内存
+</span><span style="color:#75715e">// 当扩容空间足够时，return ptr == receive ptr
+</span><span style="color:#75715e">// 当扩容空间不够时，return ptr != receive ptr
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>pchar <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)realloc(NULL, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">char</span>)<span style="color:#f92672">*</span><span style="color:#ae81ff">10</span>);   <span style="color:#75715e">// 等价于 malloc 分配
+</span><span style="color:#75715e"></span>realloc(pchar, <span style="color:#ae81ff">0</span>);      <span style="color:#75715e">// 等价于 free 释放内存
+</span></code></pre></div></li>
+</ul>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/realloc.png" alt="realloc" /></p>
+
+<p>接着看看开头的内存四区是如何在内存中分布的</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/memory_model.png" alt="memory_model" /></p>
+
+<ul>
+<li><p>Stack：由编译器自动分配&amp;释放，存放函数的参数、局部变量、返回值等，后进先出，向下拓展</p></li>
+
+<li><p>Heap：程序运行中分配，由程序员手动分配&amp;释放，大小不固定可动态扩缩</p></li>
+
+<li><p>Data：含静态/全局变量，可大致分为 .bss(未初始化)、.data(初始化)</p>
+
+<ul>
+<li><p>.bss：block started by symbol，存放未初始化的静态/全局变量，在 main 之前内核将这部分 data 做零值初始化</p></li>
+
+<li><p>.data：存放已初始化的静态/全局变量，data 值可变</p></li>
+
+<li><p>.rodata：read-only 只读数据段，存放 const 修饰的常量、字符串字面量，编译器会去重，仅保留一份常量节省空间</p></li>
+</ul></li>
+
+<li><p>Code：代码段，存放 cpu 要执行的机器指令，<strong>只读</strong></p></li>
+</ul>
+
+<hr />
+
+<h2 id="指针-数组拓展">指针&amp;数组拓展</h2>
+
+<p><strong>二维数组遍历</strong>：</p>
+
+<ul>
+<li><p>下标法：使用双重 for 循环遍历，模型为二维方格</p></li>
+
+<li><p>指针法：使用首位指针遍历，模型为一位方格</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> table[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> { {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>}, {<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>} };
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>start <span style="color:#f92672">=</span> table;
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>end <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>table[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">2</span>];
+<span style="color:#66d9ef">for</span> (; start <span style="color:#f92672">&lt;=</span> end; start<span style="color:#f92672">++</span>) { printf(<span style="color:#e6db74">&#34;%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#f92672">*</span>start); }</code></pre></div></li>
+</ul>
+
+<p><strong>逗号运算符</strong>：逗号运算符最终将以最右边的值为主</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>);      <span style="color:#75715e">// n=3
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> a[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> { (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>), (<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>) };
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">    a --&gt; | 1 | 3 |
+</span><span style="color:#75715e">          | 5 | 0 |
+</span><span style="color:#75715e">          | 0 | 0 |
+</span><span style="color:#75715e">*/</span></code></pre></div>
+<p><strong>二级指针</strong>：可指向字符串数组，char **p；（一级指针修改所指内存的值，二级指针修改一级指针所指向的内存地址）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// 用 typedef 定义数组类型
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">int</span>(MyArray)[<span style="color:#ae81ff">10</span>];  <span style="color:#75715e">// 定义大小为 10 的 int 数组类型
+</span><span style="color:#75715e"></span>MyArray myArray;
+myArray[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>;</code></pre></div>
+<p>指针<strong>数组</strong>：所有元素均为指针的数组，形式：<code>dataType *arrName[len];</code> 例：char *arr[3]; 定义字符串数组</p>
+
+<p>数组<strong>指针</strong>：指向数组的指针，亦称*<strong><em>行指针</em></strong>。形式：<code>dataType (*arrName)[len];</code> 例：int (*arr)[4]; (注：圆括号不可省，[]优先级高于 *)该例子指定义了一个指针 arr，arr 移动的步长为 4 个整型大小</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/arr_ptr.png" alt="arr_ptr" /></p>
+
+<hr />
+
+<h2 id="函数指针-void-指针">函数指针&amp; void 指针</h2>
+
+<p><strong>函数指针</strong>：保存函数起始地址的指针变量，形式：<code>[返回值类型](*p)(形参类型, ...)</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> (<span style="color:#f92672">*</span>p)(<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span>); <span style="color:#75715e">// 函数指针声明
+</span><span style="color:#75715e"></span>p <span style="color:#f92672">=</span> add;            <span style="color:#75715e">// 初始化
+</span><span style="color:#75715e"></span>p(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>);            <span style="color:#75715e">// 调用
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> (<span style="color:#f92672">*</span>p)(<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span>) <span style="color:#f92672">=</span> add;   <span style="color:#75715e">// 声明并初始化
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* 函数指针的传递 */</span>
+<span style="color:#75715e">// 计算器函数，将函数指针做形参
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">calculate</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b, <span style="color:#66d9ef">int</span>(<span style="color:#f92672">*</span>proc)(<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span>)) {
+    printf(<span style="color:#e6db74">&#34;result = %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, proc(a, b));
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>) {
+    calculate(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">5</span>, add);  <span style="color:#75715e">// 加法
+</span><span style="color:#75715e"></span>    calculate(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">5</span>, sub);  <span style="color:#75715e">// 减法
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+<span style="color:#75715e">// 将函数指针作为参数传递使得 C 语言变得更加灵活强大。
+</span><span style="color:#75715e">// 而在 python、JS 等编程语言中，当前流行的函数式编程范式，
+</span><span style="color:#75715e">// 即将一个函数作为参数传到另一函数中执行
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* 利用 typedef 简化函数指针声明 */</span>
+<span style="color:#75715e">// 类似数组类型的定义，无需起别名
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">int</span>(<span style="color:#f92672">*</span>proc)(<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span>);
+<span style="color:#75715e">// 简化声明
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">calculate</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b, proc p) {
+    printf(<span style="color:#e6db74">&#34;result = %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, p(a, b));
+}
+
+<span style="color:#75715e">/* 函数指针模拟 oop 的类 */</span>
+<span style="color:#66d9ef">struct</span> Class {
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>id;                   <span style="color:#75715e">// 属性/字段
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>name;
+    <span style="color:#66d9ef">int</span> age;
+    <span style="color:#66d9ef">int</span> (<span style="color:#f92672">*</span>method)(<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span>);    <span style="color:#75715e">// 行为/方法
+</span><span style="color:#75715e"></span>}</code></pre></div>
+<p><strong>void 指针</strong>：通用指针，可指向任意类型，但其无类型检查需谨慎使用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">short</span> num <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>p_char <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>num;
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>p_int <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>num;
+<span style="color:#75715e">// p_char, p_int 指向地址相同，但解引用的值不同
+</span><span style="color:#75715e">// *p_char = 10  | *p_int = -29491128
+</span><span style="color:#75715e">// 由此，指针用来保存变量的地址，与其类型无关，
+</span><span style="color:#75715e">// 任意类型指针都可保存任意地址，而类型仅与解引用有关
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* 使用 void * 模拟泛型 */</span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">swap</span>(<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>a, <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>b, <span style="color:#66d9ef">int</span> size) {
+    <span style="color:#75715e">// 申请一定大小的堆空间
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>tmp <span style="color:#f92672">=</span> (<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>)malloc(size);
+    memcpy(tmp, a, size);   <span style="color:#75715e">// swap data
+</span><span style="color:#75715e"></span>    memcpy(a, b, size);
+    memcpy(b, tmp, size);
+    free(tmp);              <span style="color:#75715e">// 释放内存
+</span><span style="color:#75715e"></span>}
+swap(<span style="color:#f92672">&amp;</span>a, <span style="color:#f92672">&amp;</span>b, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>));    <span style="color:#75715e">// int 类型
+</span><span style="color:#75715e"></span>swap(<span style="color:#f92672">&amp;</span>a, <span style="color:#f92672">&amp;</span>b, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>));   <span style="color:#75715e">// long 类型
+</span></code></pre></div>
+<p>函数指针实用小结：</p>
+
+<ol>
+<li><p>利用函数指针可实现函数式编程</p></li>
+
+<li><p>将函数指针存入数组中，可实现函数回调通知机制</p></li>
+
+<li><p>将结构体于函数指针结合，可模拟 OOP 中的类，实际上 GO 语言就是如此</p></li>
+</ol>
+
+<hr />
+
+<h2 id="链接与库">链接与库</h2>
+
+<p>这里仅是对视频内容做简要笔记，更多相关知识可参考书籍<a href="https://book.douban.com/subject/3652388/">《程序员的自我修养-编译链接与库》</a>,  《CSAPP》- 第七章链接</p>
+
+<h3 id="虚拟内存">虚拟内存</h3>
+
+<p>在早起计算机系统中，程序可直接操作物理内存，即<strong>实模式</strong>。如可用 C 语言向某个内存地址中写入数据，但如此一来就会带来无法避免的问题。比如，程序 A 中占用了大部分内存，若再想运行程序 B 就会内存不足，因此早起系统是单任务的，同一时间无法运行多个程序。</p>
+
+<p>随着多任务系统的出现，可同时运行多个程序，也带来新问题，如内存重叠、内存冲突。假如两个程序都用到同一块内存，当它们同时运行时就会造成冲突，程序在编译时永远无法确定哪块内存是没有被人使用的。为此 OS 出现了虚拟内存的概念</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/virtual_addr.png" alt="virtual_addr" /></p>
+
+<p>所谓虚拟内存，就是一张地址转换表，程序不能直接操作物理内存，只能操作这张转换表。并且为提高此表的查找效率，采用分页的方式，因此此表也称为<strong>页表</strong></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/page_table.png" alt="page_table" /></p>
+
+<p>程序实际上操作的是页表中的虚拟地址，而页表再将其映射到物理内存地址。如此程序就不用再关注物理内存了，对程序而言它的一切操作都是对虚拟内存地址进行的，由 OS 在底层再去转为真正的物理内存地址。这样做的好处：</p>
+
+<ul>
+<li><p>避免地址冲突，即使两个程序操作同一地址也不会冲突了，因为每个程序都有对应的虚拟地址，底层对应到不同的物理地址</p></li>
+
+<li><p>控制访问权限，通过虚拟地址将程序与物理地址隔开，即使程序非法访问到其他的内存地址，OS 在页表这关将其拦截掉，不会造成物理地址的访问，从而保证程序的安全性</p></li>
+</ul>
+
+<p>在装 Linux 系统时要设置交换区大小，而交换区就是在磁盘上开辟一个固定空间，通常就是在硬盘上，这样就能将不常用到的程序所占用的内存移到此交换区中，目的就是缓解内存资源更加高效的使用</p>
+
+<p>关于交换区访问，如上图若在页表中访问 T6 的地址，发现页表中没有，即<strong>缺页</strong>，那么系统就会启动对应的处理程序。简单说就是将物理内存中不活跃的内存(如P5)移到交换区中，腾出的P5空间再交给交换区移出的 T6，然后更新页表，如此就发生物理内存与交换区内容的交换，之后程序就能正常访问到 T6 的数据</p>
+
+<p>通过交换区可让所能使用的内存超过物理内存，但交换区也不能太大，因为硬盘的访问速度要比内存慢 500 多倍，若将数据大量存放到交换区中，就会拖慢程序运行的速度</p>
+
+<h3 id="链接">链接</h3>
+
+<p>链接，指将多个目标文件合并成一个可执行文件的过程。再回顾下编译的四个阶段：预编译&ndash;&gt;编译&ndash;&gt;汇编&ndash;&gt;链接</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* 以 Windows 下 MinGW 的 gcc 为例 */</span>
+<span style="color:#ae81ff">1.</span> CPP(C Pre<span style="color:#f92672">-</span>Processor)<span style="color:#960050;background-color:#1e0010">，位与</span> MinGW <span style="color:#960050;background-color:#1e0010">的</span> bin <span style="color:#960050;background-color:#1e0010">下</span>
+cmd: cpp main.c <span style="color:#f92672">-</span>o main.i  <span style="color:#f92672">---&gt;</span> 
+<span style="color:#960050;background-color:#1e0010">对应</span> gcc: gcc <span style="color:#f92672">-</span>E main.c <span style="color:#f92672">-</span>o main.i
+
+<span style="color:#ae81ff">2.</span> <span style="color:#960050;background-color:#1e0010">编译器</span>(cc1)<span style="color:#960050;background-color:#1e0010">，位与</span> MinGW<span style="color:#f92672">/</span>libexe<span style="color:#f92672">/</span>gcc<span style="color:#f92672">/</span> <span style="color:#960050;background-color:#1e0010">下</span>
+cmd: cc1 main.i <span style="color:#f92672">-</span>o main.s  <span style="color:#f92672">---&gt;</span>
+<span style="color:#960050;background-color:#1e0010">对应</span> gcc: gcc <span style="color:#f92672">-</span>S mian.i <span style="color:#f92672">-</span>o main.s
+
+<span style="color:#ae81ff">3.</span> <span style="color:#960050;background-color:#1e0010">汇编器</span>(as)<span style="color:#960050;background-color:#1e0010">，位与</span> MinGW<span style="color:#f92672">/</span>bin <span style="color:#960050;background-color:#1e0010">下</span>
+cmd: as main.s <span style="color:#f92672">-</span>o main.o  <span style="color:#f92672">---&gt;</span>
+<span style="color:#960050;background-color:#1e0010">对应</span> gcc: gcc <span style="color:#f92672">-</span>c main.s <span style="color:#f92672">-</span>o main.o
+
+<span style="color:#ae81ff">4.</span> <span style="color:#960050;background-color:#1e0010">连接器</span>(ld)<span style="color:#960050;background-color:#1e0010">，位与</span> MinGW<span style="color:#f92672">/</span>bin <span style="color:#960050;background-color:#1e0010">下</span>
+cmd: ld calc.o main.o <span style="color:#f92672">-</span>e start <span style="color:#f92672">-</span>o main.exe <span style="color:#f92672">---&gt;</span>
+<span style="color:#960050;background-color:#1e0010">对应</span> gcc: gcc calc.o main.o <span style="color:#f92672">-</span>o main
+<span style="color:#75715e">// ld 的 -e 指定程序入口函数为 start 函数，因为 C 语言并未规定 main 函数
+</span><span style="color:#75715e">// 作为入口函数，而 gcc 在链接时实际用的是 collect2 库来处理链接，
+</span><span style="color:#75715e">// 它会调用各种初始化函数，并用 libgcc 设置 __main 符号，从而让 main 作为入口函数。
+</span><span style="color:#75715e">// 实际上在汇编程序中，真正的入口函数是 _start，因此这里用 start 作为入口函数
+</span></code></pre></div>
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/compile.png" alt="compile" /></p>
+
+<p><strong>链接</strong>：将多个不同的目标文件合并到一起，目标文件间的相互引用就是文件间对地址的引用，即函数和变量地址的引用。在链接中，函数和变量统称为符号(symbol)，函数名和变量名称符号名(symbol name)</p>
+
+<p>链接的关键就是对符号进行管理，每个 object 文件都有相应记录所有符号的符号表，每个符号有一个值，即符号值(symbol value)，对于函数和变量符号值就是它们的地址</p>
+
+<p>简单理解，符号在汇编中代表一个地址，经汇编器处理后，所有的符号都会被替换成它所代表的地址值。C 中是通过变量名访问该变量，即读写某个地址的内存空间；通过函数名调用此函数，即跳转到该函数第一条指令所在地址，故变量名和函数名均是符号，本质上就代表内存地址</p>
+
+<p><strong>查看符号表</strong>：可用 GNU GCC 提供的工具链 nm 命令查看目标文件的符号表。<code>nm calc.o</code>, <code>nm main.o</code> 查看目标文件，<code>nm main.exe</code> 查看可执行文件。经验证会发现 main.exe 的符号表就是 calc.o main.o 合并而成的；或用 objdump 命令<code>objdump -t calc.o</code>, `objdump -t main.o</p>
+
+<p>可通过下面符号类型表理解 nm 命令结果对应的含义</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/symbol_type.png" alt="symbol_type" /></p>
+
+<p><strong>链接作用</strong></p>
+
+<ol>
+<li><p>符号解析，将符合引用与符号定义关联起来</p></li>
+
+<li><p>地址重定位，将合成后文件的符号地址重定位，分配一个真实有效的虚拟内存地址，如下图中所看到的 .o 文件的地址都是 0，而 .exe 就是实际有效的地址</p></li>
+</ol>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/nm_cmd.png" alt="nm_cmd" /></p>
+
+<p><strong>链接分类</strong></p>
+
+<ul>
+<li><p>静态链接，将多个 object 文件的内容 copy 到一个 .exe 文件的链接方式（直观、简单）</p></li>
+
+<li><p>动态链接，并非全 copy 的方式，灵活常用，但性能会低于静态链接</p></li>
+</ul>
+
+<p><strong>函数库</strong>：一个 object 文件的文件包，它包含静态库和动态库两种</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* 静态库 */</span>
+<span style="color:#75715e">// 打包静态库 - ar 打包命令
+</span><span style="color:#75715e"></span>ar rs libcalc.a add.o sub.o mul.o div.o
+<span style="color:#75715e">//【参数】r-为后面的 .o 文件创建文件包；s-用于生成静态库
+</span><span style="color:#75715e">// libcalc.a 为生成静态库的文件名，其中 lib 为前缀，.a 为文件后缀，calc 为库名
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 链接静态库
+</span><span style="color:#75715e"></span>gcc main.o <span style="color:#f92672">-</span>L. <span style="color:#f92672">-</span>lcalc <span style="color:#f92672">-</span>o main.exe
+<span style="color:#75715e">// 【参数】-L 设置链接库路径，.表示当前目录(参数与路径间无空格) 
+</span><span style="color:#75715e">// -l 后跟库名，无前后缀
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* 静态库优缺点：在链接时简单易理解，但当静态库文件有变动时就要
+</span><span style="color:#75715e">   重新打包并重新链接生成新的 exe 文件，如此就麻烦许多 */</span>
+
+<span style="color:#75715e">/*************************************************/</span>
+
+<span style="color:#75715e">/* 动态库/共享库 */</span>
+<span style="color:#75715e">// 生成与位置无关的 obj 文件
+</span><span style="color:#75715e"></span>gcc <span style="color:#f92672">-</span>fPIC <span style="color:#f92672">-</span>c add.c sub.c mul.c div.c
+<span style="color:#75715e">// 【参数】-fPIC 表示生成位置无关代码
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 打包动态库
+</span><span style="color:#75715e"></span>gcc <span style="color:#f92672">-</span>shared add.o sub.o mul.o div.o <span style="color:#f92672">-</span>o libcalc.dll
+<span style="color:#75715e">// 【参数】-shared 生成动态库；win 下以 .dll(dynamic linking library) 为动态库后缀
+</span><span style="color:#75715e">// 而 linux 下以 .so(shared object) 为后缀
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 上面两步的综合命令
+</span><span style="color:#75715e"></span>gcc <span style="color:#f92672">-</span>fPIC <span style="color:#f92672">-</span>shared add.c sub.c mul.c div.c <span style="color:#f92672">-</span>o libcalc.dll
+
+<span style="color:#75715e">// 链接动态库-三种方式（实验时需先删除静态库以防止干扰）
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">1.</span> gcc app.c libcalc.dll <span style="color:#f92672">-</span>o app  <span style="color:#75715e">// 直接关联
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">2.</span> gcc app.c <span style="color:#f92672">-</span>L. <span style="color:#f92672">-</span>lcalc <span style="color:#f92672">-</span>o app   <span style="color:#75715e">// 指定路径与静态库的类似
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">3.</span> <span style="color:#960050;background-color:#1e0010">设置</span> LD_LIBRARY_PATH <span style="color:#960050;background-color:#1e0010">环境变量</span>
+
+<span style="color:#75715e">/* 动态库优缺点：解决更新库麻烦的问题，当修改完库文件后只需打包好库替换掉原来的即可，
+</span><span style="color:#75715e">   不用再链接生成新的程序，该过程可通过网络程序从服务器下载库并自动替换
+</span><span style="color:#75715e">   这种方式也称为热更新 */</span></code></pre></div>
+<p><strong>静态库与动态库的区别</strong>：实际就是静态链接与动态链接的区别</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/static_dynamic.png" alt="static_dynamic" /></p>
+
+<p>如上图，若多个程序使用同一静态库，会额外占用内存来存放各自程序下的 libcalc.a ，且静态库本身代码修改后所使用该库的程序都要重新编译发布；而对于动态链接中所有程序共用同一动态库，节省加载到内存的空间，在库修改时只需更新对应动态库即可，不用重新编译发布程序</p>
+
+<h3 id="动态链接">动态链接</h3>
+
+<p>动态链接在程序链接阶段并未真正发生链接，只在该程序启动被装载到内存时才会发生真正链接。等于将本该在编译时发生的链接行为推迟到程序被启动时。</p>
+
+<p>动态链接要比静态链接复杂的多，且概念易混淆，它可分为：</p>
+
+<ul>
+<li><p>装载时动态链接</p></li>
+
+<li><p>运行时动态链接（延迟绑定）</p></li>
+</ul>
+
+<p>经过之前学习，链接往往指<strong>编译时链接</strong>，即编译过程的第四个阶段，经链接后方可生成可执行程序。事实上，编译时链接都是静态链接。动态链接并不能在编译时进行，它只能在加载时进行，且动态链接工作由一个叫动态链接器的东西来完成，而非 ld 命令</p>
+
+<p>动态链接的思想就是把程序按照模块拆分成各个相对独立的部分，在程序运行时才将它们链接到一起形成一个完整程序，而非像静态链接那样把所有的程序模块都链接成一个单独的可执行文件</p>
+
+<p>总结：</p>
+
+<ul>
+<li><p>静态库</p>
+
+<ul>
+<li><p>生成可执行文件体积大</p></li>
+
+<li><p>任何修改都需重新编译发布，不利于更新维护</p></li>
+
+<li><p>整个应用只由一个可执行文件构成</p></li>
+
+<li><p>符号使用绝对地址，性能略高于动态库</p></li>
+</ul></li>
+
+<li><p>动态库</p>
+
+<ul>
+<li><p>生成可执行文件体积小</p></li>
+
+<li><p>可热更新，方便修改维护</p></li>
+
+<li><p>通常一个完整程序由一个可执行文件和多个动态库文件组成</p></li>
+
+<li><p>动态库的调用需跳转，相比静态库性能略低，且不能脱离共享库文件</p></li>
+</ul></li>
+</ul>
+
+<p><strong>延时绑定技术</strong>，指在真正需要运行该函数时，才会去加载该函数所在的动态库，所以亦可称为运行时加载或显式加载。有了延时绑定技术可让 C 语言实现强大的框架功能，程序不用停止就能在运行时动态地给它增加或切换新功能，这种技术也称插件技术</p>
+
+<p>下面是动态链接延时绑定的过程</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/dynamic_link.png" alt="dynamic_link" /></p>
+
+<hr />
+
+<h2 id="文件-io">文件 IO</h2>
+
+<p>C 将文件看作是一系列连续的字节，每个字节都能被单独读取。这与 Unix 中的文件结构对应，而对于其他系统就不一定对应，所以 C 提供了两种文件模式：<strong>文本模式</strong> 和 <strong>二进制模式</strong></p>
+
+<p>所有文件的内容都以 0/1 形式存储，但若文件最初使用二进制编码的字符(ASCII/Unicode)表示文本，那该文件就是文本文件；若文件中的二进制值代表机器码、数值数据、图片或音乐编码等，那该文件就是二进制文件</p>
+
+<p>在二进制模式中，程序可访问文件的每个字节；而文本模式中程序所见的内容和文件的实际内容不同。程序以文本模式读写文件时，会将本地环境表示的航模为或文件末尾映射为 C 模式。</p>
+
+<p><strong>标准 IO</strong>：包含了许多专门的函数以简化处理 IO 的问题；且输入和输出都是缓冲的，即一次转移一大块信息而非一字节，缓冲区提高了数据传输速率</p>
+
+<p><strong>fopen(char *Filename, char *Mode)</strong>打开文件函数，第一个参数为要打开文件的文件名；第二个参数为打开的模式(读/写)</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/fopen.png" alt="fopen" /></p>
+
+<p>像 Linux 这种只有一种文件类型的 OS，带 b 与不带 b 的模式相同。注意：在 w 写模式下，会先将文件清空</p>
+
+<p><strong>getc(FILE *file)</strong>从指定文件中读取一个字符；<strong>putc(char ch, FILE *file)</strong>将 ch 字符写到指定文件中；<strong>gets、puts</strong>读写字符串，与字符类似</p>
+
+<p><strong>fclose(FILE *file)</strong>关闭指定文件</p>
+
+<h3 id="文件-io-接口">文件 IO 接口</h3>
+
+<p>格式化输出</p>
+
+<ul>
+<li><p><strong><em>printf(format, &hellip;)</em></strong>     // 写入到标准输出流</p></li>
+
+<li><p><strong><em>fprintf(file, format, &hellip;)</em></strong>      // 写入指定文件中</p></li>
+
+<li><p>*<strong>sprintf(char *buf, format, &hellip;)</strong>*      // 写入指定缓存 buffer 中</p></li>
+
+<li><p>*<strong>snprintf(char *buf, size, format, &hellip;)</strong>*      // 写入最大 size 个字节到指定缓存 buffer 中</p></li>
+</ul>
+
+<p>格式化输入</p>
+
+<ul>
+<li><p><strong><em>scanf(format, &hellip;)</em></strong>      // 从标准输入中读取数据</p></li>
+
+<li><p><strong><em>fscanf(file, format, &hellip;)</em></strong>      // 冲指定文件中读取数据</p></li>
+
+<li><p>*<strong>sscanf(char *buf, format, &hellip;)</strong>*      // 从指定缓存 buffer 中读取数据</p></li>
+</ul>
+
+<p>注：在 C11 中提供了上面标准输入的安全版本，即新函数都带有 _s 后缀(如：fscanf_s())，新函数在读入字符串到数组前会检查是否超出数组边界</p>
+
+<p>文件读写</p>
+
+<ul>
+<li><p><strong><em>fread(buf, size, n, fp)</em></strong>     // 从 fp 的流中读取最多 n 个对象，对象的空间大小为 size，并将读取到的对象数据存入 buf 中</p></li>
+
+<li><p><strong><em>fwrite(buf, size, n, fp)</em></strong>     // 将 buf 数组中的 n 个大小为 size 的对象数据写入 fp 的流中</p></li>
+
+<li><p><strong><em>fflush(fp)</em></strong>     // 刷新缓冲区</p></li>
+</ul>
+
+<p>文件随机访问</p>
+
+<ul>
+<li><p><strong><em>long ftell(fp)</em></strong>     // 获取当前文件指示符的位置</p></li>
+
+<li><p><strong><em>int fseek(fp, offset, origin)</em></strong>     // orifin 确定起始点，offset 依据起始点做左右偏移</p></li>
+</ul>
+
+<p>其他操作</p>
+
+<ul>
+<li><p>*<strong>remove(char *filename)</strong>*     // 删除文件</p></li>
+
+<li><p>*<strong>rename(char *filename)</strong>*     // 修改文件名</p></li>
+</ul>
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2024/04/python_basic/">Python_basic</a></li>
+
+<li><a href="/2023/06/adt/">ADT</a></li>
+
+<li><a href="/2023/05/c_code_style/">C_Code_Style</a></li>
+
+<li><a href="/2023/05/c_grammar_jjz/">C_Grammar_JJZ</a></li>
+
+<li><a href="/2023/05/lvgl_port/">LVGL_Port</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

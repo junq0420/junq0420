@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="C_Code_Style" />
+<meta property="og:description" content="记录 C 语言的一些代码规范和安富莱 C 编写规范及学习建议" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junq0420.github.io/2023/05/c_code_style/" />
+<meta property="article:published_time" content="2023-05-31T16:01:35+08:00" />
+<meta property="article:modified_time" content="2023-05-31T16:01:35+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C_Code_Style"/>
+<meta name="twitter:description" content="记录 C 语言的一些代码规范和安富莱 C 编写规范及学习建议"/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "C_Code_Style",
+  "url": "https://junq0420.github.io/2023/05/c_code_style/",
+  "wordCount": "1193",
+  "datePublished": "2023-05-31T16:01:35+08:00",
+  "dateModified": "2023-05-31T16:01:35+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "C"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://junq0420.github.io/2023/05/c_code_style/">
+
+    <title>C_Code_Style | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://junq0420.github.io/css/style.160a3bda53be859332fff3fc376b5fd76a285126483463aa2e24a17ae1bcae4c.css" rel="stylesheet" integrity="sha256-Fgo72lO&#43;hZMy//P8N2tf12ooUSZINGOqLiSheuG8rkw=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/archives/" title="">Archives</a>
+          
+          
+          <a class="nav-link" href="/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://junq0420.github.io/2023/05/c_code_style/">C_Code_Style</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2023-05-31T16:01:35+08:00">2023-05-31</time>
+ in 
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/tags/c/" rel="tag">C</a>
+
+</p>
+  </header>
+  <p>记录 C 语言的一些代码规范和安富莱 C 编写规范及学习建议</p>
+
+<blockquote>
+<p><strong>学习笔记，仅供参考</strong></p>
+
+<p><strong>参考</strong>：<a href="http://www.cs.umd.edu/~nelson/classes/resources/cstyleguide/">c_style_guide</a>
+<strong>参考</strong>：<a href="https://www.armbbs.cn/forum.php?mod=viewthread&amp;tid=85595">安富莱C语言编码规范</a></p>
+</blockquote>
+
+<hr />
+
+<p>第一部分为摘抄的一些 C 语言代码规范，如果实在规范比较纠结就参考 Linux 的代码规范</p>
+
+<h2 id="概览">概览</h2>
+
+<ol>
+<li>变量，常量和函数名命名要有意义，不使用驼峰命名法，用下划线隔开单词。如用 hot_water_temperature 代替 hotWaterTemperature，单字符变量仅适用于迭代循环。</li>
+<li>合适的缩进，开发多是 4 个空格</li>
+<li>同类型变量尽可能在同一行声明</li>
+<li>变量声明和函数内容代码要空一行</li>
+<li>括号保持成对出现</li>
+<li>左大括号必须与条件或函数位于同一行上</li>
+<li>必要时将数字定义为常量，尽量减少数字出现在表达式中除了一些特殊意义的数字，如 3.1415926</li>
+<li>定义常量时必须以大写的形式(如, #define MAX_LEN 10)</li>
+<li>在操作符两边各空一格(x = 5 + 7;)</li>
+<li>在逗号后留出一个空格(int num1, num2;)</li>
+<li>如果代码太复杂而无法单独读取，请简化/拆分/重命名变量</li>
+<li>条件判断时使用括号避免逻辑混乱</li>
+<li>不必要时避免使用全局变量</li>
+<li>若 p 是一个结构体的指针，应该使用 p-&gt;number 访问成员变量，而不是 (*p).member。并且 -&gt; 两边不空格</li>
+<li>避免一行代码的字符数超过 80 个</li>
+<li>尽量避免重复代码
+<br /></li>
+</ol>
+
+<hr />
+
+<h2 id="一些具体内容">一些具体内容</h2>
+
+<h3 id="代码组织">代码组织</h3>
+
+<ul>
+<li>使用统一规定组织代码：
+
+<ol>
+<li>#include&lt;&gt;</li>
+<li>#include&rdquo;&rdquo;</li>
+<li>#defines</li>
+<li>Data Types(e.g., structures)</li>
+<li>Globals(全局变量)</li>
+<li>Prototypes(函数原型声明)</li>
+<li>Code(逻辑操作等)</li>
+</ol></li>
+<li>main 函数要么在开头要么在结尾</li>
+<li>#include 和 #define 之间不要有代码</li>
+</ul>
+
+<h3 id="函数">函数</h3>
+
+<ul>
+<li>通过调用合适的函数来避免代码重复，而不是复制粘贴</li>
+<li>Input parameters must appear before out parameters.</li>
+<li>Annotate helper functions with static.</li>
+<li>Annotate unmodified parameters with const.</li>
+<li>And annotate functions intended to be used from outside with extern.</li>
+<li>函数应该表现为一个内部复杂的可读单元或是频繁使用的单元</li>
+
+<li><p>若函数的形参声明超过 80 个字符，可换行对齐书写，如下所示：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">process</span>(<span style="color:#66d9ef">int</span> my_first_value, <span style="color:#66d9ef">int</span> temperature, <span style="color:#66d9ef">float</span> pressure, 
+         <span style="color:#66d9ef">int</span> altitude, <span style="color:#66d9ef">char</span> color) {
+<span style="color:#75715e">/*code here*/</span>
+}</code></pre></div></li>
+</ul>
+
+<h3 id="注释">注释</h3>
+
+<ul>
+<li>所有的代码都必须要有一些说明性注释，描述一块代码的目的</li>
+<li>描述应该出现在每个功能的上面</li>
+<li>若变量名意义不明，应在声明处描述其使用的目的</li>
+</ul>
+
+<h3 id="杂项">杂项</h3>
+
+<ul>
+<li>Use assert - Macro that prints error message and terminates the program if the provided expression is false (e.g., assert(x != 0)). Assert can help with readability, mechanically exposing pre and post conditions more strongly than comments (which can become obsolete). Keep in mind that aborting execution may be inappropriate for submitted tests. We likely expect an error message.</li>
+<li>About return statements:
+
+<ul>
+<li>Return at the end is OK.</li>
+<li>Return at the beginning for erroneous input is OK.</li>
+<li>Return in the middle of a loop is sketchy.</li>
+</ul></li>
+<li>About loops:
+
+<ul>
+<li>If a loop should end by a condition, use loop control rather than break.</li>
+<li>Use a for loop when initialization, comparison, and increment are appropriate (not a while loop).</li>
+</ul></li>
+<li>Avoid using the indent command as a last step; it can undo any manual beautification.</li>
+</ul>
+
+<p><p style="color: red; font-size: large">注：暂时不能理解的内容，以原文的形式保留<p></p>
+
+<hr />
+
+<h2 id="代码示例">代码示例</h2>
+
+<p>示例一：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/*
+</span><span style="color:#75715e">  Jane/Joe Doe                   
+</span><span style="color:#75715e">  ID: 12345679                    
+</span><span style="color:#75715e"> */</span>
+
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+   <span style="color:#66d9ef">int</span> temperature <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, height;
+   <span style="color:#66d9ef">char</span> gender;
+   
+   printf(<span style="color:#e6db74">&#34;Enter Gender (m/f): &#34;</span>);
+   scanf(<span style="color:#e6db74">&#34;%c&#34;</span>, <span style="color:#f92672">&amp;</span>gender);
+
+   printf(<span style="color:#e6db74">&#34;Enter temperature: &#34;</span>);
+   scanf(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>temperature);
+
+   printf(<span style="color:#e6db74">&#34;Enter height (inches): &#34;</span>);
+   scanf(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>height);
+
+   <span style="color:#66d9ef">if</span> (gender <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;f&#39;</span>) {
+      printf(<span style="color:#e6db74">&#34;Female</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+   } <span style="color:#66d9ef">else</span> {
+      printf(<span style="color:#e6db74">&#34;Male</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+   }
+
+   <span style="color:#66d9ef">do</span> {
+      <span style="color:#66d9ef">if</span> (temperature <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+         printf(<span style="color:#e6db74">&#34;Even temperature %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, temperature);
+      }
+      temperature<span style="color:#f92672">--</span>;
+   } <span style="color:#66d9ef">while</span> (temperature <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>);
+
+   <span style="color:#75715e">/* This is a cascaded if statement example */</span>
+   <span style="color:#66d9ef">if</span> (height <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> height <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">15</span>) {
+      printf(<span style="color:#e6db74">&#34;Type1</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+   } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (height <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">15</span> <span style="color:#f92672">&amp;&amp;</span> height <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">30</span>) {
+      printf(<span style="color:#e6db74">&#34;type2</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+   } <span style="color:#66d9ef">else</span> {
+      printf(<span style="color:#e6db74">&#34;Other type</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+   }
+
+   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}</code></pre></div>
+<p>示例二：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* Prototypes */</span>
+<span style="color:#66d9ef">char</span> <span style="color:#a6e22e">letter_grade</span>(<span style="color:#66d9ef">float</span> score); 
+
+<span style="color:#75715e">/***************************************/</span>
+<span style="color:#75715e">/* The program reads two values and    */</span>
+<span style="color:#75715e">/* generates the average. You need to  */</span>
+<span style="color:#75715e">/* provide two values separated by and */</span>
+<span style="color:#75715e">/***************************************/</span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+   <span style="color:#66d9ef">float</span> score1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">77</span>, score2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">88</span>, avg;
+   <span style="color:#66d9ef">int</span> values_read;
+
+   <span style="color:#75715e">/* Reading the values */</span>
+   printf(<span style="color:#e6db74">&#34;Enter two scores using &lt;score1&gt; and &lt;score2&gt; format: &#34;</span>);
+   values_read <span style="color:#f92672">=</span> scanf(<span style="color:#e6db74">&#34;%f and %f&#34;</span>, <span style="color:#f92672">&amp;</span>score1, <span style="color:#f92672">&amp;</span>score2);
+   printf(<span style="color:#e6db74">&#34;The number of values read is %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, values_read);
+
+   <span style="color:#75715e">/* Computing and printing the average */</span>
+   avg <span style="color:#f92672">=</span> (score1 <span style="color:#f92672">+</span> score2) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+   printf(<span style="color:#e6db74">&#34;Average for %f and %f is %.2f</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, score1, score2, avg);
+   printf(<span style="color:#e6db74">&#34;Your letter grade is %c</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, letter_grade(avg));
+
+   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#75715e">/******************************************/</span>
+<span style="color:#75715e">/* letter_grade returns &#39;A; if score &gt;=90 */</span>
+<span style="color:#75715e">/* &#39;B&#39; if score &gt;=80, &#39;F&#39; otherwise       */</span>
+<span style="color:#75715e">/******************************************/</span>
+<span style="color:#66d9ef">char</span> <span style="color:#a6e22e">letter_grade</span>(<span style="color:#66d9ef">float</span> score) {
+   <span style="color:#66d9ef">if</span> (score <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">90</span>) {
+      <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;A&#39;</span>;
+   } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (score <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">80</span>) {
+      <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;B&#39;</span>;
+   } <span style="color:#66d9ef">else</span> {
+      <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;F&#39;</span>;
+   }
+}</code></pre></div>
+<p>示例三：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> pixel {
+   <span style="color:#66d9ef">int</span> x, y;
+   <span style="color:#66d9ef">char</span> color;
+} Pixel;
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print_pixel</span>(Pixel p);
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">increase_x_and_y</span>(Pixel <span style="color:#f92672">*</span>p, <span style="color:#66d9ef">int</span> delta);
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print_pixel</span>(Pixel p) {
+   printf(<span style="color:#e6db74">&#34;x: %d, y: %d, color: %c</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, p.x, p.y, p.color);
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">increase_x_and_y</span>(Pixel <span style="color:#f92672">*</span>p, <span style="color:#66d9ef">int</span> delta) {
+   p<span style="color:#f92672">-&gt;</span>x <span style="color:#f92672">+=</span> delta;   <span style="color:#75715e">/* Do not access member using (*p).x */</span>
+		    <span style="color:#75715e">/* Do not leave space p -&gt; x */</span>
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+   Pixel p1 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#39;r&#39;</span>};
+   
+   increase_x_and_y(<span style="color:#f92672">&amp;</span>p1, <span style="color:#ae81ff">300</span>);
+   print_pixel(p1);
+
+   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}</code></pre></div>
+<blockquote>
+<p>更多内容参考
+<a href="http://users.ece.cmu.edu/~eno/coding/CCodingStandard.html">CCodingStandard</a>
+<a href="https://www2.cs.arizona.edu/~mccann/cstyle.html">cstyle</a></p>
+</blockquote>
+
+<hr />
+
+<p>以下部分为 ArmFly 规范编写 C 程序的命名，特记录一些安富莱建议的规范</p>
+
+<h2 id="文件与目录">文件与目录</h2>
+
+<ol>
+<li><p>文件及目录的命名可用字符：[A-Z; a-z; 0-9; ._-]</p></li>
+
+<li><p>源文件后缀用小写字母 .c 和 .h</p></li>
+
+<li><p>文件命名要准确清晰表达其内容，且文件名应精炼防止名字过长造成使用不便，可适当使用缩写。以下为两种参考命名方式：</p>
+
+<ul>
+<li><p>各程序模块的文件名开头 2 个小写字母代表本模块功能：如主控程序为 mpMain.c, mpDisp.c &hellip;</p></li>
+
+<li><p>不屑模块功能标识：如主控程序：Main.c, Disp.c</p></li>
+</ul></li>
+
+<li><p>一个软件包或一个逻辑组件的所有头文件和源文件防止一个单独目录下，有利于查找</p></li>
+
+<li><p>对整个项目需要的公共头文件，应放在单独目录下（如：myProject/include），避免引用时目录过于分散</p></li>
+
+<li><p>源码文件的段落安排：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">a. <span style="color:#960050;background-color:#1e0010">文件头注释</span>
+b. <span style="color:#960050;background-color:#1e0010">防止重复引用头文件的设置</span>
+c. <span style="color:#960050;background-color:#1e0010">#</span>include <span style="color:#960050;background-color:#1e0010">部分</span>
+d. <span style="color:#960050;background-color:#1e0010">#</span>define <span style="color:#960050;background-color:#1e0010">宏定义部分</span>
+e. <span style="color:#66d9ef">enum</span> <span style="color:#960050;background-color:#1e0010">枚举定义部分</span>
+f. <span style="color:#960050;background-color:#1e0010">类型声明和定义，包括：</span><span style="color:#66d9ef">struct</span><span style="color:#960050;background-color:#1e0010">、</span><span style="color:#66d9ef">union</span><span style="color:#960050;background-color:#1e0010">、</span><span style="color:#66d9ef">typedef</span> <span style="color:#960050;background-color:#1e0010">等</span>
+g. <span style="color:#960050;background-color:#1e0010">全局变量声明</span>
+h. <span style="color:#960050;background-color:#1e0010">文件级变量声明</span>
+i. <span style="color:#960050;background-color:#1e0010">全局</span><span style="color:#f92672">/</span><span style="color:#960050;background-color:#1e0010">文件级函数声明</span>
+j. <span style="color:#960050;background-color:#1e0010">函数实现，按声明顺序排列</span>
+k. <span style="color:#960050;background-color:#1e0010">文件尾注释</span></code></pre></div></li>
+
+<li><p>引用头文件时不用绝对路径，使用相对路径；使用 <code>&lt;&gt;</code> 来引用预定义或特定目录头文件，用 <code>&quot;&quot;</code> 引用当前目录或相对当前目录的头文件</p></li>
+
+<li><p>用 ifndef/define/endif 结构防止头文件重复引用</p></li>
+
+<li><p>头文件只存放 &ldquo;声明&rdquo; 不存放 &ldquo;定义&rdquo;</p></li>
+</ol>
+
+<hr />
+
+<h2 id="排版">排版</h2>
+
+<ol>
+<li>程序块采用缩进风格编写，缩进的空格数为 4 个</li>
+
+<li><p>相对独立的程序块间、变量说明之后必须加空行</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">DemoFunc</span>(<span style="color:#66d9ef">void</span>)
+{
+<span style="color:#66d9ef">uint8_t</span> i;
+
+<span style="color:#75715e">// 局部变量和语句间空行
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; i<span style="color:#f92672">++</span>)    <span style="color:#75715e">// 功能块1
+</span><span style="color:#75715e"></span>{
+    ...
+}
+
+<span style="color:#75715e">// 不同功能块间空行
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">20</span>; i<span style="color:#f92672">++</span>)    <span style="color:#75715e">// 功能块2
+</span><span style="color:#75715e"></span>{
+    ...
+}
+}</code></pre></div></li>
+
+<li><p>长表达式可换行编写，操作符放在新行之首，新行可适当缩进使得排版整齐</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span> ((ucParam1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) <span style="color:#f92672">&amp;&amp;</span> (ucParam2 <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) <span style="color:#f92672">&amp;&amp;</span> (ucParam3 <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) 
+<span style="color:#f92672">||</span> (ucParam4 <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>))
+{
+...
+}</code></pre></div></li>
+
+<li><p>不允许将多个短语句写在同一行，即一行只写一条语句</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">rect.length <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; rect.width <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;    <span style="color:#75715e">// 不正确写法
+</span><span style="color:#75715e"></span>
+rect.length <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;    <span style="color:#75715e">// 正确写法
+</span><span style="color:#75715e"></span>rect.width <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;</code></pre></div></li>
+
+<li><p>操作符格式</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">(<span style="color:#ae81ff">1</span>) <span style="color:#960050;background-color:#1e0010">逗号、分号只在后面加空格</span>
+<span style="color:#66d9ef">int32_t</span> a, b, c;
+
+(<span style="color:#ae81ff">2</span>) <span style="color:#960050;background-color:#1e0010">比较操作符、赋值操作符、算数操作符、逻辑操作符、位域操作符前后需加空格</span>
+<span style="color:#66d9ef">if</span> (current_time <span style="color:#f92672">&gt;=</span> MAX_TIME_VALUE)
+a <span style="color:#f92672">=</span> b <span style="color:#f92672">+</span> c;
+a <span style="color:#f92672">*=</span> <span style="color:#ae81ff">2</span>;
+a <span style="color:#f92672">=</span> b <span style="color:#f92672">^</span> <span style="color:#ae81ff">2</span>;
+
+(<span style="color:#ae81ff">3</span>) <span style="color:#e6db74">&#34;!, ~, ++, --, &amp;, *&#34;</span><span style="color:#960050;background-color:#1e0010">等单目操作符前后不加空格</span>
+<span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;a&#39;</span>;
+flag <span style="color:#f92672">=</span> <span style="color:#f92672">!</span>isEmpty;
+p <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>mem;
+i<span style="color:#f92672">++</span>;
+
+(<span style="color:#ae81ff">4</span>) <span style="color:#e6db74">&#34;-&gt;, .&#34;</span> <span style="color:#960050;background-color:#1e0010">前后不加空格</span>
+p<span style="color:#f92672">-&gt;</span>id <span style="color:#f92672">=</span> pid;
+
+(<span style="color:#ae81ff">5</span>) <span style="color:#66d9ef">if</span>, <span style="color:#66d9ef">for</span>, <span style="color:#66d9ef">while</span>, <span style="color:#66d9ef">switch</span> <span style="color:#960050;background-color:#1e0010">等与后面括号间应加空格</span>
+<span style="color:#66d9ef">if</span> (a <span style="color:#f92672">&gt;=</span> b <span style="color:#f92672">&amp;&amp;</span> c <span style="color:#f92672">&gt;</span> d)</code></pre></div></li>
+</ol>
+
+<hr />
+
+<h2 id="注释-1">注释</h2>
+
+<ol>
+<li><p>一般情况下，源程序有效注释量必须在 20% 以上</p></li>
+
+<li><p>在文件开头应给出关于文件版权、内容简介、修改历史等项目说明</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#960050;background-color:#1e0010">具体的格式请参见如下的说明。在创建代码和每次更新代码时，都必须在</span>
+<span style="color:#960050;background-color:#1e0010">文件的历史记录中标注版本号、日期、作者、更改说明等项目。其中的</span>
+<span style="color:#960050;background-color:#1e0010">版本号的格式为两个数字字符和一个英文字母字符。数字字符表示大的改变，</span>
+<span style="color:#960050;background-color:#1e0010">英文字符表示小的修改。如果有必要，还应该对其它的注释内容也进行同步的更改。</span>
+<span style="color:#960050;background-color:#1e0010">注意：注释第一行星号要求为</span> <span style="color:#ae81ff">76</span> <span style="color:#960050;background-color:#1e0010">个</span>,<span style="color:#960050;background-color:#1e0010">结尾行星号为</span> <span style="color:#ae81ff">1</span> <span style="color:#960050;background-color:#1e0010">个</span>
+<span style="color:#75715e">/****************************************************************************
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">* Copyright (C), 2010-2011,武汉汉升汽车传感系统有限责任公司
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">* 文件名: main.c
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">* 内容简述：
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">*
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">* 文件历史：
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">* 版本号 日期 作者 说明
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">* 01a 2010-07-29 王江河 创建该文件
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">* 01b 2010-08-20 王江河 改为可以在字符串中发送回车符
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">* 02a 2010-12-03 王江河 增加文件头注释
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">*/</span></code></pre></div></li>
+
+<li><p>对于函数应在函数实现前给出和函数实现相关的足够而精炼的注释信息。包含功能介绍、形参、全局变量、返回值等</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#960050;background-color:#1e0010">下面这段函数的注释比较标准，当然，并不局限于此格式，但上述信息建议要包含在内</span>
+<span style="color:#75715e">/****************************************************************************
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">* 函数名: SendToCard()
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">* 功 能: 向读卡器发命令，如果读卡器进入休眠，则首先唤醒它
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">* 输 入: 全局变量 gaTxCard[]存放待发的数据
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">* 全局变量 gbTxCardLen 存放长度
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">* 输 出: 无
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">*/</span></code></pre></div></li>
+
+<li><p>最好编写代码边注释，以保证注释与代码的一致性，不再有用的注释应删除</p></li>
+
+<li><p>注释内容要言简意赅，防止有歧义。注释注意阐述代码做了什么，必要时阐述为何如此做，而不是阐述它究竟如何实现算法的</p></li>
+
+<li><p>避免在注释中使用缩写，特别是常用缩写</p></li>
+
+<li><p>注释应与其描述的代码靠近，放在代码上方或右方（单条语句），不可放在下面，上方注释要与之前的代码用空行隔开</p></li>
+
+<li><p>注释要与其修饰的代码保持同样的缩进</p></li>
+
+<li><p>对变量的定义和分支语句（条件、循环等）必须编写注释，这些语句往往是程序实现某一特定功能的关键</p></li>
+
+<li><p>注释格式尽量统一，建议使用段注释 <code>/*****/</code>，另外英文表达不准确的情形下，建议多使用中文</p></li>
+</ol>
+
+<hr />
+
+<h2 id="可读性">可读性</h2>
+
+<ol>
+<li><p>注意运算符的优先级，并用括号明确表达式的操作顺序，避免使用默认优先级</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// 正确示例
+</span><span style="color:#75715e"></span>word <span style="color:#f92672">=</span> (high <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">8</span>) <span style="color:#f92672">|</span> low;
+<span style="color:#66d9ef">if</span> ((a <span style="color:#f92672">|</span> b) <span style="color:#f92672">&amp;&amp;</span> (a <span style="color:#f92672">&amp;</span> c))
+<span style="color:#66d9ef">if</span> ((a <span style="color:#f92672">|</span> b) <span style="color:#f92672">&gt;</span> (c <span style="color:#f92672">&amp;</span> d))
+
+<span style="color:#75715e">// 错误示例
+</span><span style="color:#75715e"></span>word <span style="color:#f92672">=</span> high <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">8</span> <span style="color:#f92672">|</span> low;
+<span style="color:#66d9ef">if</span> (a <span style="color:#f92672">|</span> b <span style="color:#f92672">&amp;&amp;</span> a <span style="color:#f92672">&amp;</span> c)
+<span style="color:#66d9ef">if</span> (a <span style="color:#f92672">|</span> b <span style="color:#f92672">&gt;</span> c <span style="color:#f92672">&amp;</span> d)</code></pre></div></li>
+
+<li><p>避免使用不易理解的数字，用有意义的标识代替。涉及物理状态或物理意义的常量可用枚举或宏代替</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// 错误示例 - 0，1 不知代表何意
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (Trunk[index].trunk_state <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+Trunk[index].trunk_state <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>;
+}
+
+<span style="color:#75715e">// 正确示例
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">enum</span> trunk_state_e {
+TRUNK_IDLE <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+TRUNK_BUSY <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+};
+
+<span style="color:#66d9ef">if</span> (Trunk[index].trunk_state <span style="color:#f92672">==</span> TRUNK_IDLE) {
+Trunk[index].trunk_state <span style="color:#f92672">==</span> TRUNK_BUSY;
+}</code></pre></div></li>
+
+<li><p>不使用难懂的技巧性很高的语句，除非很有必要时</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// 错误示例
+</span><span style="color:#75715e"></span><span style="color:#f92672">*</span> stat_poi <span style="color:#f92672">++</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+<span style="color:#f92672">*</span> <span style="color:#f92672">++</span> stat_poi <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+
+<span style="color:#75715e">// 正确示例
+</span><span style="color:#75715e"></span><span style="color:#f92672">*</span>stat_poi <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+stat_poi<span style="color:#f92672">++</span>;
+
+<span style="color:#f92672">++</span>stat_poi;
+<span style="color:#f92672">*</span>stat_poi <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;</code></pre></div></li>
+</ol>
+
+<hr />
+
+<h2 id="变量-结构-常量-宏">变量、结构、常量、宏</h2>
+
+<ol>
+<li><p>为书写及记忆，变量类型均采用 C99 的 stdint.h 所定义的</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> <span style="color:#66d9ef">uint8_t</span>;
+
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">short</span> <span style="color:#66d9ef">uint16_t</span>;
+
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">uint32_t</span>;
+
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">signed</span> <span style="color:#66d9ef">char</span> <span style="color:#66d9ef">int8_t</span>;
+
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">signed</span> <span style="color:#66d9ef">short</span> <span style="color:#66d9ef">int16_t</span>;
+
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">signed</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">int32_t</span>;
+
+<span style="color:#75715e">#define __IO volatile</span></code></pre></div></li>
+
+<li><p>常见类型前缀</p></li>
+</ol>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/var_type.png" alt="var_type" /></p>
+<pre><code>- 对于一些常见类型的变量，在变量名前标注其类型的前缀，前缀用小写字母表示
+
+- 对于几种变量类型组合，前缀可叠加</code></pre>
+<ol>
+<li><p>变量作用域的前缀</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#960050;background-color:#1e0010">为清晰标识变量的作用域，减少发生命名冲突，应在变量类型前缀之前再加上表示变量作用域的前缀，</span>
+<span style="color:#960050;background-color:#1e0010">并在前缀与作用域前缀之间用下划线</span> <span style="color:#e6db74">&#39;_&#39;</span> <span style="color:#960050;background-color:#1e0010">隔开</span>
+
+(<span style="color:#ae81ff">1</span>) <span style="color:#960050;background-color:#1e0010">全局变量，可用</span> <span style="color:#e6db74">&#39;g&#39;</span> <span style="color:#960050;background-color:#1e0010">表示</span>
+<span style="color:#66d9ef">uint32_t</span> g_ulParaWord;
+<span style="color:#66d9ef">uint8_t</span> g_ucByte;
+
+(<span style="color:#ae81ff">2</span>) <span style="color:#960050;background-color:#1e0010">静态变量，可用</span> <span style="color:#e6db74">&#39;s&#39;</span> <span style="color:#960050;background-color:#1e0010">表示</span>
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">uint32_t</span> s_ulParaWord;
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">uint8_t</span> s_ucByte;
+
+(<span style="color:#ae81ff">3</span>) <span style="color:#960050;background-color:#1e0010">函数内部等局部变量前可不加作用域前缀</span>
+(<span style="color:#ae81ff">4</span>) <span style="color:#960050;background-color:#1e0010">对于常量，当发生作用域或命名冲突时，以上几条规则也适用，</span>
+<span style="color:#960050;background-color:#1e0010">常量的核心部分全部大写，前缀部分仍用小写字母，以保持前缀一致性</span></code></pre></div></li>
+
+<li><p>对于结构体类型命名，以小写字母 &lsquo;tag&rsquo; 作为前缀标识，且类型名以大驼峰命名法，结尾用 &lsquo;_T&rsquo;；结构体变量以 &rsquo;t&rsquo; 作为前缀标识</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* 结构体类型命名 */</span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> tagBillQuery_T {
+...
+} BillQuery_T;
+
+<span style="color:#75715e">/* 结构体变量命名 */</span>
+BillQuery_T tBillQuery;
+
+<span style="color:#75715e">/* 枚举类型命名全大写，以 _E 结尾 */</span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">enum</span> {
+KB_F1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+KB_F2,
+KB_F3
+} KEY_CODE_E;</code></pre></div></li>
+
+<li><p>常量、宏、模板命名应全部大写，多个单词组成以下划线隔开，如：<code>#define LOG_BUF_SIZE 8000</code></p></li>
+
+<li><p>对于变量命名，禁止取单个字符（如 i, j, k..），建议除要有具体含义外，还能表明变量类型、数据结构等，但 i, j, k 作局部循环变量是允许的</p></li>
+
+<li><p>命名规范必须与所使用的系统风格保持一致，并在同一项目中统一，如采用 UNIX 的全小写加下划线的风格或驼峰命名的形式</p></li>
+</ol>
+
+<hr />
+
+<h2 id="函数-1">函数</h2>
+
+<ol>
+<li><p>函数命名规则，每个函数名前缀需包含模块名，模块名小写，与函数名区别开。如 uartReceive，对于非常简单的函数可不加模块名</p></li>
+
+<li><p>一个函数仅完成一件功能</p></li>
+
+<li><p>函数名应准确描述函数功能，避免使用无意义或含义不清的动词作为函数名。使用动宾词组作为某操作的函数名</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">PrintRecord</span>(<span style="color:#66d9ef">uint32_t</span> RecInd);
+<span style="color:#66d9ef">int32_t</span> <span style="color:#a6e22e">InputRecord</span>(<span style="color:#66d9ef">void</span>);
+<span style="color:#66d9ef">uint8_t</span> <span style="color:#a6e22e">GetCurrentColor</span>(<span style="color:#66d9ef">void</span>);</code></pre></div></li>
+</ol>
+
+<p>最后，自己特有的命名风格，要自始至终保持一致，不可变来变去。另外个人的命名风格在符合所在项目组或产品组的前提下才可使用。（即命名规则中没有规定到的地方才可有个人命名风格）</p>
+
+<hr />
+
+<h2 id="如何学习">如何学习</h2>
+
+<p>本部分摘自 ARMFLY STM32-V5 开发板用户手册 第 40 章（附件 A）</p>
+
+<h3 id="学习观点">学习观点</h3>
+
+<p><strong>不排斥英文资料</strong>：在有中文资料的情况下，我们当然是看中文资料学习起来效率高一些。但是大部分资料是没有中文译稿的。比如 CPU 的数据手册只有英文的，固件库源代码中的注释也都是英文的。因此一定要习惯阅读英文手册，不认识的单词可以安装翻译软件协助阅读。</p>
+
+<p><strong>选择性学习</strong>：STM32 的功能实在太多，和 STM32 相关的软件组件也多如牛毛。而人的精力是有限的，你就算学习一辈子，也不可能学会所有的东西。
+一些不常用的功能和知识点可以先放放，等待使用的时候再学习。几个必须了解的知识点：GPIO、TIM（基本定时器、脉宽测量、PWM输出）、UART（中断模式）、I2C、SPI、ADC（DMA）、DAC、FMC、看门狗等。
+如果你已经接到一些项目和产品开发，那么恭喜你，你一定会选择性的学习，因为时间不允许你全面学习。</p>
+
+<p><strong>拿来主义观点</strong>：人的一生，时间是最为宝贵的，我们一定要将时间用在刀刃上。别人做好的开源的第三方的代码，如果你测试应用过没有问题，那就属于你的了，你只要学会怎么移植和使用它就足够了。如果别人已经移植好了，那就更方便了，直接拿来使用即可。没有必要再花精力深入代码去研究别人的程序结构了。比如FatFS、uIP、ST固件库、uCOS、emWin。除非你是做基础研究或者查找BUG。
+我们一定要将时间腾出来去学习和掌握更多的软件模块。这样，当项目来临时，你就可以从容应对。好比盖房子，你可以直接拿砖砌，而不用在花时间去造砖。</p>
+
+<p><strong>构建自己的代码库</strong>：要学会收集整理自己验证过的代码，变为自己代码库的一部分，日积月累。等到做产品和项目时，80% 以上的代码来自于代码库。做产品很多时候就是搭积木。你的代码库越丰富，做起产品来也就越快越好。
+一些好的工程框架也要学会收集整理。我们在很多时候做项目，都是直接复制某个相近的工程。不可能每次都去重新新建一个工程。</p>
+
+<p><strong>多动手</strong>：光看不练是成为不了程序高手的。我们的资料只能帮助你尽快掌握 STM32 的开发方法，带你尽快入门，同时告诉你大家使用的常用组件，避免你闭门造车。大家一定要动手修改程序，独立设计自己的程序。
+如果你没有机会参与项目开发，完全没有目标。那我们建议你多上上论坛，看下别人遇到的问题，尝试自己解决下，这也是一种不错的锻炼方法。</p>
+
+<p><strong>培养兴趣</strong>：做程序员这一行，一定得培养起兴趣来。在学习的前期是最容易打退堂鼓的阶段，如果这个时候你放弃了，你的板子可能会开始吃灰。在前期，千万不要被复杂的程序结构所吓倒，一定要反复阅读，多调试跟踪进行分析。当你看懂了，你就会有成就感，才有继续学习的动力。</p>
+
+<p><strong>学会分享</strong>：分享也是学习的一部分，养成和大家分享成果的习惯。你可以分享自己的学习心得、调通的代码、帮别人解答问题，当这些内容获得网友认可的时候，你就会有成就感。分享的过程也在培养你的文笔、归纳总结能力。当你分享的内容到达一定数量时，量变到质变，不知不自觉中，你就会成为某一行的专家，你就有可能独立接到项目开发。如果没人找你，那说明你的能力还不够级别，或者不知道通过分享来宣传自己。</p>
+
+<h3 id="学习步骤">学习步骤</h3>
+
+<p>对于有一定C语言基础和ARM开发基础的人员，首要目的是快速熟悉STM32固件库的用法，推荐的学习步骤：
+1. 快速浏览CPU参考手册中的 FSMC，PWR，RCC，GPIO、USART、interrupts and events 等章节。虽然看 CPU 的 DataSheet 很枯燥，但是这是最权威的信息，挑重点章节多看几遍比去网上搜索答案更有效，可以毫不夸张地说“阅读 DataSheet 也是一种技能”。ST 的 CPU 手册分两个文档，一个叫数据手册（描述不同封装 CPU 间的差异以及管脚定义），另外一个叫参考手册（详细描述CPU内部结构、外设功能以及各个寄存器的用法）。如果你对Cortex核心感兴趣，可以阅读 《STM32权威指南（中文）.pdf》
+2. 把一些自己感兴趣的例程跑一遍，主要是熟悉ST固件库中常用函数的用法。顺序可以按 GPIO、USART、TIM、ADC 等。
+3. 在学习的过程中，要逐步掌握开发工具的用法。主要是 KEIL 或 IAR 集成环境、 J-Link/STLINK 仿真器。有一定基础后，可以自己设计或者在别人的基础上设计一个有使用价值的完整的程序，然后共享你的成果，和大家一起分享成功的喜悦。</p>
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2024/04/python_basic/">Python_basic</a></li>
+
+<li><a href="/2023/06/adt/">ADT</a></li>
+
+<li><a href="/2023/05/c_code_style/">C_Code_Style</a></li>
+
+<li><a href="/2023/05/c_grammar_jjz/">C_Grammar_JJZ</a></li>
+
+<li><a href="/2023/05/lvgl_port/">LVGL_Port</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>
