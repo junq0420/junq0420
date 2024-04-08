@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>makefile on My Blog</title>
-    <link>https://junq0420.github.io/tags/makefile/</link>
+    <link>http://github.com/junq0420.github.io/tags/makefile/</link>
     <description>Recent content in makefile on My Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>除非特别声明, 本站采用技术 [Hugo](https://gohugo.io/) &amp; 主题 [hugo-theme-bootstrap4-blog](https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/).</copyright>
-    <lastBuildDate>Thu, 19 May 2022 18:57:55 +0800</lastBuildDate><atom:link href="https://junq0420.github.io/tags/makefile/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 19 May 2022 18:57:55 +0800</lastBuildDate><atom:link href="http://github.com/junq0420.github.io/tags/makefile/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Makefile</title>
-      <link>https://junq0420.github.io/2022/05/makefile/</link>
+      <link>http://github.com/junq0420.github.io/2022/05/makefile/</link>
       <pubDate>Thu, 19 May 2022 18:57:55 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/05/makefile/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/05/makefile/</guid>
       <description>&lt;p&gt;简要记录 makefile 的编写使用&lt;/p&gt;</description>
     </item>
     

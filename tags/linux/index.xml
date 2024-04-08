@@ -2,21 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on My Blog</title>
-    <link>https://junq0420.github.io/tags/linux/</link>
+    <link>http://github.com/junq0420.github.io/tags/linux/</link>
     <description>Recent content in Linux on My Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>除非特别声明, 本站采用技术 [Hugo](https://gohugo.io/) &amp; 主题 [hugo-theme-bootstrap4-blog](https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/).</copyright>
-    <lastBuildDate>Sun, 28 Aug 2022 10:03:26 +0800</lastBuildDate><atom:link href="https://junq0420.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 28 Aug 2022 10:03:26 +0800</lastBuildDate><atom:link href="http://github.com/junq0420.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux_cmd</title>
-      <link>https://junq0420.github.io/2022/08/linux_cmd/</link>
+      <link>http://github.com/junq0420.github.io/2022/08/linux_cmd/</link>
       <pubDate>Sun, 28 Aug 2022 10:03:26 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/08/linux_cmd/</guid>
-      <description>记录一些不熟练或之前未了解到的 Linux 命令，参考 linuxfun 书籍
- 网址 : linux-training.be 链接 : 所参考书籍的下载连接
-目录 : * 1. 查看文本文件内容 * 2. shell expansion * 2.1. 命令与参数 * 2.2. 别名（alias） * 2.3. 特殊符号 * 2.4. Shell 变量 * 2.5. 嵌套(embedding)和选项(option) * 2.6. shell history * 3. 管道(Pipes)和命令 * 3.1. I/O 重定向 * 3.</description>
+      <guid>http://github.com/junq0420.github.io/2022/08/linux_cmd/</guid>
+      <description>&lt;p&gt;记录一些不熟练或之前未了解到的 Linux 命令，参考 linuxfun 书籍&lt;/p&gt;</description>
     </item>
     
   </channel>

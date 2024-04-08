@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="ARM Assembly" />
+<meta property="og:description" content="ARM 汇编基础知识" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://github.com/junq0420.github.io/2023/03/arm-assembly/" />
+<meta property="article:published_time" content="2023-03-13T16:27:33+08:00" />
+<meta property="article:modified_time" content="2023-03-13T16:27:33+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ARM Assembly"/>
+<meta name="twitter:description" content="ARM 汇编基础知识"/>
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ARM Assembly",
+  "url": "http://github.com/junq0420.github.io/2023/03/arm-assembly/",
+  "wordCount": "1286",
+  "datePublished": "2023-03-13T16:27:33+08:00",
+  "dateModified": "2023-03-13T16:27:33+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Jun qiang"
+  },
+  "keywords": "ARM"
+}
+</script>
+
+
+
+    <link rel="canonical" href="http://github.com/junq0420.github.io/2023/03/arm-assembly/">
+
+    <title>ARM Assembly | My Blog</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="http://github.com/junq0420.github.io/css/style.5661e2c97fcfc5e47dc9df16e3ca8a3598b1d2f4acbec96eec49c72a9d6e7a31.css" rel="stylesheet" integrity="sha256-VmHiyX/PxeR9yd8W48qKNZix0vSsvslu7EnHKp1uejE=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="http://github.com/junq0420.github.io/js/fontawesome.min.f5072c55a0721857184db93a50561d7dc13975b4de2e19db7f81eb5f3fa57270.js" integrity="sha256-9QcsVaByGFcYTbk6UFYdfcE5dbTeLhnbf4HrXz&#43;lcnA=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="http://github.com/junq0420.github.io">Home</a>
+          
+          <a class="nav-link" href="/junq0420.github.io/archives/" title="">Archives</a>
+          
+          
+          <a class="nav-link" href="/junq0420.github.io/categories/" title="">Categories</a>
+          
+          
+          <a class="nav-link" href="/junq0420.github.io/tags/" title="">Tags</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="http://github.com/junq0420.github.io" rel="home">My Blog</a></h1>
+        <p class="lead blog-description" dir="auto"><ul>
+<li>保持兴趣，持续学习 :)</li>
+</ul>
+</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="http://github.com/junq0420.github.io/2023/03/arm-assembly/">ARM Assembly</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2023-03-13T16:27:33+08:00">2023-03-13</time>
+ in 
+
+<span class="fas fa-tag" aria-hidden="true"></span>&nbsp;<a href="/junq0420.github.io/tags/arm/" rel="tag">ARM</a>
+
+</p>
+  </header>
+  <p>ARM 汇编基础知识</p>
+
+<blockquote>
+<p><strong>学习笔记，仅供参考</strong></p>
+
+<p><strong>参考</strong>：<a href="https://www.youtube.com/watch?v=gfmRrPjnEw4&amp;t=1s">ARM 汇编语言 - freeCodeCamp</a> | <a href="https://azeria-labs.com/writing-arm-assembly-part-1/">writing-arm-assembly</a></p>
+</blockquote>
+
+<hr />
+
+<p>在学习 FreeRTOS 中要使用 ARM 汇编语言来编写系统的调度、切换等操作，之前这块知识空白所以补下基础，目的只为能看懂 ARM 汇编程序</p>
+
+<h2 id="一些概念">一些概念</h2>
+
+<p>参考视频主要以实操为主，所以一些概念参考这篇博客 <a href="https://azeria-labs.com/writing-arm-assembly-part-1/">writing-arm-assembly</a></p>
+
+<p><strong>arm与x86区别</strong>：主要是指令集不同，x86 CISC - 有丰富的指令来访问内存，因此有更多的操作、取值模式，但寄存器较少； ARM RISC - 指令较少、寄存器较多，只使用 Load/Stroe 指令访问内存，即对一块内存做加法就要三步（1. 将数据从内存取到 CPU，2. CPU 做加法操作， 3. 再将运算结果存入内存）。RSIC的优点之一：由于每条指令都较为精简，所以执行快效率高。另外，arm 还分为两种模式 ARM 和 Thumb</p>
+
+<p>更多区别：</p>
+
+<ul>
+<li>ARM 大多指令能用作条件执行</li>
+<li>Intel x86 使用小端存储（数据地位放在低地址）</li>
+<li>ARM v3 前使用小端存储、之后变为大小端可切换的存储模式</li>
+</ul>
+
+<p>除了 ARM 与 x86 之间有区别外，ARM 的不同版本也会区别</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/ARM_version.jpg" alt="ARM_version" /></p>
+
+<p>由于计算机只认识机器码，所以汇编程序还要先转为机器码才行，因此汇编器充当了这一角色。同时汇编语言的出现也减轻了程序员编写代码的压力，通过近似自然语言的文本字符来告诉计算机完成怎样的操作。</p>
+
+<p><strong>数据结构</strong>：汇编中数据通常是以字、半字、字节的形式存取数据，在指令后添加对应的后缀来表示不同的数据形式，-h 表示半字、-b 表示字节、无后缀默认为字。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* 不同数据类型的 Load （Store 类型） */</span>
+ldr         <span style="color:#75715e">// load word
+</span><span style="color:#75715e"></span>ldrh        <span style="color:#75715e">// load unsigned half word
+</span><span style="color:#75715e"></span>ldrsh       <span style="color:#75715e">// load signed half word
+</span><span style="color:#75715e"></span>ldrb        <span style="color:#75715e">// load unsigned byte
+</span><span style="color:#75715e"></span>ldrsb       <span style="color:#75715e">// load signed byte
+</span></code></pre></div>
+<p><strong>大小端</strong>：上面说过，ARM 支持大小端存储数据，大小端的判断就是根据数据高低位谁放在低地址。而切换大小端模式的位是 CPSR 的第九位(E bit)决定</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/Endianness.jpg" alt="Endianness" /></p>
+
+<p><strong>寄存器</strong>：常见到的 16 个寄存器 r0~r15，可分为 2 组，通用寄存器和特殊寄存器。</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/Register.jpg" alt="Register" /></p>
+
+<p>R0-R12 用于存放数值或内存地址。例如R0能作为算数运算结果或函数返回值；R7能用于 systemcall；R11能用于跟踪栈指针；而且函数调用的前四个参数存放在 r0-r3</p>
+
+<p>R13（SP-Stack Pointer）栈顶指针，用于压栈出栈操作</p>
+
+<p>R14（LR-Link Register）当有子程序或异常时LR会保存当前指令的下条指令的地址，可让程序从子程序跳回主程序</p>
+
+<p>R15（PC-Program Counter）每执行一条指令就自增一次，ARM通常是4字节，Thumb是2字节。当执行分支指令时，PC 的值会加8字节</p>
+
+<p>CPSR （Current Program Status Register）用于表示当前程序的一些状态</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/CPSR.jpg" alt="CPSR" /></p>
+
+<p>下面是对一些标志位的描述</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/CPSR_bit.jpg" alt="CPSR_bit" /></p>
+
+<hr />
+
+<h2 id="arm-常见指令集">ARM 常见指令集</h2>
+
+<h3 id="存取指令-load-store">存取指令（Load/Store）</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* 将 list 的地址存入 r0，即 r0 = &amp;list[0] */</span>
+ldr r0, <span style="color:#f92672">=</span>list   
+
+<span style="color:#75715e">/* 将 r0 值对应的地址的数据存入 r1，即 r1 = list[0] */</span>
+ldr r1, [r0]
+
+<span style="color:#75715e">/* 将 r0 值加 4 对应地址的数据存入 r2，即 r2 = list[1] 
+</span><span style="color:#75715e">   另外，加数必须为 4 的倍数，一个地址占 4 字节 */</span>
+ldr r2, [r0, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">4</span>]
+
+<span style="color:#75715e">/* 将 r0 值对应地址的数据存入 r3，然后 r0 再加 4，
+</span><span style="color:#75715e">   即 r3 = list[0], r0 += 4 */</span>
+ldr r3, [r0], <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">4</span>
+
+<span style="color:#75715e">/* 多数据加载，将 r2 对应地址的值加载到 r0，然后再将地址+1的值
+</span><span style="color:#75715e">   加载到 r4，依次类推加载到 r6 为止 */</span>
+ldm r2, {r0, r4<span style="color:#f92672">-</span>r6}
+
+<span style="color:#75715e">/* ！表示将最后的地址写回到 r2 */</span>
+ldm r2<span style="color:#f92672">!</span>, {r0, r4<span style="color:#f92672">-</span>r6}
+
+<span style="color:#75715e">/* Store 存数据也是类似情形 */</span></code></pre></div>
+<h3 id="算术运算">算术运算（+、-、*）</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* 加减乘 */</span>
+add r2, r1, r0      <span style="color:#75715e">// r2 = r1 + r0
+</span><span style="color:#75715e"></span>sub r2, r1, r0      <span style="color:#75715e">// r2 = r1 - r0
+</span><span style="color:#75715e"></span>mul r2, r1, r0      <span style="color:#75715e">// r2 = r1 * r0
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* 注意：普通的算数运算指令不会设置 CPSR 的标志位，所以当一些算数产生进位、借位
+</span><span style="color:#75715e">  溢出时我们就无法得知，所以就有了下面这些拓展指令 */</span>
+adds r2, r1, r0
+subs r2, r1, r0
+muls r2, r1, r0
+
+<span style="color:#75715e">/* 带进位借位运算 */</span>
+ADC r2, r1, r0      <span style="color:#75715e">// r2 = r1 + r0 + carry_bit
+</span><span style="color:#75715e"></span>SBC r2, r1, r0      <span style="color:#75715e">// r2 = r1 - r0 - carry_bit
+</span></code></pre></div>
+<h3 id="位运算-与或非">位运算（与或非）</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* 与、或、异或 */</span>
+and r1, r0, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">0xf</span>    <span style="color:#75715e">// r1 = r0 &amp; (0xf)
+</span><span style="color:#75715e"></span>orr r1, r0, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">0xf</span>    <span style="color:#75715e">// r1 = r0 | (0xf)
+</span><span style="color:#75715e"></span>eor r1, r0, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">0xf</span>    <span style="color:#75715e">// r1 = r0 ^ (0xf) 
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* 赋值与取反 */</span>
+mov r0, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">0xf</span>        <span style="color:#75715e">// r0 = 0xf
+</span><span style="color:#75715e"></span>mvn r0, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">0xf</span>        <span style="color:#75715e">// r0 = ~(0xf)
+</span></code></pre></div>
+<h3 id="移位和循环移位">移位和循环移位</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* 左移 */</span>
+lsl r0, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">1</span>      <span style="color:#75715e">// 对 r0 的值左移 1 位，立即数范围：0-31
+</span><span style="color:#75715e"></span>lsl r1, r0      <span style="color:#75715e">// 对 r1 的值左移 r0 值个位
+</span><span style="color:#75715e"></span>lsl r1, r0, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">1</span>  <span style="color:#75715e">// 将 r0 值左移移位存入 r1 中
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* 右移 */</span>
+lsr r0, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">1</span>      <span style="color:#75715e">// r0 值右移 1 位，立即数范围：1-32
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* 循环右移 */</span>
+ror r0<span style="color:#960050;background-color:#1e0010">，#</span><span style="color:#ae81ff">1</span>      <span style="color:#75715e">// r0 值向右循环移 1 位
+</span><span style="color:#75715e"></span>ror r1, r0, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">1</span>
+
+<span style="color:#75715e">/* 注意：参与移位的寄存器必须为 r0-r7 */</span></code></pre></div>
+<h3 id="条件与执行">条件与执行</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* 比较 - 即计算 r1 - r0 的差值，若为 +，CSPR N 位置 0，
+</span><span style="color:#75715e">   为 -，CPSR N 位置 1，为 0，CPSR Z 位置 1 */</span>
+cmp r1, r0
+
+<span style="color:#75715e">/* 通过 cmp 指令设置 CPSR 标志位，即可判断大小 */</span>
+BGT label   <span style="color:#75715e">// 若 N=0,Z=0, 跳至 label 执行
+</span><span style="color:#75715e"></span>BLT label   <span style="color:#75715e">// 若 N=1,Z=0, 跳至 label 执行
+</span><span style="color:#75715e"></span>BEQ label   <span style="color:#75715e">// 若 N=0,Z=1, 跳至 label 执行
+</span><span style="color:#75715e"></span>BGE(<span style="color:#960050;background-color:#1e0010">≥</span>), BLE(<span style="color:#960050;background-color:#1e0010">≤</span>), BNE(<span style="color:#f92672">!=</span>)
+B label     <span style="color:#75715e">// 跳转到 label
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* 条件跳转示例--遍历数组 */</span>
+.data
+list:   <span style="color:#75715e">// 定义数组，并获取数组长度
+</span><span style="color:#75715e"></span>	.word <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>
+	.equ listend,(.<span style="color:#f92672">-</span>list)<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>
+
+.global _start
+_start:     <span style="color:#75715e">// 初始化寄存器
+</span><span style="color:#75715e"></span>	ldr r0, <span style="color:#f92672">=</span>list   <span style="color:#75715e">// r0 作数组下标
+</span><span style="color:#75715e"></span>    mov r2, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">0</span>
+    mov r3, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">0</span>
+    
+sum:        <span style="color:#75715e">// 遍历数组求和
+</span><span style="color:#75715e"></span>	ldr r3, [r0], <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">4</span>    <span style="color:#75715e">// 取出数组当前下标值，下标向后移
+</span><span style="color:#75715e"></span>    add r2, r3          <span style="color:#75715e">// r2 += r3
+</span><span style="color:#75715e"></span>    cmp r3, <span style="color:#960050;background-color:#1e0010">#</span>listend    <span style="color:#75715e">// 判断下标是否超出数组长度
+</span><span style="color:#75715e"></span>    blt sum             <span style="color:#75715e">// 未超出跳至 sum 循环遍历
+</span><span style="color:#75715e"></span>    
+.end
+
+
+<span style="color:#75715e">/* 除了跳转可与条件结合使用外，算数运算也行，并组合成新指令 */</span>
+movlt r0, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">1</span>    <span style="color:#75715e">// 若条件满足，r0=1
+</span><span style="color:#75715e"></span>addgt r1, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">2</span>    <span style="color:#75715e">// 若条件满足，r1+=2
+</span></code></pre></div>
+<h3 id="栈与函数">栈与函数</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* 函数调用与返回 */</span>
+bl label       <span style="color:#75715e">// 跳转 label 处执行，同时 LR 存入 bl 指令下条指令地址
+</span><span style="color:#75715e"></span>bx lr          <span style="color:#75715e">// 常用于子函数结尾，表示跳至 LR 所存地址处执行，即回到主函数
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* 栈--保护/恢复现场 */</span>
+push {r0, r1}  <span style="color:#75715e">// 将当前寄存器的值压栈
+</span><span style="color:#75715e"></span>mov r0, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">0</span>     <span style="color:#75715e">// 执行一些语句，可能会改变寄存器值
+</span><span style="color:#75715e"></span>pop {r0, r1}   <span style="color:#75715e">// 出栈恢复寄存器值
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* 栈的一些用法： 
+</span><span style="color:#75715e">   1. 在调用函数前，将 reg 值压栈，防止子函数覆盖掉 reg 值，返回后再出栈
+</span><span style="color:#75715e">   2. 在子函数中压栈，在主函数中出栈，可获取子函数的返回值*/</span></code></pre></div>
+<p>由于视频这里只是简单描述，还是参考<a href="https://azeria-labs.com/functions-and-the-stack-part-7/">azeria</a>进一步了解</p>
+
+<p>栈是块内存区域，当进程创建时会在栈中分配一块内存空间。常存放函数的全局变量、局部变量、返回值等。另外上面的 PUSH、POP 只是栈操作的别名，而非正真的指令</p>
+
+<p>栈的实现方式两个维度：1. 栈顶指针可向下(descending)还是向上(ascending)增长，2. 通过判断 SP 当前指向栈内数据(full)还是栈外空数据(empty)</p>
+
+<p>由此可组合成四种实现方式：满递增、满递减、空递增、空递减</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/stack_implements.jpg" alt="stack_implements" /></p>
+
+<p>由栈的实现再结合 Load/Store 完成多数据存取，见下表</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/stack_implements_ls.jpg" alt="stack_implements_ls" /></p>
+
+<p>其中，FD(full descending)、FA、ED、EA(empty ascending) 后缀用于堆栈操作(以SP作基地址)，IA(increment after)、IB、DA、DB(decrement before) 后缀用于数据操作(以寄存器值作基地址)</p>
+
+<p><strong>栈帧</strong>：栈中一块含有特殊功能的内存，在函数调用时创建，栈帧指针(Frame Pointer)通常指向栈帧底部，然后分配栈缓冲区来作为栈帧。栈帧包含返回地址(LR)、前一个栈帧指针、一些需要保护的寄存器、函数参数(超过4个)、局部变量等。在函数结束时被销毁</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/Frame_stack.jpg" alt="Frame_stack" /></p>
+
+<p>下面是 C 语言调用函数对应的汇编：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* C - 找出两数的最大值 */</span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+{
+   <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, b <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, res <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+   res <span style="color:#f92672">=</span> max(a, b);
+
+   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">max</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) 
+{
+   <span style="color:#66d9ef">return</span> (a <span style="color:#f92672">&gt;</span> b) <span style="color:#f92672">?</span> a : b;
+}
+
+
+<span style="color:#75715e">/* arm asm */</span>
+main:
+        stmfd   sp<span style="color:#f92672">!</span>, {fp, lr}
+        add     fp, sp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">4</span>       <span style="color:#75715e">// 创建 fp
+</span><span style="color:#75715e"></span>        sub     sp, sp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">16</span>      <span style="color:#75715e">// 分配栈帧内存
+</span><span style="color:#75715e"></span>        mov     r3, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">1</span>           <span style="color:#75715e">// 向栈帧中存数据
+</span><span style="color:#75715e"></span>        str     r3, [fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>]
+        mov     r3, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">2</span>
+        str     r3, [fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">-</span><span style="color:#ae81ff">12</span>]
+        mov     r3, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">0</span>
+        str     r3, [fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">-</span><span style="color:#ae81ff">16</span>]
+        ldr     r0, [fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>]    <span style="color:#75715e">// 取数据
+</span><span style="color:#75715e"></span>        ldr     r1, [fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">-</span><span style="color:#ae81ff">12</span>]
+        bl      max
+        str     r0, [fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">-</span><span style="color:#ae81ff">16</span>]
+        mov     r3, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">0</span>
+        mov     r0, r3
+        sub     sp, fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">4</span>       <span style="color:#75715e">// 释放栈帧
+</span><span style="color:#75715e"></span>        ldmfd   sp<span style="color:#f92672">!</span>, {fp, pc}
+max:
+        str     fp, [sp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>]<span style="color:#f92672">!</span>
+        add     fp, sp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">0</span>
+        sub     sp, sp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">12</span>
+        str     r0, [fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>]
+        str     r1, [fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">-</span><span style="color:#ae81ff">12</span>]
+        ldr     r2, [fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">-</span><span style="color:#ae81ff">12</span>]
+        ldr     r3, [fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>]
+        cmp     r2, r3
+        movge   r3, r2
+        movlt   r3, r3
+        mov     r0, r3
+        add     sp, fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">0</span>
+        ldmfd   sp<span style="color:#f92672">!</span>, {fp}
+        bx      lr</code></pre></div>
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/Frame_stack_process.jpg" alt="Frame_stack_process" /></p>
+
+<p><strong>函数</strong>：从上面汇编中，可将函数分为三部分：Prologue（前言）, Body（主体）, Epilogue（后记）。以 max 函数为例</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* Prologue - 保护前一程序的状态，并创建栈帧 */</span>
+str     fp, [sp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>]<span style="color:#f92672">!</span>
+add     fp, sp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">0</span>
+sub     sp, sp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">12</span>
+
+<span style="color:#75715e">/* Body - 完成函数功能，初始化参数、比较数值大小 */</span>
+str     r0, [fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>]
+str     r1, [fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">-</span><span style="color:#ae81ff">12</span>]
+ldr     r2, [fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">-</span><span style="color:#ae81ff">12</span>]
+ldr     r3, [fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>]
+cmp     r2, r3
+movge   r3, r2
+movlt   r3, r3
+mov     r0, r3
+
+<span style="color:#75715e">/* Epilogue - 销毁栈帧，恢复现场，返回到主函数 */</span>
+add     sp, fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">0</span>
+ldmfd   sp<span style="color:#f92672">!</span>, {fp}
+bx      lr</code></pre></div>
+<p>值得注意的是，在 Body 中是使用寄存器 r0-r3 来存放函数参数的，若函数参数大于 4 个时，就会将参数存放到栈内存中。另外，<code>mov r0, r3</code> 指将最后函数的返回值放入 r0 中，由于寄存器是 32 bit，若返回值为 64 bit 那么就会用 r1 存放另一半数据。</p>
+
+<p>此外，可根据函数 Body 是否调用其他函数来将函数分为 leaf function（叶子没有分支调用，如 max） 和 no-leaf function（非叶子有分支，如 main）</p>
+
+<p>同时，再来比较下两类函数 Prologue 和 Epilogue 的区别</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* Prologue */</span>
+main:
+   stmfd   sp<span style="color:#f92672">!</span>, {fp, lr}
+   add     fp, sp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">4</span>      
+   sub     sp, sp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">16</span>      
+max:
+   str     fp, [sp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>]<span style="color:#f92672">!</span>
+   add     fp, sp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">0</span>
+   sub     sp, sp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">12</span>
+<span style="color:#75715e">/* no-leaf 在保护现场时还将 lr 寄存器压栈 */</span>
+
+<span style="color:#75715e">/* Epilogue */</span>
+main:
+   sub     sp, fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">4</span>       <span style="color:#75715e">// 释放栈帧
+</span><span style="color:#75715e"></span>   ldmfd   sp<span style="color:#f92672">!</span>, {fp, pc}
+max:
+   add     sp, fp, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">0</span>
+   ldmfd   sp<span style="color:#f92672">!</span>, {fp}
+   bx      lr
+<span style="color:#75715e">/* leaf 在函数结尾时跳至 lr 以返回到主函数 */</span></code></pre></div>
+<p>基础的指令就先到这里，指令这种东西跟函数一样记是记不住的，只有遇到了在积累，看的多了就明白了</p>
+
+<hr />
+
+<h2 id="qemu-模拟-arm-环境">QEMU 模拟 ARM 环境</h2>
+
+<p>通过 QEMU 来模拟 Raspberry 的 ARM 环境，以便更真实地编写汇编。本文是以 Ubuntu 18.04 作为安装环境的系统。</p>
+
+<ol>
+<li><p>首先在 <a href="http://downloads.raspberrypi.org/raspbian/images/raspbian-2017-04-10/">2017-04-10-raspbian-jessie</a> 中下载 <code>2017-04-10-raspbian-jessie.zip</code> 压缩包，并使用 unzip 解压得到 img 镜像包</p></li>
+
+<li><p>然后到 <a href="https://github.com/dhruvvyas90/qemu-rpi-kernel">dhruvvyas90/qemu-rpi-kernel</a> clone 或下载此库，里面包含多个 kernel 文件，只使用 <code>kernel-qemu-4.4.34-jessie</code></p></li>
+
+<li><p>在 Ubuntu 上安装 QEMU，使用 <code>sudo apt-get install qemu-system</code> 命令</p></li>
+
+<li><p>使用 qemu-system-arm 命令模拟运行 raspberry，具体命令：<code>qemu-system-arm -kernel ~/..path/kernel-qemu-4.4.34-jessie -cpu arm1176 -m 256 -M versatilepb -serial stdio -append &quot;root=/dev/sda2 rootfstype=ext4 rw&quot; -hda ~/..path/2017-04...jessie.img -net nic -net user,hostfwd=tcp::5022-:22 -no-reboot</code> 该命令含义指：内核和镜像选择下载的，CPU 为 arm1176，内存大小 256m，模拟的虚拟机为 versatilepb，外设串口 stdio，设置 root 及文件系统，配置网络端口 5022</p></li>
+
+<li><p>在开启 raspberry 虚拟机后，打开其终端输入 <code>sudo service ssh start</code> 开启 ssh 服务，另外默认用户名为：pi，密码：raspberry</p></li>
+
+<li><p>在 Ubuntu 中输入 <code>ssh pi@127.0.0.1 -p 5022</code> 进入 raspberry 虚拟机，即可在 Ubuntu 上使用虚拟机</p></li>
+</ol>
+
+<hr />
+
+<h2 id="hello-world-编写及-dgb-调试">Hello World 编写及 DGB 调试</h2>
+
+<h3 id="汇编之-hello-world">汇编之 Hello World</h3>
+
+<p>前面的汇编都是处理数据，那么是如何处理字符串呢？以及如何让它显示到控制台上？下面就一一解释</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* 汇编程序-在控制台打印 Hello world */</span>
+.global _start
+_start:
+         mov r0, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">1</span>        <span style="color:#75715e">// 设置 file description 为 1，即 stdout
+</span><span style="color:#75715e"></span>         ldr r1, <span style="color:#f92672">=</span>message  <span style="color:#75715e">// 取字符串地址到 r1
+</span><span style="color:#75715e"></span>         ldr r2, <span style="color:#f92672">=</span>len      <span style="color:#75715e">// 取字符串长度到 r2
+</span><span style="color:#75715e"></span>         mov r7, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">4</span>        <span style="color:#75715e">// syscall-write
+</span><span style="color:#75715e"></span>         swi <span style="color:#ae81ff">0</span>             <span style="color:#75715e">// 软中断
+</span><span style="color:#75715e"></span>
+         mov r7, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">1</span>        <span style="color:#75715e">// syscall-exit
+</span><span style="color:#75715e"></span>         swi <span style="color:#ae81ff">0</span>
+
+.data
+message:    <span style="color:#75715e">// 以 ASCII 码形式存储字符串，message 指向该字符串
+</span><span style="color:#75715e"></span>         .asciz <span style="color:#e6db74">&#34;hello world!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+len <span style="color:#f92672">=</span> .<span style="color:#f92672">-</span>message   <span style="color:#75715e">// 获取字符串长度
+</span></code></pre></div>
+<p>从上面程序中，能看出 r0、r1、r2、r7 都不是随便设置的，而是有某种含义，其中 r7 从前文中了解有 system call 功能，它的值就是 syscall number，所以根据这点可以查看 system call 表格，具体链接在此<a href="https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md#arm-32_bit_EABI">arm-32_bit_EABI</a>，找到对应 arm 32bit 对应的 system call table，部分如下图</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/ARM_syscall.jpg" alt="ARM_syscall" /></p>
+
+<p>根据表格就能理解 r0、r1、r2、r7 要如此设置了，首先 r7=4 代表调用 syscall-write，调用后 r0 的值就是 write 文件描述符，而在 Linux 中前三个 fd 分别为 stdin(0), stdout(1), stderr(2)，所以是向 stdout 写数据；r1 此时就是写字符串的首地址，所以要获取 message 的地址；r2 就是写字符串的长度。swi 0 可能跟系统调用要求有关</p>
+
+<p>在指向完写字符串后，r7=1 表示要调用 syscall-exit 即退出系统调用，可以理解为关闭 stdin 的写字符流，并且此时 r0 的值代表错误码</p>
+
+<p>反过来想可能 C 语言中的 <code>printf(&quot;hello world!\n&quot;);</code> 的底层就执行了这些指令</p>
+
+<h3 id="gdb-调试">GDB 调试</h3>
+
+<p>在编写好上面的 hello world 后，以 <code>hello.s</code> 作为文件名，使用 as 命令对其汇编 <code>as hello.s -g -o hello.o</code>，使用 ld 命令链接 <code>ld hello.o -g -o hello</code>，其中 -g 表示使用 gdb 调试，之前没加上可能会找不到源文件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">gdb test       <span style="color:#75715e">// 使用 gdb 调试 test
+</span><span style="color:#75715e"></span>gdb test <span style="color:#f92672">-</span>q    <span style="color:#75715e">// -q(quite) 关闭 gdb test 的免责申明
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">break</span>(b) _start       <span style="color:#75715e">// b/break 在 _start 处打断点
+</span><span style="color:#75715e"></span>run            <span style="color:#75715e">// 运行程序到断点处
+</span><span style="color:#75715e"></span>
+layout         <span style="color:#75715e">// 查看布局
+</span><span style="color:#75715e"></span>layout regs    <span style="color:#75715e">// 查看所有寄存器
+</span><span style="color:#75715e"></span>info <span style="color:#66d9ef">register</span> r0     <span style="color:#75715e">// 查看单个寄存器
+</span><span style="color:#75715e"></span>layout prev<span style="color:#f92672">/</span>next     <span style="color:#75715e">// 布局窗口切换
+</span><span style="color:#75715e"></span>
+stepi(s)       <span style="color:#75715e">// 执行一条程序，若有函数调用则进入
+</span><span style="color:#75715e"></span>next(n)        <span style="color:#75715e">// 执行一条程序，不进入调用函数内部
+</span><span style="color:#75715e"></span>
+x<span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>x <span style="color:#960050;background-color:#1e0010">$</span>r1         <span style="color:#75715e">// 从 r1 值开始以 hex 形式查看 10 个内存地址
+</span><span style="color:#75715e"></span>x<span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>d <span style="color:#960050;background-color:#1e0010">$</span>r1         <span style="color:#75715e">// 从 r1 值开始以 decimal 形式查看 10 个内存地址
+</span><span style="color:#75715e"></span>x<span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>c <span style="color:#960050;background-color:#1e0010">$</span>r1         <span style="color:#75715e">// 从 r1 值开始以 char 形式查看 10 个内存地址
+</span></code></pre></div>
+<hr />
+
+<p>最后，再放上 azeria 制作的<a href="https://azeria-labs.com/assembly-basics-cheatsheet/">一览表</a>，以便快速回顾一些 arm 汇编基本知识</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/junq0420/blog_image/cheatsheetv1.3-1920x1080.png" alt="cheatsheet" /></p>
+
+  
+
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">欢迎访问我的博客，这是我的 <a href="https://github.com/junq0420">Github</a></p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/junq0420.github.io/2023/03/arm-cortexm/">ARM CortexM</a></li>
+
+<li><a href="/junq0420.github.io/2023/03/arm-assembly/">ARM Assembly</a></li>
+
+<li><a href="/junq0420.github.io/2022/08/linux_cmd/">Linux_cmd</a></li>
+
+<li><a href="/junq0420.github.io/2022/08/git_basic/">Git_basic</a></li>
+
+<li><a href="/junq0420.github.io/2022/08/jpa/">JPA</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://www.bilibili.com/">Bilibili</a></li>
+      
+      <li><a href="https://www.google.com">Google</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      除非特别声明, 本站采用技术 <a href="https://gohugo.io/">Hugo</a> &amp; 主题 <a href="https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/">hugo-theme-bootstrap4-blog</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

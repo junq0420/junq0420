@@ -2,108 +2,108 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java_Advance on My Blog</title>
-    <link>https://junq0420.github.io/tags/java_advance/</link>
+    <link>http://github.com/junq0420.github.io/tags/java_advance/</link>
     <description>Recent content in Java_Advance on My Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>除非特别声明, 本站采用技术 [Hugo](https://gohugo.io/) &amp; 主题 [hugo-theme-bootstrap4-blog](https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/).</copyright>
-    <lastBuildDate>Sun, 26 Jun 2022 21:41:17 +0800</lastBuildDate><atom:link href="https://junq0420.github.io/tags/java_advance/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Jun 2022 21:41:17 +0800</lastBuildDate><atom:link href="http://github.com/junq0420.github.io/tags/java_advance/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Generics</title>
-      <link>https://junq0420.github.io/2022/06/generics/</link>
+      <link>http://github.com/junq0420.github.io/2022/06/generics/</link>
       <pubDate>Sun, 26 Jun 2022 21:41:17 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/06/generics/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/06/generics/</guid>
       <description>&lt;p&gt;Java 泛型&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>JDBC</title>
-      <link>https://junq0420.github.io/2022/05/jdbc/</link>
+      <link>http://github.com/junq0420.github.io/2022/05/jdbc/</link>
       <pubDate>Tue, 17 May 2022 15:56:12 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/05/jdbc/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/05/jdbc/</guid>
       <description>&lt;p&gt;记录 JDBC 相关知识&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Collection2</title>
-      <link>https://junq0420.github.io/2022/04/collection2/</link>
+      <link>http://github.com/junq0420.github.io/2022/04/collection2/</link>
       <pubDate>Sat, 02 Apr 2022 16:37:30 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/04/collection2/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/04/collection2/</guid>
       <description>&lt;p&gt;记录 JavaSE 中集合框架之 Iterator、Queue、Map&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Collection1</title>
-      <link>https://junq0420.github.io/2022/03/collection1/</link>
+      <link>http://github.com/junq0420.github.io/2022/03/collection1/</link>
       <pubDate>Fri, 25 Mar 2022 14:14:58 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/03/collection1/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/03/collection1/</guid>
       <description>&lt;p&gt;记录 JavaSE 中集合框架之 List 家族&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Multithreading</title>
-      <link>https://junq0420.github.io/2022/03/multithreading/</link>
+      <link>http://github.com/junq0420.github.io/2022/03/multithreading/</link>
       <pubDate>Sat, 19 Mar 2022 13:55:40 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/03/multithreading/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/03/multithreading/</guid>
       <description>&lt;p&gt;记录 JavaSE 中多线程的一些基本的概念和方法使用&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Apache_common_io</title>
-      <link>https://junq0420.github.io/2022/03/apache_common_io/</link>
+      <link>http://github.com/junq0420.github.io/2022/03/apache_common_io/</link>
       <pubDate>Sat, 19 Mar 2022 13:55:16 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/03/apache_common_io/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/03/apache_common_io/</guid>
       <description>&lt;p&gt;记录 Apache common io 包中常用的 IO 流、文件流方法&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>IOStream</title>
-      <link>https://junq0420.github.io/2022/03/iostream/</link>
+      <link>http://github.com/junq0420.github.io/2022/03/iostream/</link>
       <pubDate>Mon, 14 Mar 2022 09:25:37 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/03/iostream/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/03/iostream/</guid>
       <description>&lt;p&gt;记录 File class 和 IO Stream&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>StringClass</title>
-      <link>https://junq0420.github.io/2022/03/stringclass/</link>
+      <link>http://github.com/junq0420.github.io/2022/03/stringclass/</link>
       <pubDate>Mon, 14 Mar 2022 09:25:16 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/03/stringclass/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/03/stringclass/</guid>
       <description>&lt;p&gt;记录 String 和 StringBuilder&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Exception</title>
-      <link>https://junq0420.github.io/2022/03/exception/</link>
+      <link>http://github.com/junq0420.github.io/2022/03/exception/</link>
       <pubDate>Mon, 14 Mar 2022 09:24:50 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/03/exception/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/03/exception/</guid>
       <description>&lt;p&gt;记录 exception class&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>JunitTest</title>
-      <link>https://junq0420.github.io/2022/03/junittest/</link>
+      <link>http://github.com/junq0420.github.io/2022/03/junittest/</link>
       <pubDate>Thu, 10 Mar 2022 16:12:05 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/03/junittest/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/03/junittest/</guid>
       <description>&lt;p&gt;记录 Junit 的简单使用方法&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>BaseAPI</title>
-      <link>https://junq0420.github.io/2022/03/baseapi/</link>
+      <link>http://github.com/junq0420.github.io/2022/03/baseapi/</link>
       <pubDate>Wed, 02 Mar 2022 13:53:31 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/03/baseapi/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/03/baseapi/</guid>
       <description>&lt;p&gt;记录一些基本的 Java API&lt;/p&gt;</description>
     </item>
     

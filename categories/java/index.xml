@@ -2,171 +2,171 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java on My Blog</title>
-    <link>https://junq0420.github.io/categories/java/</link>
+    <link>http://github.com/junq0420.github.io/categories/java/</link>
     <description>Recent content in Java on My Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>除非特别声明, 本站采用技术 [Hugo](https://gohugo.io/) &amp; 主题 [hugo-theme-bootstrap4-blog](https://themes.gohugo.io/themes/hugo-theme-bootstrap4-blog/).</copyright>
-    <lastBuildDate>Sun, 28 Aug 2022 09:49:02 +0800</lastBuildDate><atom:link href="https://junq0420.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 28 Aug 2022 09:49:02 +0800</lastBuildDate><atom:link href="http://github.com/junq0420.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>JPA</title>
-      <link>https://junq0420.github.io/2022/08/jpa/</link>
+      <link>http://github.com/junq0420.github.io/2022/08/jpa/</link>
       <pubDate>Sun, 28 Aug 2022 09:49:02 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/08/jpa/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/08/jpa/</guid>
       <description>&lt;p&gt;记录 SpringBoot-JPA 的基础操作&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Generics</title>
-      <link>https://junq0420.github.io/2022/06/generics/</link>
+      <link>http://github.com/junq0420.github.io/2022/06/generics/</link>
       <pubDate>Sun, 26 Jun 2022 21:41:17 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/06/generics/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/06/generics/</guid>
       <description>&lt;p&gt;Java 泛型&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>JDBC</title>
-      <link>https://junq0420.github.io/2022/05/jdbc/</link>
+      <link>http://github.com/junq0420.github.io/2022/05/jdbc/</link>
       <pubDate>Tue, 17 May 2022 15:56:12 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/05/jdbc/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/05/jdbc/</guid>
       <description>&lt;p&gt;记录 JDBC 相关知识&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Collection2</title>
-      <link>https://junq0420.github.io/2022/04/collection2/</link>
+      <link>http://github.com/junq0420.github.io/2022/04/collection2/</link>
       <pubDate>Sat, 02 Apr 2022 16:37:30 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/04/collection2/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/04/collection2/</guid>
       <description>&lt;p&gt;记录 JavaSE 中集合框架之 Iterator、Queue、Map&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Collection1</title>
-      <link>https://junq0420.github.io/2022/03/collection1/</link>
+      <link>http://github.com/junq0420.github.io/2022/03/collection1/</link>
       <pubDate>Fri, 25 Mar 2022 14:14:58 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/03/collection1/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/03/collection1/</guid>
       <description>&lt;p&gt;记录 JavaSE 中集合框架之 List 家族&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Multithreading</title>
-      <link>https://junq0420.github.io/2022/03/multithreading/</link>
+      <link>http://github.com/junq0420.github.io/2022/03/multithreading/</link>
       <pubDate>Sat, 19 Mar 2022 13:55:40 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/03/multithreading/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/03/multithreading/</guid>
       <description>&lt;p&gt;记录 JavaSE 中多线程的一些基本的概念和方法使用&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Apache_common_io</title>
-      <link>https://junq0420.github.io/2022/03/apache_common_io/</link>
+      <link>http://github.com/junq0420.github.io/2022/03/apache_common_io/</link>
       <pubDate>Sat, 19 Mar 2022 13:55:16 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/03/apache_common_io/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/03/apache_common_io/</guid>
       <description>&lt;p&gt;记录 Apache common io 包中常用的 IO 流、文件流方法&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>IOStream</title>
-      <link>https://junq0420.github.io/2022/03/iostream/</link>
+      <link>http://github.com/junq0420.github.io/2022/03/iostream/</link>
       <pubDate>Mon, 14 Mar 2022 09:25:37 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/03/iostream/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/03/iostream/</guid>
       <description>&lt;p&gt;记录 File class 和 IO Stream&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>StringClass</title>
-      <link>https://junq0420.github.io/2022/03/stringclass/</link>
+      <link>http://github.com/junq0420.github.io/2022/03/stringclass/</link>
       <pubDate>Mon, 14 Mar 2022 09:25:16 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/03/stringclass/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/03/stringclass/</guid>
       <description>&lt;p&gt;记录 String 和 StringBuilder&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Exception</title>
-      <link>https://junq0420.github.io/2022/03/exception/</link>
+      <link>http://github.com/junq0420.github.io/2022/03/exception/</link>
       <pubDate>Mon, 14 Mar 2022 09:24:50 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/03/exception/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/03/exception/</guid>
       <description>&lt;p&gt;记录 exception class&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>JunitTest</title>
-      <link>https://junq0420.github.io/2022/03/junittest/</link>
+      <link>http://github.com/junq0420.github.io/2022/03/junittest/</link>
       <pubDate>Thu, 10 Mar 2022 16:12:05 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/03/junittest/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/03/junittest/</guid>
       <description>&lt;p&gt;记录 Junit 的简单使用方法&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>BaseAPI</title>
-      <link>https://junq0420.github.io/2022/03/baseapi/</link>
+      <link>http://github.com/junq0420.github.io/2022/03/baseapi/</link>
       <pubDate>Wed, 02 Mar 2022 13:53:31 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/03/baseapi/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/03/baseapi/</guid>
       <description>&lt;p&gt;记录一些基本的 Java API&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Java面向对象六之多态</title>
-      <link>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%85%AD%E4%B9%8B%E5%A4%9A%E6%80%81/</link>
+      <link>http://github.com/junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%85%AD%E4%B9%8B%E5%A4%9A%E6%80%81/</link>
       <pubDate>Tue, 22 Feb 2022 18:28:16 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%85%AD%E4%B9%8B%E5%A4%9A%E6%80%81/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%85%AD%E4%B9%8B%E5%A4%9A%E6%80%81/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Java面向对象五</title>
-      <link>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%BA%94/</link>
+      <link>http://github.com/junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%BA%94/</link>
       <pubDate>Tue, 22 Feb 2022 18:26:14 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%BA%94/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%BA%94/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Java面向对象四之继承</title>
-      <link>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9B%9B%E4%B9%8B%E7%BB%A7%E6%89%BF/</link>
+      <link>http://github.com/junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9B%9B%E4%B9%8B%E7%BB%A7%E6%89%BF/</link>
       <pubDate>Tue, 22 Feb 2022 18:21:52 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9B%9B%E4%B9%8B%E7%BB%A7%E6%89%BF/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9B%9B%E4%B9%8B%E7%BB%A7%E6%89%BF/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Java面向对象三</title>
-      <link>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%89/</link>
+      <link>http://github.com/junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%89/</link>
       <pubDate>Tue, 22 Feb 2022 18:15:53 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%89/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%89/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Java面向对象二之封装</title>
-      <link>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%BA%8C%E4%B9%8B%E5%B0%81%E8%A3%85/</link>
+      <link>http://github.com/junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%BA%8C%E4%B9%8B%E5%B0%81%E8%A3%85/</link>
       <pubDate>Tue, 22 Feb 2022 18:02:14 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%BA%8C%E4%B9%8B%E5%B0%81%E8%A3%85/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%BA%8C%E4%B9%8B%E5%B0%81%E8%A3%85/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Java面向对象一</title>
-      <link>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%80/</link>
+      <link>http://github.com/junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%80/</link>
       <pubDate>Tue, 22 Feb 2022 16:54:56 +0800</pubDate>
       
-      <guid>https://junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%80/</guid>
+      <guid>http://github.com/junq0420.github.io/2022/02/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%80/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;学习笔记，仅供参考&lt;/strong&gt;&lt;/p&gt;
 
@@ -180,10 +180,10 @@
     
     <item>
       <title>Java基础语法</title>
-      <link>https://junq0420.github.io/2021/07/java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/</link>
+      <link>http://github.com/junq0420.github.io/2021/07/java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/</link>
       <pubDate>Fri, 30 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://junq0420.github.io/2021/07/java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/</guid>
+      <guid>http://github.com/junq0420.github.io/2021/07/java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/</guid>
       <description>&lt;p&gt;​记录Java基础语法与C语言的一些差别。&lt;/p&gt;</description>
     </item>
     
